@@ -264,7 +264,8 @@ def fracture(z, rng, n_cuts, width, depth):
 def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
                      density=1.0, sharpness=7.0, land_only=True, cells=140,
                      impact_lat=-48.0, impact_lon=0.0,
-                     mountain_avoidance=1.0, smoothing=1.6):
+                     mountain_avoidance=1.0, smoothing=1.6,
+                     crack_width=0.0020):
     """The Drowned Fractures.
 
     Cracks radiate from the centre of EACH continent, not from one global
@@ -333,7 +334,7 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
                                 k=2, workers=-1)
     gap = (d[:, 1] - d[:, 0]).reshape(h, w)
 
-    width = max(w * 0.0011, 0.8)
+    width = max(w * crack_width, 0.8)
     crack = np.clip(1.0 - gap / (2.0 * width), 0.0, 1.0)
 
     # --- soften junctions ---------------------------------------------
@@ -568,7 +569,8 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
           seas=4, sunder=False, sunder_width=0.0045,
           crazing=1.0, crazing_scales=3, crazing_sharp=14.0,
-          crazing_cells=140, mountain_avoidance=1.0, crack_smoothing=1.6):
+          crazing_cells=140, mountain_avoidance=1.0, crack_smoothing=1.6,
+          crack_width=0.0020):
     rng = np.random.default_rng(seed)
     z = load_earth()
 
@@ -611,7 +613,8 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
                              sharpness=crazing_sharp, cells=crazing_cells,
                              impact_lat=impact_lat, impact_lon=impact_lon,
                              mountain_avoidance=mountain_avoidance,
-                             smoothing=crack_smoothing)
+                             smoothing=crack_smoothing,
+                             crack_width=crack_width)
 
     corridor = None
     if sunder:
@@ -654,6 +657,8 @@ def main():
     p.add_argument("--crazing-scales", type=int, default=3)
     p.add_argument("--mountain-avoidance", type=float, default=1.0)
     p.add_argument("--crack-smoothing", type=float, default=1.6)
+    p.add_argument("--crack-width", type=float, default=0.0020,
+                   help="channel width as a fraction of map width (length of\n                         each cut is set by --crazing-cells)")
     p.add_argument("--crazing-cells", type=int, default=140,
                    help="number of fracture nuclei at the coarsest generation")
     p.add_argument("--crazing-sharp", type=float, default=14.0)
@@ -668,7 +673,8 @@ def main():
                     a.fractures, a.fracture_width, a.seas,
                     a.sunder, a.sunder_width,
                     a.crazing, a.crazing_scales, a.crazing_sharp,
-                    a.crazing_cells, a.mountain_avoidance, a.crack_smoothing)
+                    a.crazing_cells, a.mountain_avoidance, a.crack_smoothing,
+                    a.crack_width)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
