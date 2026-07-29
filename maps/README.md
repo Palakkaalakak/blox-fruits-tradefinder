@@ -54,6 +54,18 @@ Decompress to `/tmp/etopo.grd`.
 
 ---
 
+## The three-stage workflow
+
+The generator is the **base**, not the answer. The full route:
+
+**1. Base — this script.** Produces the planet's bones: continent placement, ocean basins, mountain belts, island arcs, the lost continent, the impact basin. Earth-derived, so the coastlines have real fractal character rather than procedural smoothness. Output: an equirectangular heightmap.
+
+**2. Spice — Azgaar's Fantasy Map Generator.** Import the heightmap (Tools → Heightmap → Image). Azgaar layers on everything the script cannot reason about: rivers that actually flow downhill, biomes from latitude and rainfall, cultures, religions, states, provinces, burgs, roads, sea routes, and heraldry. Its name generator can be trained on the phonology in `03-peoples/names-and-languages.md`.
+
+**3. Manual — hand edits for the things that must be true.** The Almani Corridor has to be a strait of the right shape in the right place, with Cevine holding both shores. That is a story requirement, not a geological one, and no generator will produce it by chance. Azgaar's heightmap editor and its burg/state tools handle this; so does any image editor on the heightmap before import.
+
+Do not skip stage 3 or fight it. The generator exists to give you a plausible planet to *edit*, so that the places the story needs sit inside a world that looks like it grew rather than one that was arranged.
+
 ## What the map has to accommodate
 
 Once a candidate is chosen, these are the fixed requirements the geography must satisfy. Manual editing follows — the generator produces the canvas, not the answer.
