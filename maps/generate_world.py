@@ -79,6 +79,22 @@ def load_earth():
     z = np.flipud(z)                                   # north-up
     zoom = (H / z.shape[0], W / z.shape[1])
     z = ndimage.zoom(z, zoom, order=1)
+
+    # ETOPO is ice-SURFACE elevation, so Antarctica and Greenland arrive as
+    # 3-4km plateaus. After the pole shift one of them lands somewhere
+    # inhabited and reads as an entire continent of mountain.
+    #
+    # Blanket compression does not fix it: the cap is still the highest ground
+    # and still renders as mountain. The distinguishing feature is roughness -
+    # an ice sheet is high AND SMOOTH, a mountain range is high and rough. So
+    # detect high, smooth ground specifically and let it down, which strips
+    # the ice caps while leaving genuine ranges their relief.
+    sm = ndimage.gaussian_filter(z, 6, mode=("nearest", "wrap"))
+    rough = ndimage.gaussian_filter(np.abs(z - sm), 8, mode=("nearest", "wrap"))
+    high = np.clip((z - 250.0) / 1400.0, 0.0, 1.0)
+    smooth = np.clip(1.0 - rough / 90.0, 0.0, 1.0)
+    cap = np.clip(high * smooth, 0.0, 1.0) ** 0.7
+    z = z - cap * (z - 120.0) * 0.92
     return z.astype(np.float32)
 
 
@@ -145,17 +161,34 @@ def hotspot_chains(z, rng, n_chains, length, strength):
     return out
 
 
-def orogeny(z, rng, field, strength):
-    """Mountain belts where platforms collide. Real ranges sit along plate
-    margins, not scattered at random — so uplift follows the steepest
-    gradients of the platform field, giving coastal cordilleras and interior
-    spines rather than noise."""
+def orogeny(z, rng, field, strength, interior=1.0):
+    """Mountain belts, placed INLAND.
+
+    Uplift keyed to the gradient of the platform field puts every range on the
+    platform rim, which is the coast — giving continents ringed by mountains
+    and hollow in the middle. Real ranges are more often interior: the
+    Himalayas, Alps, Rockies and Andes all sit well inside their landmass.
+
+    So ranges are built from ridged noise confined to the platform interior,
+    with only a modest cordillera left along the margin.
+    """
+    interiority = np.clip((field - 0.10) / 0.55, 0.0, 1.0) ** 0.8
+    interiority = ndimage.gaussian_filter(interiority, 4, mode=("nearest", "wrap"))
+
+    # Ranges must be narrow BELTS, not area fill. A gentle power leaves the
+    # ridged field covering a whole platform interior, which turns any large
+    # continent into one continuous upland; a steep power keeps only the
+    # strongest ridge lines, giving a few sharp cordilleras with lowland
+    # between them.
+    ridged = 1.0 - np.abs(fbm(z.shape, rng, octaves=5, base=42))
+    ridged = np.clip(ridged, 0, 1) ** 5.0
+
     gy, gx = np.gradient(ndimage.gaussian_filter(field, 6, mode=("nearest", "wrap")))
-    belt = np.sqrt(gx ** 2 + gy ** 2)
-    belt /= belt.max() or 1
-    belt = belt ** 1.6
-    ridged = 1.0 - np.abs(fbm(z.shape, rng, octaves=4, base=30))
-    return z + strength * belt * (0.55 + 0.45 * np.clip(ridged, 0, 1))
+    margin = np.sqrt(gx ** 2 + gy ** 2)
+    margin = (margin / (margin.max() or 1)) ** 1.6
+
+    belt = interior * ridged * interiority + 0.16 * margin
+    return z + strength * belt
 
 
 def impact(z, rng, lat_deg, lon_deg, radius_px, depth):
@@ -358,7 +391,9 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
     # bends them around the flanks. Then the last of the network is cut dead
     # above the ridge threshold, so no crack survives on the range at all.
     if mountain_avoidance and land.any():
-        hi = np.percentile(z[land], 86) or 1.0
+        # elevation tolerance: how high ground may be before it counts as
+        # mountain and refuses to fracture. Raised 25%.
+        hi = (np.percentile(z[land], 86) or 1.0) / 1.25
         relief = np.clip(z / hi, 0.0, 1.0)
 
         es = ndimage.gaussian_filter(z, max(w * 0.006, 2.0),
@@ -373,7 +408,7 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
         m = sample(m, yy_w, xx_w)
 
         # nothing at all on the high ground
-        m *= np.clip(1.0 - (relief - 0.42) / 0.22, 0.0, 1.0)
+        m *= np.clip(1.0 - (relief - 0.525) / 0.22, 0.0, 1.0)
 
     if land_only:
         near_land = ndimage.gaussian_filter(land.astype(np.float32), 2.0,
@@ -381,7 +416,7 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
         m *= np.clip(near_land * 1.6, 0.0, 1.0)
 
     m = ndimage.gaussian_filter(m, 0.7, mode=("nearest", "wrap"))
-    floor = -abs(depth) * (0.35 + 0.65 * m)
+    floor = -abs(depth) * (0.55 + 0.95 * m)   # deeper, stronger channels
     return z * (1.0 - m) + floor * m
 
 
@@ -607,6 +642,16 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
     z, field = continental_platforms(z, rng, platform, W * platform_scale,
                                      separation)
     z = orogeny(z, rng, field, strength=2100 * mountains)
+
+    # Polar damping. In equirectangular projection the poles are stretched
+    # across the entire map width, so a small polar cap reads as an enormous
+    # continent - and the platform field, being smooth, tends to lift the
+    # whole cap into one plateau. Pulling the highest latitudes down keeps the
+    # poles as ocean and ice, which is both more realistic and stops the top
+    # of every map being a white wall.
+    latf = np.abs(np.linspace(90.0, -90.0, H))[:, None]
+    polar = np.clip((latf - 52.0) / 34.0, 0.0, 1.0) ** 1.4
+    z = z - 3400.0 * polar
     z = rifting(z, rng, strength=2400 * rift, n_rifts=4)
     if fractures:
         z = fracture(z, rng, n_cuts=fractures, width=W * fracture_width,
@@ -632,7 +677,7 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
     # afterwards the channels simply fill back in.
     if crazing:
         z = fracture_network(z, rng, scales=crazing_scales,
-                             depth=2200, density=crazing,
+                             depth=3100, density=crazing,
                              sharpness=crazing_sharp, cells=crazing_cells,
                              impact_lat=impact_lat, impact_lon=impact_lon,
                              mountain_avoidance=mountain_avoidance,
