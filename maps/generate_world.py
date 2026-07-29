@@ -261,6 +261,43 @@ def fracture(z, rng, n_cuts, width, depth):
     return out
 
 
+def fracture_network(z, rng, scales=5, base_scale=None, depth=5200,
+                     density=1.0, sharpness=7.0):
+    """The Drowned Fractures — the world's most distinctive feature.
+
+    When the crust gave way, it did not open a few great rifts. It *crazed*,
+    like glass, and then the sea came into every crack. What is left is a
+    branching network of narrow saltwater channels running through the
+    continents — they look like river systems and behave like nothing of the
+    sort. They have no source and no mouth. They do not flow. They are the
+    ocean, reaching inland through a shattered land.
+
+    Built from ridged noise at several scales: broad channels at the coarsest
+    scale, ever-finer tributaries below it, so the network has the branching
+    hierarchy of drainage without any of its logic. Narrow, because these are
+    fractures, not straits.
+    """
+    h, w = z.shape
+    base_scale = base_scale or w * 0.045
+    out = z.copy()
+
+    for i in range(scales):
+        scale = max(base_scale * (0.58 ** i), 1.8)
+        # Several independent fields per scale: one set of filaments is a few
+        # lonely channels, but three or four interpenetrating sets craze the
+        # whole landmass the way a dropped pane crazes.
+        reps = 2 if i == 0 else 3
+        for _ in range(reps):
+            n = smooth_noise((h, w), scale, rng)
+            # Ridged transform: the zero-contours of a smooth field are thin
+            # filaments that naturally branch, meander and rejoin.
+            rid = 1.0 - np.abs(n) / (np.abs(n).std() * 1.15 + 1e-9)
+            rid = np.clip(rid, 0.0, 1.0) ** (sharpness + 1.6 * i)
+            out -= depth * (0.72 ** i) * density * rid
+
+    return out
+
+
 def inland_seas(z, rng, n, radius, depth):
     """Broad depressions in continental interiors: epicontinental seas and
     great lakes. Gives interiors coastline without breaking them apart."""
@@ -463,7 +500,8 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           platform=2600.0, platform_scale=0.075, separation=1.0,
           lost_continent=True, lost_rank=1, rotation=(121.0, 47.0, 29.0),
           hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
-          seas=4, sunder=True, sunder_width=0.0045):
+          seas=4, sunder=True, sunder_width=0.0045,
+          crazing=1.0, crazing_scales=5, crazing_sharp=14.0):
     rng = np.random.default_rng(seed)
     z = load_earth()
 
@@ -483,6 +521,10 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
                      depth=5200)
     if seas:
         z = inland_seas(z, rng, n=seas, radius=W * 0.022, depth=3400)
+    if crazing:
+        z = fracture_network(z, rng, scales=crazing_scales,
+                             base_scale=W * 0.045, depth=3000,
+                             density=crazing, sharpness=crazing_sharp)
     if hotspots:
         z = hotspot_chains(z, rng, n_chains=hotspots, length=W * 0.055,
                            strength=2500)
@@ -530,6 +572,10 @@ def main():
     p.add_argument("--seas", type=int, default=4)
     p.add_argument("--no-sunder", action="store_true")
     p.add_argument("--sunder-width", type=float, default=0.0045)
+    p.add_argument("--crazing", type=float, default=1.0,
+                   help="density of drowned saltwater fracture channels")
+    p.add_argument("--crazing-scales", type=int, default=5)
+    p.add_argument("--crazing-sharp", type=float, default=14.0)
     p.add_argument("--out", default="world")
     a = p.parse_args()
     set_resolution(a.width)
@@ -539,7 +585,8 @@ def main():
                     a.separation, not a.no_lost_continent, a.lost_rank,
                     tuple(a.rot), a.hotspots, a.mountains,
                     a.fractures, a.fracture_width, a.seas,
-                    not a.no_sunder, a.sunder_width)
+                    not a.no_sunder, a.sunder_width,
+                    a.crazing, a.crazing_scales, a.crazing_sharp)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
