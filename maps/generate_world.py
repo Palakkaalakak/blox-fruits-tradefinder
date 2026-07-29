@@ -261,111 +261,102 @@ def fracture(z, rng, n_cuts, width, depth):
     return out
 
 
-def fracture_network(z, rng, scales=3, base_scale=None, depth=5200,
+def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
                      density=1.0, sharpness=7.0, land_only=True, cells=140,
-                     impact_lat=-48.0, impact_lon=0.0):
-    """The Drowned Fractures — the world's most distinctive feature.
+                     impact_lat=-48.0, impact_lon=0.0,
+                     mountain_avoidance=1.0, smoothing=1.6):
+    """The Drowned Fractures.
 
-    When the crust gave way, it did not open a few great rifts. It *crazed*,
-    like glass, and then the sea came into every crack. What is left is a
-    branching network of narrow saltwater channels running through the
-    continents — they look like river systems and behave like nothing of the
-    sort. They have no source and no mouth. They do not flow. They are the
-    ocean, reaching inland through a shattered land.
+    Cracks radiate from the centre of EACH continent, not from one global
+    point: a landmass under stress fails from its interior outward, so every
+    continent carries its own star of fractures.
 
-    Built from ridged noise at several scales: broad channels at the coarsest
-    scale, ever-finer tributaries below it, so the network has the branching
-    hierarchy of drainage without any of its logic. Narrow, because these are
-    fractures, not straits.
+    Built from a jittered polar lattice of nuclei per continent, then read as
+    Voronoi cell walls. Many small cells rather than a few large ones, so the
+    individual cuts are short straight segments — and short segments chained
+    end to end describe curves, which is how real crack fronts look: locally
+    straight, globally sinuous.
+
+    Fractures also prefer weakness. Crack fronts run around a mountain root
+    rather than through it, so uplift suppresses the network and the ranges
+    survive as unbroken spines between shattered lowlands.
     """
     h, w = z.shape
 
-    # STRAIGHT cracks, not meandering ones.
-    #
-    # Brittle material does not craze in curves. Glass, dried mud and rock
-    # break along straight segments that meet at angular junctions, enclosing
-    # polygonal fragments. That is a Voronoi diagram, not a noise field — and
-    # using ridged noise here was simply the wrong model, which is why no
-    # amount of tuning ever made it look fractured.
-    #
-    # A pixel lies on a crack when it is nearly equidistant from its two
-    # nearest fracture nuclei: those loci are exactly the straight cell walls.
+    # --- one radial lattice per continent -----------------------------
+    land = z >= 0
+    lab, n = ndimage.label(land, structure=np.ones((3, 3)))
+    seeds_y, seeds_x = [], []
+
+    if n:
+        sizes = np.bincount(lab.ravel())
+        # every landmass worth cracking gets its own centre of failure
+        targets = [i for i in range(1, n + 1)
+                   if sizes[i] > 0.0006 * land.size]
+        if not targets:
+            targets = [int(np.argmax(sizes[1:])) + 1]
+
+        for t in targets:
+            ys, xs = np.nonzero(lab == t)
+            cy, cx = ys.mean(), xs.mean()
+            extent = max(np.sqrt(sizes[t] / np.pi), 6.0)
+
+            # cells scale with the continent, so small landmasses are not
+            # pulverised while large ones stay properly fragmented
+            k = int(np.clip(cells * (sizes[t] / (0.02 * land.size)), 24, 1400))
+            n_rings = max(int(np.sqrt(k) * 1.5), 4)
+
+            for ring in range(n_rings):
+                frac = (ring + 0.5) / n_rings
+                radius = (frac ** 1.15) * extent * 2.1
+                count = max(int(6 + 2.3 * ring), 5)
+                theta = (np.linspace(0, 2 * np.pi, count, endpoint=False)
+                         + rng.uniform(0, 2 * np.pi)
+                         + rng.normal(0, 0.16, count))
+                rj = radius * (1.0 + rng.normal(0, 0.13, count))
+                seeds_y.append(cy + rj * np.sin(theta))
+                seeds_x.append(cx + rj * np.cos(theta) / 0.8)
+
+    if not seeds_y:
+        return z
+
+    py = np.concatenate(seeds_y)
+    px = np.concatenate(seeds_x)
+
     from scipy.spatial import cKDTree
-
-    crack = np.zeros((h, w), dtype=np.float32)
+    seeds = np.column_stack([
+        np.concatenate([py, py, py]),
+        np.concatenate([px - w, px, px + w]),
+    ])
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-    pts_grid = np.column_stack([yy.ravel(), xx.ravel()])
+    d, _ = cKDTree(seeds).query(np.column_stack([yy.ravel(), xx.ravel()]),
+                                k=2, workers=-1)
+    gap = (d[:, 1] - d[:, 0]).reshape(h, w)
 
-    # Fracture nuclei are laid out in POLAR coordinates about the impact.
-    #
-    # A strike does not craze a world evenly: it drives cracks outward. Seeds
-    # arranged on a jittered polar lattice produce cell walls that run radially
-    # (spokes) and circumferentially (rings) — the star-and-ring pattern of a
-    # struck pane — while remaining straight segments meeting at angles.
-    ic_y = (90.0 - impact_lat) / 180.0 * h
-    ic_x = (impact_lon + 180.0) / 360.0 * w
+    width = max(w * 0.0011, 0.8)
+    crack = np.clip(1.0 - gap / (2.0 * width), 0.0, 1.0)
 
-    n_cells = max(int(cells), 8)
-    for i in range(scales):
-        k = int(n_cells * (2.6 ** i))
-        n_rings = max(int(np.sqrt(k) * 1.15), 3)
-        per_ring = max(k // n_rings, 4)
+    # --- soften junctions ---------------------------------------------
+    # Raw Voronoi corners meet at hard points. A little blur before
+    # thresholding rounds the meetings of channels the way water and time do.
+    crack = ndimage.gaussian_filter(crack, smoothing, mode=("nearest", "wrap"))
+    crack /= max(crack.max(), 1e-6)
 
-        rr, tt = [], []
-        for ring in range(n_rings):
-            # Rings crowd near the impact and spread with distance
-            frac = (ring + 0.55) / n_rings
-            radius = (frac ** 1.45) * (h * 1.5)
-            count = max(int(per_ring * (0.45 + 1.1 * frac)), 4)
-            theta = (np.linspace(0, 2 * np.pi, count, endpoint=False)
-                     + rng.uniform(0, 2 * np.pi)
-                     + rng.normal(0, 0.30 / max(frac, 0.15), count))
-            rr.append(radius * (1.0 + rng.normal(0, 0.16, count)))
-            tt.append(theta)
+    m = np.clip((crack - (1.0 - 0.62 * np.clip(density, 0, 3))) / 0.30, 0.0, 1.0)
+    m = m * m * (3 - 2 * m)
 
-        rr = np.concatenate(rr)
-        tt = np.concatenate(tt)
-        py = ic_y + rr * np.sin(tt)
-        px = ic_x + rr * np.cos(tt) / 0.75      # widen for equirect stretch
-        # Wrap in longitude so cracks cross the seam cleanly
-        seeds = np.column_stack([
-            np.concatenate([py, py, py]),
-            np.concatenate([px - w, px, px + w]),
-        ])
-        d, _ = cKDTree(seeds).query(pts_grid, k=2, workers=-1)
-        gap = (d[:, 1] - d[:, 0]).reshape(h, w)
-
-        # Width of the wall, in pixels, shrinking with each finer generation
-        width = max(w * 0.0016 * (0.72 ** i), 0.9)
-        wall = np.clip(1.0 - gap / (2.0 * width), 0.0, 1.0)
-        crack = np.maximum(crack, wall * (0.88 ** i))
-
-    # CUT, don't subtract.
-    #
-    # Subtracting depth only breaks the surface where land is already low,
-    # which is why an earlier version merely nibbled the coasts and left every
-    # interior solid. A fracture does not care how high the ground above it
-    # was: the crust parted, and the sea came in. So the channel is forced
-    # below sea level wherever the crack is strong enough, through highlands
-    # and lowlands alike.
-    m = np.clip((crack - (1.0 - 0.55 * np.clip(density, 0, 3))) / 0.35, 0.0, 1.0)
-    m = np.clip(m, 0.0, 1.0)
-    m = m * m * (3 - 2 * m)                      # smoothstep for clean walls
-
-    # Fracturing is most violent near the strike and fades with distance.
-    yy2, xx2 = np.mgrid[0:h, 0:w].astype(np.float32)
-    dxi = (np.mod(xx2 - ic_x + w / 2, w) - w / 2) * latitude_weight(h, w)
-    dist = np.sqrt(dxi ** 2 + (yy2 - ic_y) ** 2) / (h * 1.15)
-    m *= np.clip(1.25 - 0.75 * dist, 0.18, 1.0)
+    # --- fractures go around mountains, not through them --------------
+    if mountain_avoidance and land.any():
+        hi = np.percentile(z[land], 88) or 1.0
+        relief = np.clip(z / hi, 0.0, 1.0)
+        m *= np.clip(1.0 - mountain_avoidance * relief ** 0.8, 0.05, 1.0)
 
     if land_only:
-        # The crust cracked; the seafloor is not our concern. Confine the
-        # network to land (feathered slightly so channels reach the coast
-        # and open into the sea rather than stopping short of it).
-        near_land = ndimage.gaussian_filter((z >= 0).astype(np.float32), 2.0,
+        near_land = ndimage.gaussian_filter(land.astype(np.float32), 2.0,
                                             mode=("nearest", "wrap"))
         m *= np.clip(near_land * 1.6, 0.0, 1.0)
 
+    m = ndimage.gaussian_filter(m, 0.7, mode=("nearest", "wrap"))
     floor = -abs(depth) * (0.35 + 0.65 * m)
     return z * (1.0 - m) + floor * m
 
@@ -577,7 +568,7 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
           seas=4, sunder=False, sunder_width=0.0045,
           crazing=1.0, crazing_scales=3, crazing_sharp=14.0,
-          crazing_cells=140):
+          crazing_cells=140, mountain_avoidance=1.0, crack_smoothing=1.6):
     rng = np.random.default_rng(seed)
     z = load_earth()
 
@@ -618,7 +609,9 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
         z = fracture_network(z, rng, scales=crazing_scales,
                              depth=2200, density=crazing,
                              sharpness=crazing_sharp, cells=crazing_cells,
-                             impact_lat=impact_lat, impact_lon=impact_lon)
+                             impact_lat=impact_lat, impact_lon=impact_lon,
+                             mountain_avoidance=mountain_avoidance,
+                             smoothing=crack_smoothing)
 
     corridor = None
     if sunder:
@@ -659,6 +652,8 @@ def main():
     p.add_argument("--crazing", type=float, default=1.0,
                    help="density of drowned saltwater fracture channels")
     p.add_argument("--crazing-scales", type=int, default=3)
+    p.add_argument("--mountain-avoidance", type=float, default=1.0)
+    p.add_argument("--crack-smoothing", type=float, default=1.6)
     p.add_argument("--crazing-cells", type=int, default=140,
                    help="number of fracture nuclei at the coarsest generation")
     p.add_argument("--crazing-sharp", type=float, default=14.0)
@@ -673,7 +668,7 @@ def main():
                     a.fractures, a.fracture_width, a.seas,
                     a.sunder, a.sunder_width,
                     a.crazing, a.crazing_scales, a.crazing_sharp,
-                    a.crazing_cells)
+                    a.crazing_cells, a.mountain_avoidance, a.crack_smoothing)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
