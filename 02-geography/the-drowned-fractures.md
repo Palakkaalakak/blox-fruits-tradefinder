@@ -4,7 +4,23 @@
 
 When the crust gave way during the Doom, it did not open a handful of great rifts. It **crazed** — like a dropped pane of glass, a web of cracks propagating through everything at once. And then the sea rose into every one of them.
 
-What remains, fifteen centuries later, is a branching network of narrow saltwater channels running through the continents.
+What remains, fifteen centuries later, is a network of narrow saltwater channels burrowing through the land like roots. Not a few great seaways. **Everywhere.**
+
+## There is no continuous landmass anywhere in the world
+
+This is the load-bearing consequence, and it should never be softened.
+
+**A "continent" in this world is not a solid body of land. It is a cluster** — hundreds of fragments packed tightly together, separated by channels narrow enough to see across and deep enough to drown in. What makes a continent a continent is that its pieces are *close*, not that they are joined.
+
+So:
+
+- You cannot walk across a continent. Nobody in the history of the world has ever walked across a continent.
+- Every journey of any length is a sequence of crossings.
+- The largest single piece of dry land anyone has ever stood on is measured in a few days' walk, not weeks.
+- "Mainland" is a relative word here. There is no mainland. There is only bigger and smaller.
+- The word *island* is close to meaningless — everywhere is an island — so the language would not lean on it. There'll be a native vocabulary for *sizes* of fragment instead, the way Arabic has many words for camel.
+
+The technical distinction that took several attempts to get right in the generator is the same one that matters in the fiction: the fractures do not *erode the shores*, they **cut clean through everything** — highlands, plains and coasts alike. The crust parted; it did not care what was standing on top of it. A mountain range is fractured exactly as thoroughly as a beach.
 
 ## They are not rivers
 

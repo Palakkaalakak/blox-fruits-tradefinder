@@ -262,7 +262,7 @@ def fracture(z, rng, n_cuts, width, depth):
 
 
 def fracture_network(z, rng, scales=5, base_scale=None, depth=5200,
-                     density=1.0, sharpness=7.0):
+                     density=1.0, sharpness=7.0, land_only=True):
     """The Drowned Fractures — the world's most distinctive feature.
 
     When the crust gave way, it did not open a few great rifts. It *crazed*,
@@ -278,24 +278,47 @@ def fracture_network(z, rng, scales=5, base_scale=None, depth=5200,
     fractures, not straits.
     """
     h, w = z.shape
-    base_scale = base_scale or w * 0.045
-    out = z.copy()
+    base_scale = base_scale or w * 0.022
+
+    # Accumulate crack intensity across scales. Coarse scales give the trunk
+    # channels, fine scales the rootlets, and because every scale uses several
+    # independent fields the filaments cross and interlock rather than lying
+    # in tidy parallel lines.
+    crack = np.zeros((h, w), dtype=np.float32)
 
     for i in range(scales):
-        scale = max(base_scale * (0.58 ** i), 1.8)
-        # Several independent fields per scale: one set of filaments is a few
-        # lonely channels, but three or four interpenetrating sets craze the
-        # whole landmass the way a dropped pane crazes.
-        reps = 2 if i == 0 else 3
+        scale = max(base_scale * (0.62 ** i), 1.6)
+        reps = 3
         for _ in range(reps):
             n = smooth_noise((h, w), scale, rng)
             # Ridged transform: the zero-contours of a smooth field are thin
             # filaments that naturally branch, meander and rejoin.
-            rid = 1.0 - np.abs(n) / (np.abs(n).std() * 1.15 + 1e-9)
-            rid = np.clip(rid, 0.0, 1.0) ** (sharpness + 1.6 * i)
-            out -= depth * (0.72 ** i) * density * rid
+            rid = 1.0 - np.abs(n) / (np.abs(n).std() * 1.05 + 1e-9)
+            rid = np.clip(rid, 0.0, 1.0) ** (sharpness + 1.4 * i)
+            crack = np.maximum(crack, rid * (0.82 ** i))
 
-    return out
+    # CUT, don't subtract.
+    #
+    # Subtracting depth only breaks the surface where land is already low,
+    # which is why an earlier version merely nibbled the coasts and left every
+    # interior solid. A fracture does not care how high the ground above it
+    # was: the crust parted, and the sea came in. So the channel is forced
+    # below sea level wherever the crack is strong enough, through highlands
+    # and lowlands alike.
+    m = np.clip((crack - 0.34) / 0.30, 0.0, 1.0) * np.clip(density, 0, 3)
+    m = np.clip(m, 0.0, 1.0)
+    m = m * m * (3 - 2 * m)                      # smoothstep for clean walls
+
+    if land_only:
+        # The crust cracked; the seafloor is not our concern. Confine the
+        # network to land (feathered slightly so channels reach the coast
+        # and open into the sea rather than stopping short of it).
+        near_land = ndimage.gaussian_filter((z >= 0).astype(np.float32), 2.0,
+                                            mode=("nearest", "wrap"))
+        m *= np.clip(near_land * 1.6, 0.0, 1.0)
+
+    floor = -abs(depth) * (0.35 + 0.65 * m)
+    return z * (1.0 - m) + floor * m
 
 
 def inland_seas(z, rng, n, radius, depth):
@@ -366,7 +389,7 @@ def sunder_pair(z, rng, rank=0, width_px=6.0, taper=0.55):
     return z, (cy / h, cx / w)
 
 
-def despeckle(z, min_fraction=0.00012):
+def despeckle(z, min_fraction=0.000012):
     """Delete the confetti.
 
     Hundreds of one-pixel islands read as noise, not archipelago, and they are
@@ -521,10 +544,6 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
                      depth=5200)
     if seas:
         z = inland_seas(z, rng, n=seas, radius=W * 0.022, depth=3400)
-    if crazing:
-        z = fracture_network(z, rng, scales=crazing_scales,
-                             base_scale=W * 0.045, depth=3000,
-                             density=crazing, sharpness=crazing_sharp)
     if hotspots:
         z = hotspot_chains(z, rng, n_chains=hotspots, length=W * 0.055,
                            strength=2500)
@@ -539,6 +558,14 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
         z = set_sea_level(z, land_fraction)
     else:
         z = set_sea_level(z, land_fraction)
+    # Crazing must come AFTER the datum is fixed: the fractures are cut to an
+    # absolute depth below sea level, so if the sea level is recomputed
+    # afterwards the channels simply fill back in.
+    if crazing:
+        z = fracture_network(z, rng, scales=crazing_scales,
+                             base_scale=W * 0.022, depth=2200,
+                             density=crazing, sharpness=crazing_sharp)
+
     corridor = None
     if sunder:
         z, corridor = sunder_pair(z, rng, rank=0, width_px=W * sunder_width)
