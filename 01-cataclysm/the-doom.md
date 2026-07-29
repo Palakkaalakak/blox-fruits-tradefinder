@@ -46,8 +46,20 @@ So a farmer ploughing a field in Lidia turns up almost nothing — and that abse
 
 ---
 
+## Is it over? — nobody agrees
+
+**Established: there is no consensus.** Some scholars hold the Doom finished centuries ago; others that it never stopped. The faiths differ. There is no authority able to settle it.
+
+This is the right answer for three reasons:
+
+1. **It is consistent with the religious plurality.** No dominant church means no dominant cosmology means no official position on whether the world is still ending.
+2. **It makes the question political rather than factual.** What a state believes about the Doom determines whether it funds sea defences, whether it insures a port, whether it lets people build on new land. Geology becomes budget, and budget becomes faction.
+3. **It is the Fallacy of Fear at civilisational scale.** Your philosophy explicitly names this: *"we pretend to have rationally analysed a situation and deemed it not important enough to be dealt with when in truth we are simply too scared to accept it… now we ignore climate change when once barbarian invaders were ignored."* A world that cannot agree whether its catastrophe is finished is a world that has agreed not to find out. That is a *thesis* being dramatised, not just texture.
+
+Practical consequences: coastal cities with contested defences · insurers who will not write certain ports · a scholarly discipline nobody funds · a minor faith that says the sea is still coming and is treated as a nuisance · charts that disagree with each other about a shoal.
+
 ## Open
 
 - Does anyone know what struck? Is the impact crater known, visited, holy?
-- Do the faiths call it punishment? Laurevinism says indifference — which makes Laurevinism a **heresy** if the dominant religion says otherwise.
-- Is the sea *finished* moving?
+- Which of the faiths call it punishment, and which accident? Laurevinism says **indifference**, via the Third Great Principle — a minority position that tells the grieving nobody was watching.
+- Who is right about whether it is over? *You* need to know, even if the world never finds out.
