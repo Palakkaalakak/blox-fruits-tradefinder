@@ -29,6 +29,11 @@ ETOPO = "/tmp/etopo.grd"
 W, H = 2880, 1440          # working resolution (equirectangular, 2:1)
 
 
+def set_resolution(w):
+    global W, H
+    W, H = w, w // 2
+
+
 # ---------------------------------------------------------------- utilities
 
 def smooth_noise(shape, scale, rng):
@@ -120,14 +125,49 @@ def tectonic_warp(z, rng, amplitude, base_scale):
     return sample(z, yy, xx)
 
 
-def continental_platforms(z, rng, strength, scale):
-    """Broad isostatic reorganisation: some regions ride high as continental
-    platforms, others founder into ocean basins. This is what keeps land
-    gathered into a handful of coherent masses instead of scattering it."""
+def continental_platforms(z, rng, strength, scale, separation=1.0):
+    """Broad isostatic reorganisation: a few regions ride high as continental
+    platforms, everything else founders into deep ocean basins.
+
+    `separation` controls how decisively the two are split. High values give
+    compact continents divided by wide, deep oceans — which is what makes
+    crossing them an age of exploration rather than an afternoon."""
     field = smooth_noise(z.shape, scale, rng)
-    # sharpen into plateaus and basins rather than gentle swells
-    field = np.tanh(field * 1.6)
-    return z + strength * field
+
+    # Bias downward so only the highest regions become platforms, then split
+    # hard into plateau / basin. The offset sets how much of the globe qualifies.
+    field = np.tanh((field - 0.45 * separation) * (1.4 + 1.6 * separation))
+
+    # Push the basins down harder than the platforms up: oceans get deep and
+    # wide while continents stay compact.
+    up = np.clip(field, 0, None)
+    down = np.clip(field, None, 0)
+    return z + strength * (up + down * (0.6 + 0.9 * separation))
+
+
+def drown_a_continent(z, rank=1, margin=180.0):
+    """The lost continent.
+
+    This world is Earth, and the Doom drowned land. It follows necessarily
+    that some of Earth's original landmass never came back up. One continental
+    platform is sunk just beneath the waves — shallow enough to be a plateau
+    on any depth chart, deep enough that nobody has stood on it in 1,500 years.
+
+    `rank` selects which landmass to sink (0 = largest; 1 = second largest).
+    """
+    land = z >= 0
+    lab, n = ndimage.label(land, structure=np.ones((3, 3)))
+    if n == 0:
+        return z, None
+    sizes = np.bincount(lab.ravel())[1:]
+    order = np.argsort(sizes)[::-1]
+    target = order[min(rank, len(order) - 1)] + 1
+    mask = lab == target
+
+    # Sink it so its highest ground sits just below the surface.
+    z = z.copy()
+    z[mask] -= (z[mask].max() + margin)
+    return z, mask.sum() / land.sum()
 
 
 def rifting(z, rng, strength, n_rifts=7):
@@ -217,7 +257,8 @@ def render_heightmap(z):
 # ---------------------------------------------------------------- main
 
 def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
-          platform=2600.0, platform_scale=0.075):
+          platform=2600.0, platform_scale=0.075, separation=1.0,
+          lost_continent=True, lost_rank=1):
     rng = np.random.default_rng(seed)
     z = load_earth()
     z = np.roll(z, rng.integers(W // 6, W - W // 6), axis=1)   # break Earth's look
@@ -226,11 +267,20 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
     z = np.flipud(z)                                   # disguise: hemispheres swap
     z = impact(z, rng, impact_lat, impact_lon, radius_px=W * 0.035, depth=4200)
     z = tectonic_warp(z, rng, amplitude=W * warp, base_scale=W * 0.060)
-    z = continental_platforms(z, rng, platform, W * platform_scale)
+    z = continental_platforms(z, rng, platform, W * platform_scale, separation)
     z = rifting(z, rng, strength=2400 * rift, n_rifts=4)
     z = erode(z, rng)
-    z = set_sea_level(z, land_fraction)
-    return z
+
+    lost = None
+    if lost_continent:
+        # Sink one platform before the final sea level is fixed, then re-level
+        # so the intended land fraction still holds.
+        z = set_sea_level(z, land_fraction)
+        z, lost = drown_a_continent(z, rank=lost_rank)
+        z = set_sea_level(z, land_fraction)
+    else:
+        z = set_sea_level(z, land_fraction)
+    return z, lost
 
 
 def main():
@@ -244,11 +294,18 @@ def main():
     p.add_argument("--platform-scale", type=float, default=0.075)
     p.add_argument("--impact-lat", type=float, default=8.0)
     p.add_argument("--impact-lon", type=float, default=-150.0)
+    p.add_argument("--separation", type=float, default=1.0,
+                   help="how decisively continents are split by deep ocean")
+    p.add_argument("--no-lost-continent", action="store_true")
+    p.add_argument("--lost-rank", type=int, default=1)
+    p.add_argument("--width", type=int, default=2880)
     p.add_argument("--out", default="world")
     a = p.parse_args()
+    set_resolution(a.width)
 
-    z = build(a.seed, a.land_fraction, a.warp, a.rift, a.impact_lat, a.impact_lon,
-             a.platform, a.platform_scale)
+    z, lost = build(a.seed, a.land_fraction, a.warp, a.rift,
+                    a.impact_lat, a.impact_lon, a.platform, a.platform_scale,
+                    a.separation, not a.no_lost_continent, a.lost_rank)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
@@ -258,11 +315,22 @@ def main():
     sizes = np.bincount(lab.ravel())[1:]
     total = sizes.sum()
     big = np.sort(sizes)[::-1]
-    print(f"seed {a.seed}: land {100*total/land.size:.1f}% | {n} landmasses")
+
+    # isolation: mean distance from land to the nearest other landmass
+    dist = ndimage.distance_transform_edt(~land)
+    shallow = ((z < 0) & (z > -600)).sum() / max((z < 0).sum(), 1)
+
+    wts = latitude_weight(H, W)
+    land_frac = (land * wts).sum() / wts.sum()
+    print(f"seed {a.seed}: land {100*land_frac:.1f}% (area-weighted) | {n} landmasses")
     print("  largest (% of all land):",
-          ", ".join(f"{100*s/total:.1f}" for s in big[:10]))
-    print(f"  continents (>4% of land): {(big > total*0.04).sum()}")
-    print(f"  islands (<0.1%): {(big < total*0.001).sum()}")
+          ", ".join(f"{100*s/total:.1f}" for s in big[:8]))
+    print(f"  continents (>4%): {(big > total*0.04).sum()} | "
+          f"islands (<0.1%): {(big < total*0.001).sum()}")
+    print(f"  widest ocean gap: {dist.max()/W*360:.0f} deg of longitude | "
+          f"shallow sea: {100*shallow:.0f}% of ocean")
+    if lost:
+        print(f"  lost continent drowned: {100*lost:.1f}% of former land")
 
 
 if __name__ == "__main__":
