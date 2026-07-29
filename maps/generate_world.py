@@ -279,7 +279,8 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
                      density=1.0, sharpness=7.0, land_only=True, cells=140,
                      impact_lat=-48.0, impact_lon=0.0,
                      mountain_avoidance=1.0, smoothing=1.6,
-                     crack_width=0.0020, interior_mountains=0.0, polar_damping=0.0):
+                     crack_width=0.0020, interior_mountains=0.0, polar_damping=0.0,
+          blob=1.0):
     """The Drowned Fractures.
 
     Cracks radiate from the centre of EACH continent, not from one global
@@ -495,6 +496,35 @@ def sunder_pair(z, rng, rank=0, width_px=6.0, taper=0.55):
     return z, (cy / h, cx / w)
 
 
+def blobify(z, strength=1.0, sea_floor=-140.0, land_floor=90.0):
+    """Pull continents toward compact blobs.
+
+    Warping and drowning Earth tends to leave long stringy landmasses -
+    stretched shelves and ribbon coasts - because the sea level cuts along
+    shelf edges. Morphological closing then opening fixes the shape directly:
+    closing fills narrow straits and bays so a chain of near-touching pieces
+    becomes one body, opening then shaves off thin spits and filaments.
+
+    The result is rounder, chunkier continents that still keep Earth's
+    coastline detail at small scale.
+    """
+    if strength <= 0:
+        return z
+    h, w = z.shape
+    r = max(int(w * 0.0042 * strength), 1)
+    yy, xx = np.mgrid[-r:r + 1, -r:r + 1]
+    disk = (xx ** 2 + yy ** 2) <= r * r
+
+    mask = z >= 0
+    closed = ndimage.binary_closing(mask, structure=disk)
+    opened = ndimage.binary_opening(closed, structure=disk)
+
+    out = z.copy()
+    out[opened & ~mask] = land_floor      # fill the bays and straits
+    out[~opened & mask] = sea_floor       # shave the spits and ribbons
+    return out
+
+
 def despeckle(z, min_fraction=0.00012):
     """Delete the confetti.
 
@@ -635,7 +665,8 @@ def build(seed, land_fraction, warp, rift, impact_lat=-48.0, impact_lon=0.0,
           seas=2, sunder=False, sunder_width=0.0045,
           crazing=1.0, crazing_scales=3, crazing_sharp=14.0,
           crazing_cells=60, mountain_avoidance=0.6, crack_smoothing=0.5,
-          crack_width=0.0020, interior_mountains=0.0, polar_damping=0.0):
+          crack_width=0.0020, interior_mountains=0.0, polar_damping=0.0,
+          blob=1.0):
     """Build a world in three stages.
 
     STAGE 1 - THE DOOM. Earth, and every calamity at once. Earth already has
@@ -694,6 +725,10 @@ def build(seed, land_fraction, warp, rift, impact_lat=-48.0, impact_lon=0.0,
 
     z = erode(z, rng)
     z = set_sea_level(z, land_fraction)                   # the Drowning
+
+    if blob:
+        z = blobify(z, blob)
+        z = set_sea_level(z, land_fraction)
 
     lost = None
     if lost_continent:
@@ -757,6 +792,8 @@ def main():
                    help="build ranges inland instead of on platform margins")
     p.add_argument("--polar-damping", type=float, default=0.0,
                    help="pull the high latitudes down so poles read as ocean")
+    p.add_argument("--blob", type=float, default=1.0,
+                   help="pull continents toward compact blobs (0 = off)")
     p.add_argument("--crack-width", type=float, default=0.0020,
                    help="channel width as a fraction of map width (length of\n                         each cut is set by --crazing-cells)")
     p.add_argument("--crazing-cells", type=int, default=140,
@@ -774,7 +811,8 @@ def main():
                     a.sunder, a.sunder_width,
                     a.crazing, a.crazing_scales, a.crazing_sharp,
                     a.crazing_cells, a.mountain_avoidance, a.crack_smoothing,
-                    a.crack_width, a.interior_mountains, a.polar_damping)
+                    a.crack_width, a.interior_mountains, a.polar_damping,
+                    a.blob)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
