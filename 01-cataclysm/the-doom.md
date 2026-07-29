@@ -42,25 +42,31 @@ An asteroid strikes deep ocean. Three consequences, on three timescales.
 
 **Over decades to centuries — the Drowning.** The impact destabilises crust already under strain. Continental shelves subside; ocean floor rises elsewhere; meltwater and displaced ocean redistribute. The sea takes some lands entirely and abandons others. The world's coastline is not merely altered but *unrecognisable*, and it keeps moving for generations — which is precisely why nobody could map the world until the Rediscovery. There was no stable world to map.
 
-## The pole shift
+## The magnetic reversal
 
-**The Doom moved the poles.** The axis the world turns on is not the axis it turned on before, and the magnetic poles reversed with it — north is not where north was.
+**The Doom's first element was a geomagnetic reversal — the ordinary, periodic kind, long overdue.** Earth's magnetic poles swap on a timescale of hundreds of thousands of years, and ours is overdue by any reckoning. It was going to happen anyway, to nobody's fault and nobody's design. It had already begun.
 
-This is the piece that makes everything else *fit*.
+**It is not a physical movement of the world.** The rotation axis does not shift. No continent changes latitude. No climate zone moves. This must be stated precisely, because the alternative is a much bigger and much less plausible claim.
 
-**It justifies the map.** The world's landmasses are not merely drowned and deformed; they sit at latitudes they never occupied. A region that was tropical is under ice. A polar waste is now temperate and full of people. The map is Earth's terrain at Earth's latitudes **rotated onto a new axis** — which is why nothing is where a reader expects, without a single invented landform.
+**What it actually does:**
 
-**It explains why the Dark Age was so dark.** Every inherited assumption about the world became wrong at once. Not just the coastlines: the seasons, the star charts, the compass, the growing seasons, the winds, the currents. A surviving farmer with a surviving almanac had a book of lies. A surviving navigator with a surviving chart and a compass had two instruments that disagreed with the sky and with each other. **This is why the world had to be *rediscovered* rather than merely revisited** — knowledge survived and was worthless, which is the Doom's whole signature applied to geography.
+- **Every compass becomes a liar.** Real reversals take between 2,000 and 12,000 years — some far longer. Throughout, the field weakens, wanders and multiplies its poles. There is no reliable magnetic north for *centuries*.
+- **The magnetosphere thins.** More cosmic radiation reaching the surface. Aurorae at tropical latitudes — the sky visibly wrong, everywhere, for generations.
+- **Animals that navigate by the field are lost.** Birds, fish, turtles. Migrations fail, and with them the fisheries and the seasons people had organised their lives around.
 
-**It gives the classical inheritance a wound.** The preserved books describe a world that no longer exists: a Mediterranean at a latitude nothing is at now, stars in the wrong quarter of the sky. Scholars can read every word and cannot place a single location. This is one more reason the lost continent is a live argument — reconciling the old texts with the present map is an entire discipline, and it does not fully work.
+**What it does NOT do: change the climate.** That is the impact winter's work. The reversal is a navigational and biological catastrophe, not a meteorological one — and keeping the two separate is what stops the calamities blurring into one undifferentiated disaster.
 
-**And it seeds a genuinely eerie detail:** somewhere there are old star charts that match nothing overhead. A child could notice that. Most people never think about it at all.
+### Why it matters so much anyway
+
+**It is why the world had to be *rediscovered* rather than merely revisited.** A civilisation can survive losing its ports. It cannot easily survive losing its *bearings*. Charts assume a magnetic north that no longer exists; the almanacs and the compass disagree with each other and with the sky. Knowledge survived and was worthless — the Doom's whole signature, applied to navigation.
+
+**And it was nobody's fault.** A process that had been building for millennia happened to complete in the same era as everything else. That is the confluence in miniature.
 
 ### Open
-- How far did the axis move? (The generator uses roughly 121° of spin with a ~47° tilt — a violent shift.)
-- Did the magnetic reversal happen at the same moment or over centuries? (Real reversals take millennia; a fast one is the more dramatic choice and nobody in-world could prove otherwise.)
-- Is there a surviving pre-Doom star chart, and who has it?
-- Does any faith hold that the sky itself was punished?
+- How long did the transition last, and was it finished before the Rediscovery began?
+- Did anyone record the field's behaviour? A surviving set of observations would be priceless
+- What did the tropical aurorae mean to the faiths?
+- Is the field stable *now*, or still settling?
 
 ## Why this satisfies every constraint
 
