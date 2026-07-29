@@ -372,10 +372,22 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
     # bends them around the flanks. Then the last of the network is cut dead
     # above the ridge threshold, so no crack survives on the range at all.
     if mountain_avoidance and land.any():
-        # elevation tolerance: how high ground may be before it counts as
-        # mountain and refuses to fracture. Raised 25%.
-        hi = (np.percentile(z[land], 86) or 1.0) / 1.25
-        relief = np.clip(z / hi, 0.0, 1.0)
+        # A mountain is ground that stands above its SURROUNDINGS, not ground
+        # that happens to be high. Judging by absolute elevation protects
+        # whole plateaus - an entire continent sitting high above sea level
+        # was being read as one mountain and refusing to fracture at all.
+        #
+        # Local prominence fixes it: elevation minus a broadly smoothed
+        # elevation. A ridge stands proud of its neighbourhood and deflects
+        # the cracks; a high plateau does not, and fractures like anywhere
+        # else.
+        broad = ndimage.gaussian_filter(z, max(w * 0.022, 6.0),
+                                        mode=("nearest", "wrap"))
+        prom = z - broad
+        pl = prom[land]
+        hi = (np.percentile(pl, 88) if pl.size else 1.0) or 1.0
+        hi /= 1.25                       # 25% elevation tolerance
+        relief = np.clip(prom / hi, 0.0, 1.0)
 
         es = ndimage.gaussian_filter(z, max(w * 0.006, 2.0),
                                      mode=("nearest", "wrap"))
@@ -388,7 +400,6 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
         xx_w = xx + push * gx
         m = sample(m, yy_w, xx_w)
 
-        # nothing at all on the high ground
         m *= np.clip(1.0 - (relief - 0.525) / 0.22, 0.0, 1.0)
 
     if land_only:
