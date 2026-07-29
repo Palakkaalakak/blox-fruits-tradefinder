@@ -80,21 +80,6 @@ def load_earth():
     zoom = (H / z.shape[0], W / z.shape[1])
     z = ndimage.zoom(z, zoom, order=1)
 
-    # ETOPO is ice-SURFACE elevation, so Antarctica and Greenland arrive as
-    # 3-4km plateaus. After the pole shift one of them lands somewhere
-    # inhabited and reads as an entire continent of mountain.
-    #
-    # Blanket compression does not fix it: the cap is still the highest ground
-    # and still renders as mountain. The distinguishing feature is roughness -
-    # an ice sheet is high AND SMOOTH, a mountain range is high and rough. So
-    # detect high, smooth ground specifically and let it down, which strips
-    # the ice caps while leaving genuine ranges their relief.
-    sm = ndimage.gaussian_filter(z, 6, mode=("nearest", "wrap"))
-    rough = ndimage.gaussian_filter(np.abs(z - sm), 8, mode=("nearest", "wrap"))
-    high = np.clip((z - 250.0) / 1400.0, 0.0, 1.0)
-    smooth = np.clip(1.0 - rough / 90.0, 0.0, 1.0)
-    cap = np.clip(high * smooth, 0.0, 1.0) ** 0.7
-    z = z - cap * (z - 120.0) * 0.92
     return z.astype(np.float32)
 
 
@@ -161,34 +146,30 @@ def hotspot_chains(z, rng, n_chains, length, strength):
     return out
 
 
-def orogeny(z, rng, field, strength, interior=1.0):
-    """Mountain belts, placed INLAND.
+def orogeny(z, rng, field, strength, interior=0.0):
+    """Mountain belts.
 
-    Uplift keyed to the gradient of the platform field puts every range on the
-    platform rim, which is the coast — giving continents ringed by mountains
-    and hollow in the middle. Real ranges are more often interior: the
-    Himalayas, Alps, Rockies and Andes all sit well inside their landmass.
+    Default (interior=0) is the original margin model used for the sundered
+    sweep: uplift follows the steepest gradients of the platform field, so
+    ranges sit along platform edges as coastal cordilleras.
 
-    So ranges are built from ridged noise confined to the platform interior,
-    with only a modest cordillera left along the margin.
+    Set interior>0 to build ranges inland instead — ridged belts confined to
+    the platform interior, which is closer to Earth (Himalayas, Alps, Rockies,
+    Andes all sit well inside their landmass) but gives noticeably different
+    continent shapes.
     """
-    interiority = np.clip((field - 0.10) / 0.55, 0.0, 1.0) ** 0.8
-    interiority = ndimage.gaussian_filter(interiority, 4, mode=("nearest", "wrap"))
-
-    # Ranges must be narrow BELTS, not area fill. A gentle power leaves the
-    # ridged field covering a whole platform interior, which turns any large
-    # continent into one continuous upland; a steep power keeps only the
-    # strongest ridge lines, giving a few sharp cordilleras with lowland
-    # between them.
-    ridged = 1.0 - np.abs(fbm(z.shape, rng, octaves=5, base=42))
-    ridged = np.clip(ridged, 0, 1) ** 5.0
-
     gy, gx = np.gradient(ndimage.gaussian_filter(field, 6, mode=("nearest", "wrap")))
     margin = np.sqrt(gx ** 2 + gy ** 2)
     margin = (margin / (margin.max() or 1)) ** 1.6
 
-    belt = interior * ridged * interiority + 0.16 * margin
-    return z + strength * belt
+    if interior <= 0:
+        ridged = 1.0 - np.abs(fbm(z.shape, rng, octaves=4, base=30))
+        return z + strength * margin * (0.55 + 0.45 * np.clip(ridged, 0, 1))
+
+    interiority = np.clip((field - 0.10) / 0.55, 0.0, 1.0) ** 0.8
+    interiority = ndimage.gaussian_filter(interiority, 4, mode=("nearest", "wrap"))
+    ridged = np.clip(1.0 - np.abs(fbm(z.shape, rng, octaves=5, base=42)), 0, 1) ** 5.0
+    return z + strength * (interior * ridged * interiority + 0.16 * margin)
 
 
 def impact(z, rng, lat_deg, lon_deg, radius_px, depth):
@@ -298,7 +279,7 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
                      density=1.0, sharpness=7.0, land_only=True, cells=140,
                      impact_lat=-48.0, impact_lon=0.0,
                      mountain_avoidance=1.0, smoothing=1.6,
-                     crack_width=0.0020):
+                     crack_width=0.0020, interior_mountains=0.0, polar_damping=0.0):
     """The Drowned Fractures.
 
     Cracks radiate from the centre of EACH continent, not from one global
@@ -488,7 +469,7 @@ def sunder_pair(z, rng, rank=0, width_px=6.0, taper=0.55):
     return z, (cy / h, cx / w)
 
 
-def despeckle(z, min_fraction=0.000012):
+def despeckle(z, min_fraction=0.00012):
     """Delete the confetti.
 
     Hundreds of one-pixel islands read as noise, not archipelago, and they are
@@ -628,7 +609,7 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           seas=4, sunder=False, sunder_width=0.0045,
           crazing=1.0, crazing_scales=3, crazing_sharp=14.0,
           crazing_cells=140, mountain_avoidance=1.0, crack_smoothing=1.6,
-          crack_width=0.0020):
+          crack_width=0.0020, interior_mountains=0.0, polar_damping=0.0):
     rng = np.random.default_rng(seed)
     z = load_earth()
 
@@ -641,17 +622,15 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
     z = tectonic_warp(z, rng, amplitude=W * warp, base_scale=W * 0.060)
     z, field = continental_platforms(z, rng, platform, W * platform_scale,
                                      separation)
-    z = orogeny(z, rng, field, strength=2100 * mountains)
+    z = orogeny(z, rng, field, strength=2100 * mountains,
+                interior=interior_mountains)
 
-    # Polar damping. In equirectangular projection the poles are stretched
-    # across the entire map width, so a small polar cap reads as an enormous
-    # continent - and the platform field, being smooth, tends to lift the
-    # whole cap into one plateau. Pulling the highest latitudes down keeps the
-    # poles as ocean and ice, which is both more realistic and stops the top
-    # of every map being a white wall.
-    latf = np.abs(np.linspace(90.0, -90.0, H))[:, None]
-    polar = np.clip((latf - 52.0) / 34.0, 0.0, 1.0) ** 1.4
-    z = z - 3400.0 * polar
+    if polar_damping:
+        # Optional: in equirectangular projection the poles stretch across the
+        # whole map width, so a small polar cap reads as an enormous continent.
+        latf = np.abs(np.linspace(90.0, -90.0, H))[:, None]
+        polar = np.clip((latf - 52.0) / 34.0, 0.0, 1.0) ** 1.4
+        z = z - 3400.0 * polar_damping * polar
     z = rifting(z, rng, strength=2400 * rift, n_rifts=4)
     if fractures:
         z = fracture(z, rng, n_cuts=fractures, width=W * fracture_width,
@@ -695,16 +674,16 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--seed", type=int, default=7)
-    p.add_argument("--land-fraction", type=float, default=0.30)
-    p.add_argument("--warp", type=float, default=0.030,
+    p.add_argument("--land-fraction", type=float, default=0.25)
+    p.add_argument("--warp", type=float, default=0.038,
                    help="tectonic displacement, as a fraction of map width")
     p.add_argument("--rift", type=float, default=0.6)
     p.add_argument("--platform", type=float, default=2600.0)
-    p.add_argument("--platform-scale", type=float, default=0.075)
+    p.add_argument("--platform-scale", type=float, default=0.072)
     p.add_argument("--impact-lat", type=float, default=-46.0,
                    help="the Marreni Sea is southern, per canon")
     p.add_argument("--impact-lon", type=float, default=0.0)
-    p.add_argument("--separation", type=float, default=1.0,
+    p.add_argument("--separation", type=float, default=1.05,
                    help="how decisively continents are split by deep ocean")
     p.add_argument("--no-lost-continent", action="store_true")
     p.add_argument("--lost-rank", type=int, default=1)
@@ -725,6 +704,10 @@ def main():
     p.add_argument("--crazing-scales", type=int, default=3)
     p.add_argument("--mountain-avoidance", type=float, default=1.0)
     p.add_argument("--crack-smoothing", type=float, default=1.6)
+    p.add_argument("--interior-mountains", type=float, default=0.0,
+                   help="build ranges inland instead of on platform margins")
+    p.add_argument("--polar-damping", type=float, default=0.0,
+                   help="pull the high latitudes down so poles read as ocean")
     p.add_argument("--crack-width", type=float, default=0.0020,
                    help="channel width as a fraction of map width (length of\n                         each cut is set by --crazing-cells)")
     p.add_argument("--crazing-cells", type=int, default=140,
@@ -742,7 +725,7 @@ def main():
                     a.sunder, a.sunder_width,
                     a.crazing, a.crazing_scales, a.crazing_sharp,
                     a.crazing_cells, a.mountain_avoidance, a.crack_smoothing,
-                    a.crack_width)
+                    a.crack_width, a.interior_mountains, a.polar_damping)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
