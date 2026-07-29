@@ -6,7 +6,11 @@ The native people of the third continent. Encountered during the Rediscovery, ~1
 
 Today they are held to be **wholly extinct**. No nation, no surviving community, no living culture. What remains is artefacts, place-names, loanwords, and a certain amount of unresolved guilt. Where Elsring ancestry persists at all it is diluted and half-acknowledged, a matter of hushed family knowledge on the third continent.
 
-**How it is spoken of:** roughly as the fate of the Native Americans is spoken of today — acknowledged, taught in schools, deplored in the abstract, never undone, and invoked casually by people who feel nothing. In the manuscript a student cites it in a classroom as a lesson in the value of technology, and no one flinches. That is the correct temperature.
+**How it is spoken of:** exactly as the fate of the Native Americans is spoken of today. It is discussed. It is a hot topic. It appears in curricula and in speeches. And **nothing is done, because nobody really cares.**
+
+That distinction matters and should be held precisely. This is not a suppressed crime, nor a denied one, nor one that provokes guilt in anybody who matters. It is a settled, acknowledged, thoroughly-debated fact that produces no action whatsoever. People are perfectly willing to call it monstrous and perfectly unwilling to give anything back.
+
+In the manuscript a student cites it in a classroom as a lesson in the value of technology, and no one flinches — not because they are callous, but because that is simply how the subject is handled. That is the correct temperature: not shame, not defiance. **Indifference wearing the costume of concern.**
 
 **And yet the Rediscovery itself is mythologised** — an Age of Heroes, with epics, holidays and statues of the captains who crossed the ocean. The world celebrates the era and admits the crime at its centre, and has never reconciled the two. Nobody is expected to.
 
@@ -35,7 +39,7 @@ Today they are held to be **wholly extinct**. No nation, no surviving community,
 - **Were they underground before the Doom, or did they go under during the genocide?** Before is stronger — it explains everything at once, and it means the surface never understood what the Elsring were even at first contact. During is more tragic but strains credulity: a people fleeing a century-long extermination does not build vast cities in the middle of it.
 - **What is their technology?** A thousand years of isolation, no sunlight, no open agriculture, no oceans — but also no wars of the surface kind and a preserved grievance to focus the mind. They will be radically ahead in some things and absent in others. Deciding *which* is one of the most fun problems in the whole project.
 - **Do they watch the surface?** If yes, everything the surface has done for a thousand years has had an audience.
-- **How many know?** Is the secret total, or does one order, one House, one drowned archive hold a rumour?
+- **Nobody on the surface knows. The secret is total.** No order, no House, no archive holds even a rumour. Everyone believes the Elsring are gone, and everyone is wrong. Whatever hints exist in book one must be legible only on a reread — a tremor, a sealed shaft, a word in no known language — never a character's suspicion.
 - **What do they call themselves?** "Elsring" is the conquerors' word. It should not be theirs.
 - **Are they united?** A thousand years is long enough for them to have their own factions, and their own disagreement about what to do about the surface.
 

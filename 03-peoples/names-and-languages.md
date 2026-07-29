@@ -10,9 +10,13 @@ Karois-Marain · Yttáry · Avrandri · Bialmonte · Jealure-Kincaliber · Parva
 **Staff and commoners — Anglo-Saxon / Germanic**
 Herseworth · Langfield · Earnshaw · Ramwin · Kategeth · *(and Edward, Robert, Richard, Sophie, Caroline — the given names of the nobility are Anglo, while their House names are Romance)*
 
-This is a **class marker, and probably a conquest marker.** It is exactly the shape of post-Norman England: a Romance-speaking aristocracy imposed on a Germanic-speaking population, with the ruling class eventually adopting local given names while keeping their continental surnames. Readers feel this without being told.
+This was **coincidence, not design** — but it is worth keeping, because it is exactly the shape of post-Norman England: a Romance-speaking aristocracy over a Germanic-speaking population, the ruling class eventually taking local given names while keeping continental surnames. Readers feel this without being told.
 
-**Decide what it means.** Options:
+**The cheapest way to make it deliberate:** the Academy stands in an **Anglo-Saxon-majority region of Lidia.** That single decision retro-justifies everything already on the page — Herseworth, Langfield, Earnshaw, Ramwin and Kategeth are *local hires*, drawn from the surrounding population, while the students are Romance-named nobility shipped in from a hundred realms. The staff/student divide in naming becomes a *geographic* fact rather than a rule about class, which is both subtler and easier to hold consistent.
+
+It also quietly reinforces something already true: the Academy sits on a conquering continent, in a particular country, among a particular people, staffed by locals who are nobody's vassals. "Neutral ground" was never neutral.
+
+**Further options for what the wider pattern means:**
 - A conquering elite spread over a Germanic-speaking substrate during or after the Dark Age
 - Romance survived as the language of the *preserved books* — so the families who could read them became the aristocracy, and their prestige dialect became noble naming
 - Simple prestige imitation: the aristocracy names itself in the old classical manner because that is what nobility does
