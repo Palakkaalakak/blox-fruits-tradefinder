@@ -262,7 +262,8 @@ def fracture(z, rng, n_cuts, width, depth):
 
 
 def fracture_network(z, rng, scales=3, base_scale=None, depth=5200,
-                     density=1.0, sharpness=7.0, land_only=True, cells=140):
+                     density=1.0, sharpness=7.0, land_only=True, cells=140,
+                     impact_lat=-48.0, impact_lon=0.0):
     """The Drowned Fractures — the world's most distinctive feature.
 
     When the crust gave way, it did not open a few great rifts. It *crazed*,
@@ -295,11 +296,37 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=5200,
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     pts_grid = np.column_stack([yy.ravel(), xx.ravel()])
 
+    # Fracture nuclei are laid out in POLAR coordinates about the impact.
+    #
+    # A strike does not craze a world evenly: it drives cracks outward. Seeds
+    # arranged on a jittered polar lattice produce cell walls that run radially
+    # (spokes) and circumferentially (rings) — the star-and-ring pattern of a
+    # struck pane — while remaining straight segments meeting at angles.
+    ic_y = (90.0 - impact_lat) / 180.0 * h
+    ic_x = (impact_lon + 180.0) / 360.0 * w
+
     n_cells = max(int(cells), 8)
     for i in range(scales):
         k = int(n_cells * (2.6 ** i))
-        py = rng.uniform(0, h, k)
-        px = rng.uniform(0, w, k)
+        n_rings = max(int(np.sqrt(k) * 1.15), 3)
+        per_ring = max(k // n_rings, 4)
+
+        rr, tt = [], []
+        for ring in range(n_rings):
+            # Rings crowd near the impact and spread with distance
+            frac = (ring + 0.55) / n_rings
+            radius = (frac ** 1.45) * (h * 1.5)
+            count = max(int(per_ring * (0.45 + 1.1 * frac)), 4)
+            theta = (np.linspace(0, 2 * np.pi, count, endpoint=False)
+                     + rng.uniform(0, 2 * np.pi)
+                     + rng.normal(0, 0.30 / max(frac, 0.15), count))
+            rr.append(radius * (1.0 + rng.normal(0, 0.16, count)))
+            tt.append(theta)
+
+        rr = np.concatenate(rr)
+        tt = np.concatenate(tt)
+        py = ic_y + rr * np.sin(tt)
+        px = ic_x + rr * np.cos(tt) / 0.75      # widen for equirect stretch
         # Wrap in longitude so cracks cross the seam cleanly
         seeds = np.column_stack([
             np.concatenate([py, py, py]),
@@ -324,6 +351,12 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=5200,
     m = np.clip((crack - (1.0 - 0.55 * np.clip(density, 0, 3))) / 0.35, 0.0, 1.0)
     m = np.clip(m, 0.0, 1.0)
     m = m * m * (3 - 2 * m)                      # smoothstep for clean walls
+
+    # Fracturing is most violent near the strike and fades with distance.
+    yy2, xx2 = np.mgrid[0:h, 0:w].astype(np.float32)
+    dxi = (np.mod(xx2 - ic_x + w / 2, w) - w / 2) * latitude_weight(h, w)
+    dist = np.sqrt(dxi ** 2 + (yy2 - ic_y) ** 2) / (h * 1.15)
+    m *= np.clip(1.25 - 0.75 * dist, 0.18, 1.0)
 
     if land_only:
         # The crust cracked; the seafloor is not our concern. Confine the
@@ -584,7 +617,8 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
     if crazing:
         z = fracture_network(z, rng, scales=crazing_scales,
                              depth=2200, density=crazing,
-                             sharpness=crazing_sharp, cells=crazing_cells)
+                             sharpness=crazing_sharp, cells=crazing_cells,
+                             impact_lat=impact_lat, impact_lon=impact_lon)
 
     corridor = None
     if sunder:
@@ -605,7 +639,7 @@ def main():
     p.add_argument("--platform-scale", type=float, default=0.075)
     p.add_argument("--impact-lat", type=float, default=-46.0,
                    help="the Marreni Sea is southern, per canon")
-    p.add_argument("--impact-lon", type=float, default=-25.0)
+    p.add_argument("--impact-lon", type=float, default=0.0)
     p.add_argument("--separation", type=float, default=1.0,
                    help="how decisively continents are split by deep ocean")
     p.add_argument("--no-lost-continent", action="store_true")
