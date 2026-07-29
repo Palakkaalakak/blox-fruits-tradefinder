@@ -1,7 +1,2 @@
-.cache/
-output/
-__pycache__/
-*.pyc
-.venv/
-config/inventory.json
-config/goals.json
+*.tmp
+.DS_Store
