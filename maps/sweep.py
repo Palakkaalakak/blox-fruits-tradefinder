@@ -18,9 +18,9 @@ ROTS = {
 }
 
 COMBOS = [(seed, rk, sep)
-          for seed in (5, 44, 91, 132)
+          for seed in (5, 44, 91, 132, 177, 210)
           for rk in ("C", "D")
-          for sep in (1.30, 1.45)]
+          for sep in (1.05,)]
 
 COLS, THUMB_W = 4, 720
 tiles, labels, best = [], [], []
@@ -31,7 +31,8 @@ for seed, rk, sep in COMBOS:
                       platform=3800, platform_scale=0.072,
                       separation=sep, lost_continent=True, lost_rank=1,
                       rotation=ROTS[rk], hotspots=7, mountains=1.0,
-                      fractures=7, fracture_width=0.020, seas=4)
+                      fractures=9, fracture_width=0.019, seas=4,
+                      sunder=True, sunder_width=0.0045)
 
     land = z >= 0
     lab, n = G.ndimage.label(land, structure=np.ones((3, 3)))

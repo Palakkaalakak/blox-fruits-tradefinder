@@ -12,6 +12,26 @@
 4. Leaves very few ruins visible today
 5. Should be as physically defensible as possible
 
+## The shape of it: a confluence, not a cause
+
+**The Doom was not one catastrophe. It was several ordinary things arriving at once.**
+
+This is the single most important thing about it, and it should be stated plainly somewhere in the books.
+
+**The pole reversal was already due.** Magnetic reversals happen; ours is overdue by any reckoning. It was going to happen anyway, to nobody's fault and nobody's design, and during a reversal the field weakens and wanders and the compass becomes a liar. It had begun.
+
+**And then everything else happened alongside it.** The strike. The wave. The winter. The crust already under strain giving way. Each one survivable, perhaps, on its own. Together, and in that order, not survivable at all.
+
+### Why this is better than a single disaster
+
+**It makes the end of the world bad luck.** No judgement, no design, no meaning. Just several unremarkable processes coinciding badly — which is the Third Great Principle stated as *event* rather than as argument. The universe is neither benevolent nor malevolent. It did not aim at anyone. Things simply happened to overlap, and everybody died.
+
+**It explains why nothing could be saved.** A civilisation absorbs one catastrophe. It cannot absorb a compass that has stopped working *and* a wave that took the ports *and* a decade with no harvest *and* coastlines that will not stay still. Every redundancy failed at once because every redundancy assumed the others were holding.
+
+**It makes the faiths' disagreement inevitable and permanent.** With one cause there would be one story. With a confluence, every faith can point at a different element and be *partly right*. The one that blames the sky, the one that blames the sea, the one that blames human pride, the one that says it was accident — none can be refuted, because each is describing a real component. That is why there is no consensus, and never will be.
+
+**And it means it could happen again.** Not because anything is coming, but because nothing was ever aimed. If it was coincidence once, coincidence is still possible — which is exactly the thought a civilisation would rather not have, and therefore does not.
+
 ## The mechanism: oceanic impact, then the Drowning
 
 An asteroid strikes deep ocean. Three consequences, on three timescales.

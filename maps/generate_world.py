@@ -280,6 +280,55 @@ def inland_seas(z, rng, n, radius, depth):
     return out
 
 
+def sunder_pair(z, rng, rank=0, width_px=6.0, taper=0.55):
+    """The Sundering of a single continent into two.
+
+    Cuts a channel through one landmass so that it becomes two continents
+    that are unmistakably *former neighbours* — close enough to touch at one
+    point, far enough apart elsewhere to have become separate worlds.
+
+    This is Lidia and Réselia, and the cut is the Almani Corridor: not an
+    ocean between strangers but a drowned rift through what used to be one
+    country. It is why the two continents lie diagonal and offset, meeting
+    nowhere else; why their peoples are more closely related than either
+    admits; and why whoever holds the strait holds the world's throat.
+
+    The channel widens along its length (`taper`), so the two halves splay
+    apart — near-touching at the Corridor, far apart at the far end.
+    """
+    h, w = z.shape
+    land = z >= 0
+    lab, n = ndimage.label(land, structure=np.ones((3, 3)))
+    if n == 0:
+        return z, None
+    sizes = np.bincount(lab.ravel())[1:]
+    target = np.argsort(sizes)[::-1][min(rank, n - 1)] + 1
+    mask = lab == target
+
+    ys, xs = np.nonzero(mask)
+    cy, cx = ys.mean(), xs.mean()
+    ang = rng.uniform(0, np.pi)
+
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    latw = latitude_weight(h, w)
+    dx = (np.mod(xx - cx + w / 2, w) - w / 2) * latw
+    dy = yy - cy
+
+    # Signed distance from the cut line, and position along it
+    perp = dx * np.sin(ang) - dy * np.cos(ang)
+    along = dx * np.cos(ang) + dy * np.sin(ang)
+
+    span = max(np.ptp(ys), np.ptp(xs)) / 2 + 1e-6
+    t = np.clip((along + span) / (2 * span), 0, 1)      # 0..1 across the mass
+    wobble = width_px * 0.9 * np.sin(t * 5.0 + rng.uniform(0, 6.283))
+    local_w = width_px * (1.0 + taper * 2.2 * t) + wobble
+
+    channel = np.exp(-(perp / np.maximum(local_w, 1.0)) ** 2)
+    z = z.copy()
+    z[mask] -= 6000.0 * channel[mask]
+    return z, (cy / h, cx / w)
+
+
 def despeckle(z, min_fraction=0.00012):
     """Delete the confetti.
 
@@ -414,7 +463,7 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           platform=2600.0, platform_scale=0.075, separation=1.0,
           lost_continent=True, lost_rank=1, rotation=(121.0, 47.0, 29.0),
           hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
-          seas=4):
+          seas=4, sunder=True, sunder_width=0.0045):
     rng = np.random.default_rng(seed)
     z = load_earth()
 
@@ -448,6 +497,10 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
         z = set_sea_level(z, land_fraction)
     else:
         z = set_sea_level(z, land_fraction)
+    corridor = None
+    if sunder:
+        z, corridor = sunder_pair(z, rng, rank=0, width_px=W * sunder_width)
+        z = set_sea_level(z, land_fraction)
     z = despeckle(z)
     return z, lost
 
@@ -475,6 +528,8 @@ def main():
     p.add_argument("--fractures", type=int, default=7)
     p.add_argument("--fracture-width", type=float, default=0.020)
     p.add_argument("--seas", type=int, default=4)
+    p.add_argument("--no-sunder", action="store_true")
+    p.add_argument("--sunder-width", type=float, default=0.0045)
     p.add_argument("--out", default="world")
     a = p.parse_args()
     set_resolution(a.width)
@@ -483,7 +538,8 @@ def main():
                     a.impact_lat, a.impact_lon, a.platform, a.platform_scale,
                     a.separation, not a.no_lost_continent, a.lost_rank,
                     tuple(a.rot), a.hotspots, a.mountains,
-                    a.fractures, a.fracture_width, a.seas)
+                    a.fractures, a.fracture_width, a.seas,
+                    not a.no_sunder, a.sunder_width)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
