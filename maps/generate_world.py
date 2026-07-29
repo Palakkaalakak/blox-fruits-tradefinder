@@ -82,6 +82,82 @@ def load_earth():
     return z.astype(np.float32)
 
 
+def spherical_rotate(z, alpha, beta, gamma):
+    """Rotate the whole globe about an arbitrary axis.
+
+    Unlike a longitudinal roll, this genuinely moves land between the tropics
+    and the poles: a continent that sat on the equator can end up under ice.
+    Every output pixel is converted to a unit vector, rotated, and read back
+    from the source — so the poles behave correctly instead of smearing.
+
+    In-world this is the pole shift: the Doom left the axis in a new place,
+    and north is not where it was.
+    """
+    h, w = z.shape
+    lat = np.linspace(np.pi / 2, -np.pi / 2, h)[:, None]
+    lon = np.linspace(-np.pi, np.pi, w, endpoint=False)[None, :]
+
+    cl = np.cos(lat)
+    v = np.stack([
+        np.broadcast_to(cl * np.cos(lon), (h, w)),
+        np.broadcast_to(cl * np.sin(lon), (h, w)),
+        np.broadcast_to(np.broadcast_to(np.sin(lat), (h, 1)), (h, w)),
+    ])
+
+    a, b, g = np.radians([alpha, beta, gamma])
+    Rz = np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [0, 0, 1]])
+    Ry = np.array([[np.cos(b), 0, np.sin(b)], [0, 1, 0], [-np.sin(b), 0, np.cos(b)]])
+    Rx = np.array([[1, 0, 0], [0, np.cos(g), -np.sin(g)], [0, np.sin(g), np.cos(g)]])
+    R = Rz @ Ry @ Rx
+
+    vr = np.tensordot(R, v, axes=(1, 0))
+    lat2 = np.arcsin(np.clip(vr[2], -1, 1))
+    lon2 = np.arctan2(vr[1], vr[0])
+
+    yy = (np.pi / 2 - lat2) / np.pi * (h - 1)
+    xx = (lon2 + np.pi) / (2 * np.pi) * w
+    return sample(z, yy, xx)
+
+
+def hotspot_chains(z, rng, n_chains, length, strength):
+    """Volcanic island chains, Hawaii-style: a plate creeping over a fixed
+    mantle plume leaves a line of islands, oldest and lowest at one end."""
+    h, w = z.shape
+    out = z.copy()
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    latw = latitude_weight(h, w)
+
+    for _ in range(n_chains):
+        y0 = rng.uniform(h * 0.15, h * 0.85)
+        x0 = rng.uniform(0, w)
+        ang = rng.uniform(0, 2 * np.pi)
+        n_isl = rng.integers(5, 13)
+        for i in range(n_isl):
+            t = i / max(n_isl - 1, 1)
+            cy = y0 + np.sin(ang) * length * t
+            cx = x0 + np.cos(ang) * length * t
+            if not (0 < cy < h):
+                break
+            r = rng.uniform(3, 9) * (1.0 - 0.5 * t)
+            dx = (np.mod(xx - cx + w / 2, w) - w / 2) * latw
+            d2 = dx ** 2 + (yy - cy) ** 2
+            out += strength * (1.0 - 0.55 * t) * np.exp(-d2 / (2 * r ** 2))
+    return out
+
+
+def orogeny(z, rng, field, strength):
+    """Mountain belts where platforms collide. Real ranges sit along plate
+    margins, not scattered at random — so uplift follows the steepest
+    gradients of the platform field, giving coastal cordilleras and interior
+    spines rather than noise."""
+    gy, gx = np.gradient(ndimage.gaussian_filter(field, 6, mode=("nearest", "wrap")))
+    belt = np.sqrt(gx ** 2 + gy ** 2)
+    belt /= belt.max() or 1
+    belt = belt ** 1.6
+    ridged = 1.0 - np.abs(fbm(z.shape, rng, octaves=4, base=30))
+    return z + strength * belt * (0.55 + 0.45 * np.clip(ridged, 0, 1))
+
+
 def impact(z, rng, lat_deg, lon_deg, radius_px, depth):
     """Oceanic strike. Excavates a crater, throws up a ring, and radiates
     fracture lines that later become rifts and island arcs."""
@@ -142,7 +218,7 @@ def continental_platforms(z, rng, strength, scale, separation=1.0):
     # wide while continents stay compact.
     up = np.clip(field, 0, None)
     down = np.clip(field, None, 0)
-    return z + strength * (up + down * (0.6 + 0.9 * separation))
+    return z + strength * (up + down * (0.6 + 0.9 * separation)), field
 
 
 def drown_a_continent(z, rank=1, margin=180.0):
@@ -258,17 +334,25 @@ def render_heightmap(z):
 
 def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           platform=2600.0, platform_scale=0.075, separation=1.0,
-          lost_continent=True, lost_rank=1):
+          lost_continent=True, lost_rank=1, rotation=(121.0, 47.0, 29.0),
+          hotspots=6, mountains=1.0):
     rng = np.random.default_rng(seed)
     z = load_earth()
-    z = np.roll(z, rng.integers(W // 6, W - W // 6), axis=1)   # break Earth's look
-    if rng.random() < 0.5:
-        z = np.fliplr(z)
-    z = np.flipud(z)                                   # disguise: hemispheres swap
+
+    # --- the pole shift -------------------------------------------------
+    # A true rotation of the sphere about an arbitrary axis. Land moves
+    # between the tropics and the poles; north is no longer where it was.
+    z = spherical_rotate(z, *rotation)
+
     z = impact(z, rng, impact_lat, impact_lon, radius_px=W * 0.035, depth=4200)
     z = tectonic_warp(z, rng, amplitude=W * warp, base_scale=W * 0.060)
-    z = continental_platforms(z, rng, platform, W * platform_scale, separation)
+    z, field = continental_platforms(z, rng, platform, W * platform_scale,
+                                     separation)
+    z = orogeny(z, rng, field, strength=2100 * mountains)
     z = rifting(z, rng, strength=2400 * rift, n_rifts=4)
+    if hotspots:
+        z = hotspot_chains(z, rng, n_chains=hotspots, length=W * 0.055,
+                           strength=2500)
     z = erode(z, rng)
 
     lost = None
@@ -299,13 +383,18 @@ def main():
     p.add_argument("--no-lost-continent", action="store_true")
     p.add_argument("--lost-rank", type=int, default=1)
     p.add_argument("--width", type=int, default=2880)
+    p.add_argument("--rot", type=float, nargs=3, default=[121.0, 47.0, 29.0],
+                   help="pole-shift rotation: three Euler angles in degrees")
+    p.add_argument("--hotspots", type=int, default=6)
+    p.add_argument("--mountains", type=float, default=1.0)
     p.add_argument("--out", default="world")
     a = p.parse_args()
     set_resolution(a.width)
 
     z, lost = build(a.seed, a.land_fraction, a.warp, a.rift,
                     a.impact_lat, a.impact_lon, a.platform, a.platform_scale,
-                    a.separation, not a.no_lost_continent, a.lost_rank)
+                    a.separation, not a.no_lost_continent, a.lost_rank,
+                    tuple(a.rot), a.hotspots, a.mountains)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")

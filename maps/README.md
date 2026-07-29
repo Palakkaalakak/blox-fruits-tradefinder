@@ -11,13 +11,22 @@ This is not a geophysical simulation. A true finite-element model of crustal res
 | Stage | What it does | In-world meaning |
 |---|---|---|
 | **Load** | Real Earth elevation + bathymetry | The world before |
-| **Roll / flip** | Longitudinal shift, hemisphere inversion | Disguise. Geologically meaningless, visually essential |
+| **Pole shift** | True rotation of the sphere about an arbitrary axis (three Euler angles), sampled through 3D unit vectors so the poles don't smear | **The Doom moved the axis.** Land changes latitude — tropics go under ice, polar waste becomes temperate. This is why the world had to be *rediscovered*: every chart, almanac and compass became wrong at once |
 | **Impact** | Crater, ejecta ring, radial fracture spokes | The strike |
 | **Tectonic warp** | Multi-octave domain warping — every point displaced by a smooth vector field | Deep-time deformation, "baked in" for the look. *No such time passed in-story* |
-| **Platforms** | Broad regions ride high or founder, sharpened with `tanh` | Isostatic reorganisation. This is what keeps land in coherent continents rather than confetti |
+| **Platforms** | Broad regions ride high or founder, split hard by `separation` | Isostatic reorganisation. Keeps land in coherent continents divided by wide deep ocean |
+| **Orogeny** | Uplift along the steepest gradients of the platform field, with ridged noise | Mountain belts at plate margins — coastal cordilleras and interior spines, not scattered lumps |
 | **Rifting** | Long fracture zones that open seas or raise arcs | New straits, new island chains |
+| **Hotspots** | Linear chains of islands, decaying in size along their length | Mantle plumes under a creeping plate. Hawaii-style archipelagos out in open ocean |
 | **Erosion** | Smoothing plus low-amplitude fractal detail | Aged coastlines |
 | **Drowning** | Sea level set to a target land fraction, area-weighted | Shelves drown, basins rise |
+| **Lost continent** | One platform sunk just below sea level | Earth's landmass that never came back up |
+
+### Why the pole shift matters more than it looks
+
+The first version only *rolled* longitude and flipped the image. That disguises Earth but leaves every landmass at its original latitude, so climate and biome logic stay Earth's — which is exactly why early candidates still felt like Earth wearing a hat.
+
+A true spherical rotation moves land between the tropics and the poles. Nothing is at the latitude it was. And because it's canon — the Doom moved the axis — the map is not a trick played on the reader but a fact about the world.
 
 ### Why the parameters matter
 

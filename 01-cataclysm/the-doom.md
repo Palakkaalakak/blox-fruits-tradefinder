@@ -22,6 +22,26 @@ An asteroid strikes deep ocean. Three consequences, on three timescales.
 
 **Over decades to centuries — the Drowning.** The impact destabilises crust already under strain. Continental shelves subside; ocean floor rises elsewhere; meltwater and displaced ocean redistribute. The sea takes some lands entirely and abandons others. The world's coastline is not merely altered but *unrecognisable*, and it keeps moving for generations — which is precisely why nobody could map the world until the Rediscovery. There was no stable world to map.
 
+## The pole shift
+
+**The Doom moved the poles.** The axis the world turns on is not the axis it turned on before, and the magnetic poles reversed with it — north is not where north was.
+
+This is the piece that makes everything else *fit*.
+
+**It justifies the map.** The world's landmasses are not merely drowned and deformed; they sit at latitudes they never occupied. A region that was tropical is under ice. A polar waste is now temperate and full of people. The map is Earth's terrain at Earth's latitudes **rotated onto a new axis** — which is why nothing is where a reader expects, without a single invented landform.
+
+**It explains why the Dark Age was so dark.** Every inherited assumption about the world became wrong at once. Not just the coastlines: the seasons, the star charts, the compass, the growing seasons, the winds, the currents. A surviving farmer with a surviving almanac had a book of lies. A surviving navigator with a surviving chart and a compass had two instruments that disagreed with the sky and with each other. **This is why the world had to be *rediscovered* rather than merely revisited** — knowledge survived and was worthless, which is the Doom's whole signature applied to geography.
+
+**It gives the classical inheritance a wound.** The preserved books describe a world that no longer exists: a Mediterranean at a latitude nothing is at now, stars in the wrong quarter of the sky. Scholars can read every word and cannot place a single location. This is one more reason the lost continent is a live argument — reconciling the old texts with the present map is an entire discipline, and it does not fully work.
+
+**And it seeds a genuinely eerie detail:** somewhere there are old star charts that match nothing overhead. A child could notice that. Most people never think about it at all.
+
+### Open
+- How far did the axis move? (The generator uses roughly 121° of spin with a ~47° tilt — a violent shift.)
+- Did the magnetic reversal happen at the same moment or over centuries? (Real reversals take millennia; a fast one is the more dramatic choice and nobody in-world could prove otherwise.)
+- Is there a surviving pre-Doom star chart, and who has it?
+- Does any faith hold that the sky itself was punished?
+
 ## Why this satisfies every constraint
 
 **Map freedom, honestly earned.** The landmasses are rearranged not by moving rock — which no real process does quickly — but by changing *which rock is above water*. Drown the continental shelves and expose the shallow basins and the map is transformed beyond recognition while remaining geologically sound. Draw whatever you like; it is defensible.
