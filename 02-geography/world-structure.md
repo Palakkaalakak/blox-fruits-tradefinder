@@ -12,6 +12,17 @@
 | **Réselia** | The other gun-bearing continent and the other conqueror. Opàl is Réselian — a *continental* identity, the scale of saying "European", and therefore a vague answer to give a stranger. |
 | **The third continent** *(unnamed)* | Homeland of the **Elsring**, exterminated ~1,000 years ago during the Rediscovery. Today: **a mix — some states independent, some still held as colonies.** The borders between free and held are the world's rawest wounds. |
 
+## Arrangement — diagonal / offset
+
+Lidia and Réselia lie at an angle to one another, overlapping only where they meet at the Corridor. Each therefore reaches latitudes the other does not.
+
+This is the untidy, Earth-like option, and it buys a great deal:
+
+- **Each continent has internal climate diversity** — a cold end and a warm end — so each contains regions with genuinely different crops, economies and temperaments. States fight their neighbours over grain and grazing before they fight across the ocean.
+- **Neither power is a straightforward mirror of the other.** Their rivalry is asymmetric, which is more interesting than symmetry: they want different things and are strong in different ways.
+- **The Corridor is the one place they touch**, which concentrates all contact — trade, war, migration, disease — into a single strait. Cevine sits on that pinch point.
+- The **Marreni Sea of the South** then lies off whichever continent extends furthest toward the equator.
+
 ## The Almani Corridor
 
 **A strait between two continents** — the narrow water separating Lidia and Réselia, and the only practical passage between them. A Bosphorus: small, priceless, permanently contested.
