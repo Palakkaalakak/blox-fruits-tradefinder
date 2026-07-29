@@ -316,9 +316,15 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
             cy, cx = ys.mean(), xs.mean()
             extent = max(np.sqrt(sizes[t] / np.pi), 6.0)
 
-            # cells scale with the continent, so small landmasses are not
-            # pulverised while large ones stay properly fragmented
-            k = int(np.clip(cells * (sizes[t] / (0.02 * land.size)), 24, 1400))
+            # Fragment size must be CONSTANT across the world, so every
+            # continent is cracked to the same grain. That means the seed
+            # count has to scale with the area the lattice covers - a fixed
+            # floor made small continents get cells far larger than
+            # themselves, which is why they came out barely fractured while
+            # the big ones shattered.
+            target_cell_area = (0.02 * h * w) / max(cells, 1)
+            disc = np.pi * (2.1 * extent) ** 2
+            k = int(np.clip(disc / max(target_cell_area, 1.0), 8, 4000))
             n_rings = max(int(np.sqrt(k) * 1.5), 4)
 
             for ring in range(n_rings):
@@ -381,8 +387,17 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
         # elevation. A ridge stands proud of its neighbourhood and deflects
         # the cracks; a high plateau does not, and fractures like anywhere
         # else.
-        broad = ndimage.gaussian_filter(z, max(w * 0.022, 6.0),
-                                        mode=("nearest", "wrap"))
+        # Prominence must be measured against nearby LAND, not nearby ocean.
+        # Smoothing z directly drags the reference level down into the sea
+        # around any small landmass, so every point on it registers as a peak
+        # and the whole island refuses to fracture. Normalised convolution -
+        # smoothing z over the land mask and dividing by the smoothed mask -
+        # gives the local land elevation instead.
+        sig = max(w * 0.022, 6.0)
+        lm = land.astype(np.float32)
+        num = ndimage.gaussian_filter(z * lm, sig, mode=("nearest", "wrap"))
+        den = ndimage.gaussian_filter(lm, sig, mode=("nearest", "wrap"))
+        broad = num / np.maximum(den, 1e-3)
         prom = z - broad
         pl = prom[land]
         hi = (np.percentile(pl, 88) if pl.size else 1.0) or 1.0
@@ -613,36 +628,57 @@ def render_heightmap(z):
 
 # ---------------------------------------------------------------- main
 
-def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
-          platform=2600.0, platform_scale=0.075, separation=1.0,
-          lost_continent=True, lost_rank=1, rotation=(121.0, 47.0, 29.0),
-          hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
-          seas=4, sunder=False, sunder_width=0.0045,
+def build(seed, land_fraction, warp, rift, impact_lat=-48.0, impact_lon=0.0,
+          platform=0.0, platform_scale=0.072, separation=1.05,
+          lost_continent=True, lost_rank=1, rotation=(203.0, 35.0, 55.0),
+          hotspots=4, mountains=0.6, fractures=0, fracture_width=0.019,
+          seas=2, sunder=False, sunder_width=0.0045,
           crazing=1.0, crazing_scales=3, crazing_sharp=14.0,
-          crazing_cells=140, mountain_avoidance=1.0, crack_smoothing=1.6,
+          crazing_cells=60, mountain_avoidance=0.6, crack_smoothing=0.5,
           crack_width=0.0020, interior_mountains=0.0, polar_damping=0.0):
+    """Build a world in three stages.
+
+    STAGE 1 - THE DOOM. Earth, and every calamity at once. Earth already has
+    what this world needs: several large-but-not-huge continents with
+    coastlines that look like coastlines, because they are. Earlier versions
+    invented landmasses from noise instead and got stringy, isolated shapes -
+    throwing away the best input available. The continents here ARE Earth's:
+    moved, struck and drowned, not replaced.
+
+    STAGE 2 - EDITS. Hand authoring: the Almani Corridor, and anything else
+    the story requires that geology will not supply by chance.
+
+    STAGE 3 - FRACTURES. The crazing, applied last, to whatever land the Doom
+    and the editing left behind.
+    """
     rng = np.random.default_rng(seed)
+
+    # ============ STAGE 1: THE DOOM ===================================
+    # Not a sequence of separate disasters - one confluence. The pole
+    # reversal that was already due, and then everything else on top of it.
     z = load_earth()
 
-    # --- the pole shift -------------------------------------------------
-    # A true rotation of the sphere about an arbitrary axis. Land moves
-    # between the tropics and the poles; north is no longer where it was.
-    z = spherical_rotate(z, *rotation)
+    z = spherical_rotate(z, *rotation)                    # the axis moves
+    z = impact(z, rng, impact_lat, impact_lon,            # the strike
+               radius_px=W * 0.035, depth=4200)
 
-    z = impact(z, rng, impact_lat, impact_lon, radius_px=W * 0.035, depth=4200)
+    # the strained crust deforms: enough to make the world unrecognisable,
+    # not enough to shred continents into filaments
     z = tectonic_warp(z, rng, amplitude=W * warp, base_scale=W * 0.060)
-    z, field = continental_platforms(z, rng, platform, W * platform_scale,
-                                     separation)
-    z = orogeny(z, rng, field, strength=2100 * mountains,
-                interior=interior_mountains)
 
-    if polar_damping:
-        # Optional: in equirectangular projection the poles stretch across the
-        # whole map width, so a small polar cap reads as an enormous continent.
-        latf = np.abs(np.linspace(90.0, -90.0, H))[:, None]
-        polar = np.clip((latf - 52.0) / 34.0, 0.0, 1.0) ** 1.4
-        z = z - 3400.0 * polar_damping * polar
-    z = rifting(z, rng, strength=2400 * rift, n_rifts=4)
+    field = None
+    if platform:
+        z, field = continental_platforms(z, rng, platform, W * platform_scale,
+                                         separation)
+    if mountains:
+        if field is None:
+            field = ndimage.gaussian_filter(z, W * 0.02,
+                                            mode=("nearest", "wrap"))
+            field = field / (np.abs(field).std() or 1.0)
+        z = orogeny(z, rng, field, strength=2100 * mountains,
+                    interior=interior_mountains)
+    if rift:
+        z = rifting(z, rng, strength=2400 * rift, n_rifts=3)
     if fractures:
         z = fracture(z, rng, n_cuts=fractures, width=W * fracture_width,
                      depth=5200)
@@ -651,20 +687,26 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
     if hotspots:
         z = hotspot_chains(z, rng, n_chains=hotspots, length=W * 0.055,
                            strength=2500)
+    if polar_damping:
+        latf = np.abs(np.linspace(90.0, -90.0, H))[:, None]
+        polar = np.clip((latf - 52.0) / 34.0, 0.0, 1.0) ** 1.4
+        z = z - 3400.0 * polar_damping * polar
+
     z = erode(z, rng)
+    z = set_sea_level(z, land_fraction)                   # the Drowning
 
     lost = None
     if lost_continent:
-        # Sink one platform before the final sea level is fixed, then re-level
-        # so the intended land fraction still holds.
-        z = set_sea_level(z, land_fraction)
         z, lost = drown_a_continent(z, rank=lost_rank)
         z = set_sea_level(z, land_fraction)
-    else:
+
+    # ============ STAGE 2: EDITS ======================================
+    # Hand authoring happens on the exported heightmap - see maps/README.md.
+    if sunder:
+        z, _ = sunder_pair(z, rng, rank=0, width_px=W * sunder_width)
         z = set_sea_level(z, land_fraction)
-    # Crazing must come AFTER the datum is fixed: the fractures are cut to an
-    # absolute depth below sea level, so if the sea level is recomputed
-    # afterwards the channels simply fill back in.
+
+    # ============ STAGE 3: FRACTURES ==================================
     if crazing:
         z = fracture_network(z, rng, scales=crazing_scales,
                              depth=3100, density=crazing,
@@ -674,10 +716,6 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
                              smoothing=crack_smoothing,
                              crack_width=crack_width)
 
-    corridor = None
-    if sunder:
-        z, corridor = sunder_pair(z, rng, rank=0, width_px=W * sunder_width)
-        z = set_sea_level(z, land_fraction)
     z = despeckle(z)
     return z, lost
 
@@ -685,10 +723,10 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--seed", type=int, default=7)
-    p.add_argument("--land-fraction", type=float, default=0.25)
+    p.add_argument("--land-fraction", type=float, default=0.29)
     p.add_argument("--warp", type=float, default=0.038,
                    help="tectonic displacement, as a fraction of map width")
-    p.add_argument("--rift", type=float, default=0.6)
+    p.add_argument("--rift", type=float, default=0.35)
     p.add_argument("--platform", type=float, default=2600.0)
     p.add_argument("--platform-scale", type=float, default=0.072)
     p.add_argument("--impact-lat", type=float, default=-46.0,
@@ -701,11 +739,11 @@ def main():
     p.add_argument("--width", type=int, default=2880)
     p.add_argument("--rot", type=float, nargs=3, default=[121.0, 47.0, 29.0],
                    help="pole-shift rotation: three Euler angles in degrees")
-    p.add_argument("--hotspots", type=int, default=6)
-    p.add_argument("--mountains", type=float, default=1.0)
-    p.add_argument("--fractures", type=int, default=7)
+    p.add_argument("--hotspots", type=int, default=4)
+    p.add_argument("--mountains", type=float, default=0.6)
+    p.add_argument("--fractures", type=int, default=0)
     p.add_argument("--fracture-width", type=float, default=0.020)
-    p.add_argument("--seas", type=int, default=4)
+    p.add_argument("--seas", type=int, default=2)
     p.add_argument("--sunder", action="store_true",
                    help="cut a continent in two (OFF by default: the Almani "
                         "Corridor is hand-authored, see maps/README.md)")
