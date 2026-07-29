@@ -22,6 +22,16 @@ So:
 
 The technical distinction that took several attempts to get right in the generator is the same one that matters in the fiction: the fractures do not *erode the shores*, they **cut clean through everything** — highlands, plains and coasts alike. The crust parted; it did not care what was standing on top of it. A mountain range is fractured exactly as thoroughly as a beach.
 
+## They are straight
+
+Fractures do not meander. **Brittle material breaks in straight lines that meet at angular junctions**, enclosing polygonal fragments — crazed glass, dried mud, cracked rock, cooling basalt. Every one of those breaks the same way, and so did the crust.
+
+This is what makes the world unmistakable at a glance, and it's the opposite of how a river system looks. A river wanders because water follows the path of least resistance across a gradient over ages. A fracture is a *failure*: it propagates in an instant along the line of greatest stress, and that line is straight.
+
+So the map reads as a shattered pane. Fragments are angular. Coasts have long straight runs meeting at sharp corners. Channels cross one another at abrupt angles instead of merging in smooth confluences. Nothing curves except where a fracture happens to open onto the old, water-worn coastline of the world before.
+
+*(In generation terms: the network is built from Voronoi cell walls, not noise. Several earlier attempts used ridged noise and produced meandering root-like curves — the wrong model, and no amount of tuning made it look fractured. The lesson generalises: match the algorithm to the physics you're imitating.)*
+
 ## They are not rivers
 
 This is the point, and it should be established early and never explained twice.

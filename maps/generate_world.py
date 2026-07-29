@@ -261,8 +261,8 @@ def fracture(z, rng, n_cuts, width, depth):
     return out
 
 
-def fracture_network(z, rng, scales=5, base_scale=None, depth=5200,
-                     density=1.0, sharpness=7.0, land_only=True):
+def fracture_network(z, rng, scales=3, base_scale=None, depth=5200,
+                     density=1.0, sharpness=7.0, land_only=True, cells=140):
     """The Drowned Fractures — the world's most distinctive feature.
 
     When the crust gave way, it did not open a few great rifts. It *crazed*,
@@ -278,24 +278,40 @@ def fracture_network(z, rng, scales=5, base_scale=None, depth=5200,
     fractures, not straits.
     """
     h, w = z.shape
-    base_scale = base_scale or w * 0.022
 
-    # Accumulate crack intensity across scales. Coarse scales give the trunk
-    # channels, fine scales the rootlets, and because every scale uses several
-    # independent fields the filaments cross and interlock rather than lying
-    # in tidy parallel lines.
+    # STRAIGHT cracks, not meandering ones.
+    #
+    # Brittle material does not craze in curves. Glass, dried mud and rock
+    # break along straight segments that meet at angular junctions, enclosing
+    # polygonal fragments. That is a Voronoi diagram, not a noise field — and
+    # using ridged noise here was simply the wrong model, which is why no
+    # amount of tuning ever made it look fractured.
+    #
+    # A pixel lies on a crack when it is nearly equidistant from its two
+    # nearest fracture nuclei: those loci are exactly the straight cell walls.
+    from scipy.spatial import cKDTree
+
     crack = np.zeros((h, w), dtype=np.float32)
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    pts_grid = np.column_stack([yy.ravel(), xx.ravel()])
 
+    n_cells = max(int(cells), 8)
     for i in range(scales):
-        scale = max(base_scale * (0.62 ** i), 1.6)
-        reps = 3
-        for _ in range(reps):
-            n = smooth_noise((h, w), scale, rng)
-            # Ridged transform: the zero-contours of a smooth field are thin
-            # filaments that naturally branch, meander and rejoin.
-            rid = 1.0 - np.abs(n) / (np.abs(n).std() * 1.05 + 1e-9)
-            rid = np.clip(rid, 0.0, 1.0) ** (sharpness + 1.4 * i)
-            crack = np.maximum(crack, rid * (0.82 ** i))
+        k = int(n_cells * (2.6 ** i))
+        py = rng.uniform(0, h, k)
+        px = rng.uniform(0, w, k)
+        # Wrap in longitude so cracks cross the seam cleanly
+        seeds = np.column_stack([
+            np.concatenate([py, py, py]),
+            np.concatenate([px - w, px, px + w]),
+        ])
+        d, _ = cKDTree(seeds).query(pts_grid, k=2, workers=-1)
+        gap = (d[:, 1] - d[:, 0]).reshape(h, w)
+
+        # Width of the wall, in pixels, shrinking with each finer generation
+        width = max(w * 0.0016 * (0.72 ** i), 0.9)
+        wall = np.clip(1.0 - gap / (2.0 * width), 0.0, 1.0)
+        crack = np.maximum(crack, wall * (0.88 ** i))
 
     # CUT, don't subtract.
     #
@@ -305,7 +321,7 @@ def fracture_network(z, rng, scales=5, base_scale=None, depth=5200,
     # was: the crust parted, and the sea came in. So the channel is forced
     # below sea level wherever the crack is strong enough, through highlands
     # and lowlands alike.
-    m = np.clip((crack - 0.34) / 0.30, 0.0, 1.0) * np.clip(density, 0, 3)
+    m = np.clip((crack - (1.0 - 0.55 * np.clip(density, 0, 3))) / 0.35, 0.0, 1.0)
     m = np.clip(m, 0.0, 1.0)
     m = m * m * (3 - 2 * m)                      # smoothstep for clean walls
 
@@ -501,8 +517,6 @@ def render_colour(z):
                     0.55, 1.45)
     img = np.clip(img * shade[..., None], 0, 255).astype(np.uint8)
 
-    coast = np.abs(ndimage.gaussian_filter((z >= 0).astype(float), 0.8) - 0.5) < 0.22
-    img[coast] = (245, 240, 225)
     return Image.fromarray(img)
 
 
@@ -524,7 +538,8 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           lost_continent=True, lost_rank=1, rotation=(121.0, 47.0, 29.0),
           hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
           seas=4, sunder=False, sunder_width=0.0045,
-          crazing=1.0, crazing_scales=5, crazing_sharp=14.0):
+          crazing=1.0, crazing_scales=3, crazing_sharp=14.0,
+          crazing_cells=140):
     rng = np.random.default_rng(seed)
     z = load_earth()
 
@@ -563,8 +578,8 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
     # afterwards the channels simply fill back in.
     if crazing:
         z = fracture_network(z, rng, scales=crazing_scales,
-                             base_scale=W * 0.022, depth=2200,
-                             density=crazing, sharpness=crazing_sharp)
+                             depth=2200, density=crazing,
+                             sharpness=crazing_sharp, cells=crazing_cells)
 
     corridor = None
     if sunder:
@@ -585,7 +600,7 @@ def main():
     p.add_argument("--platform-scale", type=float, default=0.075)
     p.add_argument("--impact-lat", type=float, default=-46.0,
                    help="the Marreni Sea is southern, per canon")
-    p.add_argument("--impact-lon", type=float, default=-150.0)
+    p.add_argument("--impact-lon", type=float, default=-25.0)
     p.add_argument("--separation", type=float, default=1.0,
                    help="how decisively continents are split by deep ocean")
     p.add_argument("--no-lost-continent", action="store_true")
@@ -604,7 +619,9 @@ def main():
     p.add_argument("--sunder-width", type=float, default=0.0045)
     p.add_argument("--crazing", type=float, default=1.0,
                    help="density of drowned saltwater fracture channels")
-    p.add_argument("--crazing-scales", type=int, default=5)
+    p.add_argument("--crazing-scales", type=int, default=3)
+    p.add_argument("--crazing-cells", type=int, default=140,
+                   help="number of fracture nuclei at the coarsest generation")
     p.add_argument("--crazing-sharp", type=float, default=14.0)
     p.add_argument("--out", default="world")
     a = p.parse_args()
@@ -616,7 +633,8 @@ def main():
                     tuple(a.rot), a.hotspots, a.mountains,
                     a.fractures, a.fracture_width, a.seas,
                     a.sunder, a.sunder_width,
-                    a.crazing, a.crazing_scales, a.crazing_sharp)
+                    a.crazing, a.crazing_scales, a.crazing_sharp,
+                    a.crazing_cells)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
