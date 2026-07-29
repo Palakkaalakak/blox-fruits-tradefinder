@@ -221,6 +221,84 @@ def continental_platforms(z, rng, strength, scale, separation=1.0):
     return z + strength * (up + down * (0.6 + 0.9 * separation)), field
 
 
+def fracture(z, rng, n_cuts, width, depth):
+    """Break continents into subcontinents with WIDE seaways.
+
+    The distinction that matters: thin cuts give a stringy, lacy coastline —
+    Indonesia. Wide cuts give chunky landmasses separated by real seas, with
+    solid interiors — Europe, or Westeros and Essos. So these troughs are
+    broad and smooth, and they follow meandering paths rather than straight
+    lines, producing gulfs, inland seas and short crossings between
+    neighbours who are properly separated but not isolated.
+    """
+    h, w = z.shape
+    out = z.copy()
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    latw = latitude_weight(h, w)
+
+    for _ in range(n_cuts):
+        # A meandering path across the map
+        y0 = rng.uniform(h * 0.12, h * 0.88)
+        x0 = rng.uniform(0, w)
+        ang = rng.uniform(0, 2 * np.pi)
+        wobble = rng.uniform(-0.5, 0.5)
+        length = rng.uniform(w * 0.18, w * 0.42)
+        wid = width * rng.uniform(0.7, 1.5)
+
+        acc = np.full((h, w), 1e9, dtype=np.float32)
+        steps = 26
+        for i in range(steps):
+            t = i / (steps - 1)
+            a = ang + wobble * np.sin(t * 2.6)
+            cy = y0 + np.sin(a) * length * t
+            cx = x0 + np.cos(a) * length * t
+            if not (-h * 0.1 < cy < h * 1.1):
+                break
+            dx = (np.mod(xx - cx + w / 2, w) - w / 2) * latw
+            acc = np.minimum(acc, np.sqrt(dx ** 2 + (yy - cy) ** 2))
+
+        out -= depth * np.exp(-(acc / wid) ** 2)
+    return out
+
+
+def inland_seas(z, rng, n, radius, depth):
+    """Broad depressions in continental interiors: epicontinental seas and
+    great lakes. Gives interiors coastline without breaking them apart."""
+    h, w = z.shape
+    out = z.copy()
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    latw = latitude_weight(h, w)
+    for _ in range(n):
+        cy = rng.uniform(h * 0.18, h * 0.82)
+        cx = rng.uniform(0, w)
+        r = radius * rng.uniform(0.6, 1.6)
+        dx = (np.mod(xx - cx + w / 2, w) - w / 2) * latw
+        d2 = dx ** 2 + (yy - cy) ** 2
+        blob = np.exp(-d2 / (2 * r ** 2))
+        blob *= (0.7 + 0.6 * fbm((h, w), rng, octaves=3, base=40))
+        out -= depth * blob
+    return out
+
+
+def despeckle(z, min_fraction=0.00012):
+    """Delete the confetti.
+
+    Hundreds of one-pixel islands read as noise, not archipelago, and they are
+    what makes a map look procedurally generated. Anything below the threshold
+    is sunk. Real island chains built by hotspots and rifting survive because
+    they are larger than this."""
+    land = z >= 0
+    lab, n = ndimage.label(land, structure=np.ones((3, 3)))
+    if n == 0:
+        return z
+    sizes = np.bincount(lab.ravel())
+    min_px = max(int(min_fraction * land.size), 6)
+    doomed = np.isin(lab, np.where(sizes < min_px)[0]) & land
+    z = z.copy()
+    z[doomed] = -60.0
+    return z
+
+
 def drown_a_continent(z, rank=1, margin=180.0):
     """The lost continent.
 
@@ -335,7 +413,8 @@ def render_heightmap(z):
 def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           platform=2600.0, platform_scale=0.075, separation=1.0,
           lost_continent=True, lost_rank=1, rotation=(121.0, 47.0, 29.0),
-          hotspots=6, mountains=1.0):
+          hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
+          seas=4):
     rng = np.random.default_rng(seed)
     z = load_earth()
 
@@ -350,6 +429,11 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
                                      separation)
     z = orogeny(z, rng, field, strength=2100 * mountains)
     z = rifting(z, rng, strength=2400 * rift, n_rifts=4)
+    if fractures:
+        z = fracture(z, rng, n_cuts=fractures, width=W * fracture_width,
+                     depth=5200)
+    if seas:
+        z = inland_seas(z, rng, n=seas, radius=W * 0.022, depth=3400)
     if hotspots:
         z = hotspot_chains(z, rng, n_chains=hotspots, length=W * 0.055,
                            strength=2500)
@@ -364,6 +448,7 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
         z = set_sea_level(z, land_fraction)
     else:
         z = set_sea_level(z, land_fraction)
+    z = despeckle(z)
     return z, lost
 
 
@@ -387,6 +472,9 @@ def main():
                    help="pole-shift rotation: three Euler angles in degrees")
     p.add_argument("--hotspots", type=int, default=6)
     p.add_argument("--mountains", type=float, default=1.0)
+    p.add_argument("--fractures", type=int, default=7)
+    p.add_argument("--fracture-width", type=float, default=0.020)
+    p.add_argument("--seas", type=int, default=4)
     p.add_argument("--out", default="world")
     a = p.parse_args()
     set_resolution(a.width)
@@ -394,7 +482,8 @@ def main():
     z, lost = build(a.seed, a.land_fraction, a.warp, a.rift,
                     a.impact_lat, a.impact_lon, a.platform, a.platform_scale,
                     a.separation, not a.no_lost_continent, a.lost_rank,
-                    tuple(a.rot), a.hotspots, a.mountains)
+                    tuple(a.rot), a.hotspots, a.mountains,
+                    a.fractures, a.fracture_width, a.seas)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")
