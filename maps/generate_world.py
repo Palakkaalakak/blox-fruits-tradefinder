@@ -346,11 +346,34 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
     m = np.clip((crack - (1.0 - 0.62 * np.clip(density, 0, 3))) / 0.30, 0.0, 1.0)
     m = m * m * (3 - 2 * m)
 
-    # --- fractures go around mountains, not through them --------------
+    # --- fractures go AROUND mountains, not faintly across them -------
+    #
+    # Attenuating the network over high ground leaves a dry ghost of a crack
+    # running across the range, which is wrong: a crack front does not cross a
+    # mountain root faintly, it deflects and passes around it.
+    #
+    # So the crack field is warped by the terrain. Every sample point is
+    # displaced up the local elevation gradient by an amount proportional to
+    # the relief, which pushes the fracture lines bodily off the highlands and
+    # bends them around the flanks. Then the last of the network is cut dead
+    # above the ridge threshold, so no crack survives on the range at all.
     if mountain_avoidance and land.any():
-        hi = np.percentile(z[land], 88) or 1.0
+        hi = np.percentile(z[land], 86) or 1.0
         relief = np.clip(z / hi, 0.0, 1.0)
-        m *= np.clip(1.0 - mountain_avoidance * relief ** 0.8, 0.05, 1.0)
+
+        es = ndimage.gaussian_filter(z, max(w * 0.006, 2.0),
+                                     mode=("nearest", "wrap"))
+        gy, gx = np.gradient(es)
+        mag = np.sqrt(gy ** 2 + gx ** 2) + 1e-6
+        gy, gx = gy / mag, gx / mag
+
+        push = mountain_avoidance * (w * 0.010) * relief ** 0.7
+        yy_w = np.clip(yy + push * gy, 0, h - 1.001)
+        xx_w = xx + push * gx
+        m = sample(m, yy_w, xx_w)
+
+        # nothing at all on the high ground
+        m *= np.clip(1.0 - (relief - 0.42) / 0.22, 0.0, 1.0)
 
     if land_only:
         near_land = ndimage.gaussian_filter(land.astype(np.float32), 2.0,

@@ -59,6 +59,10 @@ A fracture has no upstream. Follow one inland far enough and it simply ends — 
 
 **Bridges are enormous.** A bridge over a tidal salt channel is infrastructure, strategy and status at once. Who built it, who maintains it, who may cross it, and what happens when it is dropped.
 
+**The mountains are the only unbroken ground.** Fractures deflect around a mountain root rather than crossing it — the crack front takes the weakness, and a range is not weak. So the highlands came through the Doom whole, and they are the only places in the world where you can travel any distance without a boat.
+
+That inverts the usual logic of terrain completely. In our world mountains are the barrier and the lowland is the road. **Here the mountains are the roads** — the only continuous land in existence — and the fertile lowlands are the impassable part, diced into fragments by salt channels. Highland routes are therefore strategic in a way no lowland road can be: an army that wants to march rather than sail must go up. Passes are worth more than ports to anyone without a fleet. And the peoples of the high country are the only ones who have never needed boats, which will have made them very strange to everybody else.
+
 **The land remembers the disaster in its shape.** Nobody has to be told what the fractures are. Everyone knows. It is simply the shape of the world — the Doom written across every continent, so ubiquitous that no one sees it any more. Which is exactly how real trauma sits in a landscape.
 
 ## Texture to draw on
