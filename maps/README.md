@@ -66,6 +66,16 @@ The generator is the **base**, not the answer. The full route:
 
 Do not skip stage 3 or fight it. The generator exists to give you a plausible planet to *edit*, so that the places the story needs sit inside a world that looks like it grew rather than one that was arranged.
 
+### Why the Corridor is not generated
+
+There is a `sunder_pair` stage that cuts a continent in two. **It is off by default and should stay off.**
+
+It was an attempt to generate the Corridor automatically, and it fails in a specific, instructive way: it cuts along a straight line with a wobble, so wherever the wobble leaves the channel shallow, a strip of land survives. The result is a sharp artificial notch, then an inexplicable land bridge, then open ocean — a formation with no geological reason to exist, which is exactly how it reads.
+
+The lesson generalises. Terrain can be generated; *significant places* cannot. A strait that is the throat of the world, that one power holds both shores of, that was a rift through a single continent — that has to be drawn by someone who knows why it matters. Draw it on the heightmap by hand before importing, or carve it in Azgaar's editor after.
+
+Enable with `--sunder` only to experiment.
+
 ## What the map has to accommodate
 
 Once a candidate is chosen, these are the fixed requirements the geography must satisfy. Manual editing follows — the generator produces the canvas, not the answer.

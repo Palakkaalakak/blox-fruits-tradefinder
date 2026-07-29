@@ -19,12 +19,12 @@ tiles, labels = [], []
 
 for name, craze, sharp, land in VARIANTS:
     z, lost = G.build(44, land_fraction=land, warp=0.038, rift=0.4,
-                      impact_lat=8.0, impact_lon=-150.0,
+                      impact_lat=-46.0, impact_lon=-150.0,
                       platform=3800, platform_scale=0.072, separation=1.0,
                       lost_continent=True, lost_rank=1,
                       rotation=(203.0, 35.0, 55.0), hotspots=6, mountains=1.0,
                       fractures=3, fracture_width=0.019, seas=3,
-                      sunder=True, sunder_width=0.0045,
+                      sunder=False, sunder_width=0.0045,
                       crazing=craze, crazing_scales=5, crazing_sharp=sharp)
 
     ld = z >= 0

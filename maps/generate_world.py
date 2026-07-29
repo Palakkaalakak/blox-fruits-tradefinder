@@ -500,7 +500,7 @@ def build(seed, land_fraction, warp, rift, impact_lat, impact_lon,
           platform=2600.0, platform_scale=0.075, separation=1.0,
           lost_continent=True, lost_rank=1, rotation=(121.0, 47.0, 29.0),
           hotspots=6, mountains=1.0, fractures=7, fracture_width=0.020,
-          seas=4, sunder=True, sunder_width=0.0045,
+          seas=4, sunder=False, sunder_width=0.0045,
           crazing=1.0, crazing_scales=5, crazing_sharp=14.0):
     rng = np.random.default_rng(seed)
     z = load_earth()
@@ -556,7 +556,8 @@ def main():
     p.add_argument("--rift", type=float, default=0.6)
     p.add_argument("--platform", type=float, default=2600.0)
     p.add_argument("--platform-scale", type=float, default=0.075)
-    p.add_argument("--impact-lat", type=float, default=8.0)
+    p.add_argument("--impact-lat", type=float, default=-46.0,
+                   help="the Marreni Sea is southern, per canon")
     p.add_argument("--impact-lon", type=float, default=-150.0)
     p.add_argument("--separation", type=float, default=1.0,
                    help="how decisively continents are split by deep ocean")
@@ -570,7 +571,9 @@ def main():
     p.add_argument("--fractures", type=int, default=7)
     p.add_argument("--fracture-width", type=float, default=0.020)
     p.add_argument("--seas", type=int, default=4)
-    p.add_argument("--no-sunder", action="store_true")
+    p.add_argument("--sunder", action="store_true",
+                   help="cut a continent in two (OFF by default: the Almani "
+                        "Corridor is hand-authored, see maps/README.md)")
     p.add_argument("--sunder-width", type=float, default=0.0045)
     p.add_argument("--crazing", type=float, default=1.0,
                    help="density of drowned saltwater fracture channels")
@@ -585,7 +588,7 @@ def main():
                     a.separation, not a.no_lost_continent, a.lost_rank,
                     tuple(a.rot), a.hotspots, a.mountains,
                     a.fractures, a.fracture_width, a.seas,
-                    not a.no_sunder, a.sunder_width,
+                    a.sunder, a.sunder_width,
                     a.crazing, a.crazing_scales, a.crazing_sharp)
 
     render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
