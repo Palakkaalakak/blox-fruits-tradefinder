@@ -490,33 +490,38 @@ def set_sea_level(z, land_fraction):
 # ---------------------------------------------------------------- rendering
 
 def render_colour(z):
+    """Legible without beaches: land reads warm and bright, sea cold and dark,
+    separated by a thin dark shoreline rather than a band of sand."""
     h, w = z.shape
     img = np.zeros((h, w, 3), dtype=np.uint8)
     sea, land = z < 0, z >= 0
 
     if sea.any():
-        d = z[sea] / (z[sea].min() or -1)
+        d = np.clip(z[sea] / (np.percentile(z[sea], 3) or -1), 0, 1)
         img[sea] = np.stack([
-            (12 + 40 * (1 - d)), (35 + 85 * (1 - d)), (75 + 110 * (1 - d))
+            18 + 34 * (1 - d), 46 + 74 * (1 - d), 92 + 96 * (1 - d)
         ], axis=-1).astype(np.uint8)
 
     if land.any():
-        e = z[land] / (z[land].max() or 1)
+        e = np.clip(z[land] / (np.percentile(z[land], 97) or 1), 0, 1) ** 0.85
         ramp = np.array([
-            [ 96, 132,  86], [122, 150,  92], [160, 166,  98],
-            [168, 142,  96], [150, 120,  96], [205, 205, 208],
+            [110, 152,  92], [140, 168,  96], [178, 180, 104],
+            [190, 156,  98], [168, 132,  98], [222, 222, 224],
         ], dtype=float)
         pos = np.clip(e * (len(ramp) - 1), 0, len(ramp) - 1.001)
         lo = pos.astype(int)
         t = (pos - lo)[:, None]
         img[land] = (ramp[lo] * (1 - t) + ramp[lo + 1] * t).astype(np.uint8)
 
-    # hillshade
     gy, gx = np.gradient(ndimage.gaussian_filter(z, 1.0))
-    shade = np.clip(0.5 + (gx * 0.9 - gy * 0.9) / (np.abs(z).std() + 1e-6) * 0.35,
-                    0.55, 1.45)
+    shade = np.clip(1.0 + (gx * 0.9 - gy * 0.9) / (np.abs(z).std() + 1e-6) * 0.30,
+                    0.70, 1.30)
     img = np.clip(img * shade[..., None], 0, 255).astype(np.uint8)
 
+    # thin dark shoreline: definition without sand
+    lm = (z >= 0).astype(np.float32)
+    edge = np.abs(ndimage.gaussian_filter(lm, 0.7) - 0.5) < 0.30
+    img[edge] = (img[edge] * 0.45).astype(np.uint8)
     return Image.fromarray(img)
 
 
