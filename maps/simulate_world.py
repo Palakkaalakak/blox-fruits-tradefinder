@@ -75,42 +75,9 @@ def displaced_sea_level(z, target_land):
     return z - vals[order][min(idx, len(vals) - 1)]
 
 
-def impact_stress_fractures(z, h, w, lat, lon, rng, intensity=1.0):
-    """Fractures following the impact stress field.
-
-    Radial (extensional) and concentric (compressional) failure around the
-    point of impact, the pattern a struck brittle shell actually produces,
-    with amplitude decaying as the shock attenuates with distance.
-    """
-    v = P._unit_vectors(h, w)
-    la, lo = np.radians(lat), np.radians(lon)
-    c = np.array([np.cos(la) * np.cos(lo), np.cos(la) * np.sin(lo), np.sin(la)])
-    cosd = np.clip(np.tensordot(c, v, axes=(0, 0)), -1, 1)
-    ang = np.arccos(cosd)                                  # 0..pi from impact
-
-    # azimuth about the impact point
-    north = np.array([0.0, 0.0, 1.0])
-    e1 = np.cross(north, c)
-    n1 = np.linalg.norm(e1)
-    e1 = e1 / n1 if n1 > 1e-9 else np.array([1.0, 0.0, 0.0])
-    e2 = np.cross(c, e1)
-    az = np.arctan2(np.tensordot(e2, v, axes=(0, 0)),
-                    np.tensordot(e1, v, axes=(0, 0)))
-
-    jitter = G.smooth_noise((h, w), w * 0.010, rng)
-    radial = np.cos(28.0 * az + 1.5 * jitter)              # spokes
-    ring = np.cos(ang * 46.0 + 1.5 * jitter)               # rings
-
-    field = np.maximum(np.abs(radial), np.abs(ring) * 0.85)
-    field = np.clip((field - 0.86) / 0.14, 0, 1)
-
-    attenuation = np.exp(-ang / 1.15)                      # shock decay
-    return field * attenuation * intensity
-
-
 def build(seed=7, w=2048, plates=12, cycles=3, impactor_km=45.0,
           impact_lat=-40.0, impact_lon=0.0, land_fraction=0.29,
-          bulge_response=0.0, verbose=True):
+          bulge_response=0.0, settle_myr=0.0, smooth_px=2.2, verbose=True):
     h = w // 2
     rng = np.random.default_rng(seed)
     G.set_resolution(w)
@@ -118,6 +85,9 @@ def build(seed=7, w=2048, plates=12, cycles=3, impactor_km=45.0,
     if verbose:
         print("[1/5] plate tectonics ...", flush=True)
     z = run_tectonics(seed, w, h, plates=plates, cycles=cycles, verbose=verbose)
+    # platec works on a coarse lattice and its output is visibly gridded;
+    # smoothing removes the stair-stepping without touching the landforms
+    z = ndimage.gaussian_filter(z, smooth_px, mode=("nearest", "wrap"))
 
     if verbose:
         print("[2/5] impact ...", flush=True)
@@ -143,16 +113,28 @@ def build(seed=7, w=2048, plates=12, cycles=3, impactor_km=45.0,
     z = displaced_sea_level(z, land_fraction)
 
     if verbose:
-        print("[5/5] the crazing ...", flush=True)
-    m = impact_stress_fractures(z, h, w, impact_lat, impact_lon, rng)
-    land = z >= 0
-    near = ndimage.gaussian_filter(land.astype(np.float32), 2.0,
-                                   mode=("nearest", "wrap"))
-    m = m * np.clip(near * 1.6, 0, 1)
-    m = ndimage.gaussian_filter(m, 0.8, mode=("nearest", "wrap"))
-    z = z * (1 - m) + (-2400.0) * m
+        print("[5/6] the crazing ...", flush=True)
+    # The same Voronoi crack network used everywhere else. The earlier version
+    # drew cos(28*azimuth) and cos(46*angle) spokes and rings, which is a
+    # high-frequency interference pattern, not a fracture network - that was
+    # the source of the choppy radial dashes around the crater.
+    z = G.fracture_network(z, rng, scales=3, depth=3100, density=0.75,
+                           sharpness=14.0, cells=35,
+                           impact_lat=impact_lat, impact_lon=impact_lon,
+                           mountain_avoidance=0.6, smoothing=0.5,
+                           crack_width=0.00112)
 
+    if verbose:
+        print("[6/6] cleanup ...", flush=True)
+    z = P.cleanup(z)
     z = G.despeckle(z)
+
+    if settle_myr:
+        if verbose:
+            print(f"    settling for {settle_myr} Myr ...", flush=True)
+        z = P.settle(z, myr=settle_myr, verbose=verbose)
+        z = displaced_sea_level(z, land_fraction)
+        z = G.despeckle(z)
     return z
 
 
@@ -164,11 +146,14 @@ def main():
     ap.add_argument("--cycles", type=int, default=3)
     ap.add_argument("--impactor-km", type=float, default=45.0)
     ap.add_argument("--land-fraction", type=float, default=0.29)
+    ap.add_argument("--settle-myr", type=float, default=0.0)
+    ap.add_argument("--smooth", type=float, default=2.2)
     ap.add_argument("--out", default="SIM")
     a = ap.parse_args()
 
     z = build(a.seed, a.width, a.plates, a.cycles, a.impactor_km,
-              land_fraction=a.land_fraction)
+              land_fraction=a.land_fraction, settle_myr=a.settle_myr,
+              smooth_px=a.smooth)
 
     G.render_colour(z).save(f"{a.out}_seed{a.seed}_colour.png")
     G.render_heightmap(z).save(f"{a.out}_seed{a.seed}_height.png")

@@ -47,16 +47,20 @@ import generate_world as G
 # leaving the map's edges as open ocean.
 # --------------------------------------------------------------------------
 
-LIDIA = [                      # north-west of the Corridor: broad, blocky
-    (34, -46, 20, 1.00), (26, -30, 18, 1.00), (40, -26, 15, 0.85),
-    (18, -44, 15, 0.80), (44, -44, 13, 0.70), (12, -30, 12, 0.62),
-    (30, -60, 13, 0.72), (46, -12, 11, 0.55),
+LIDIA = [                      # north-west of the Corridor
+    (36, -48, 16, 1.00), (27, -33, 15, 1.00), (42, -28, 12, 0.90),
+    (19, -46, 12, 0.85), (47, -45, 10, 0.72), (13, -32, 10, 0.66),
+    (31, -63, 11, 0.76), (48, -14, 9, 0.60), (22, -20, 9, 0.70),
+    (38, -60, 8, 0.62), (10, -46, 8, 0.55), (44, -36, 9, 0.72),
+    (52, -34, 7, 0.48), (16, -58, 7, 0.50), (30, -16, 8, 0.58),
 ]
 
 RESELIA = [                    # south-east of the Corridor: longer, tapering
-    (-6, 6, 17, 1.00), (-20, 16, 16, 0.95), (4, 14, 14, 0.85),
-    (-32, 22, 13, 0.78), (-14, -4, 13, 0.80), (-42, 30, 11, 0.60),
-    (10, 26, 12, 0.68), (-24, 38, 11, 0.58),
+    (-6, 7, 14, 1.00), (-20, 17, 13, 0.98), (5, 15, 12, 0.88),
+    (-33, 23, 11, 0.80), (-14, -3, 11, 0.84), (-44, 31, 9, 0.62),
+    (11, 27, 10, 0.72), (-25, 39, 9, 0.60), (-2, 24, 9, 0.66),
+    (-38, 16, 8, 0.58), (-11, 32, 8, 0.55), (2, -2, 8, 0.62),
+    (-28, 8, 8, 0.60), (-48, 24, 6, 0.42),
 ]
 
 # The Corridor: the two above nearly touch near (16, -10). Cevine holds both
@@ -64,15 +68,40 @@ RESELIA = [                    # south-east of the Corridor: longer, tapering
 CORRIDOR = (16.0, -11.0)
 
 THIRD = [                      # the Elsring continent, alone across the ocean
-    (20, 104, 19, 1.00), (6, 96, 16, 0.90), (32, 96, 15, 0.85),
-    (-6, 104, 14, 0.75), (24, 122, 14, 0.78), (40, 110, 12, 0.62),
-    (-18, 96, 11, 0.55),
+    (21, 106, 15, 1.00), (7, 98, 13, 0.92), (33, 97, 12, 0.88),
+    (-6, 106, 11, 0.78), (25, 124, 11, 0.80), (41, 112, 10, 0.66),
+    (-18, 98, 9, 0.58), (14, 116, 10, 0.74), (34, 128, 8, 0.55),
+    (-2, 92, 9, 0.62), (-14, 116, 8, 0.50), (46, 100, 8, 0.48),
+]
+
+# Subtractive blobs: gulfs, bays and inland seas bitten OUT of the continents.
+# Continents made only by adding circles look like circles; the bays are what
+# give a coastline character.
+BITES = [
+    (30, -38, 7, 0.85), (20, -52, 5, 0.70), (41, -20, 5, 0.65),
+    (-14, 12, 6, 0.80), (-30, 28, 5, 0.62), (2, 20, 5, 0.68),
+    (18, 108, 6, 0.72), (30, 116, 4.5, 0.60), (-6, 98, 4, 0.55),
+    (44, -50, 4, 0.55), (-24, 4, 5, 0.62),
+]
+
+# Far-flung things: mystery, and room to expand. Deliberately unexplained.
+OUTLIERS = [
+    (52, 150, 7, 0.70),     # a large island alone in the far ocean
+    (-52, -78, 6, 0.62),    # another, opposite
+    (8, -128, 5, 0.58),     # a lone island mid-ocean
+    (-36, -132, 4.5, 0.52),
+    (62, 66, 5, 0.55),
+    (-58, 104, 5, 0.55),
+    (40, -110, 4, 0.48),
+    (-20, 152, 4.5, 0.50),
 ]
 
 ARCHIPELAGOS = [               # stepping stones, deliberately NOT a bridge
-    (26, 52, 5, 0.55), (18, 60, 4, 0.48), (34, 62, 4, 0.45),
-    (-2, 54, 4, 0.45), (-14, 62, 3.5, 0.40), (10, 70, 3.5, 0.38),
-    (44, 40, 4.5, 0.45), (-30, 48, 4, 0.42),
+    (26, 52, 4, 0.58), (18, 60, 3.2, 0.50), (34, 62, 3.2, 0.48),
+    (-2, 54, 3.2, 0.48), (-14, 62, 3.0, 0.44), (10, 70, 3.0, 0.42),
+    (44, 40, 3.6, 0.48), (-30, 48, 3.2, 0.45), (22, 74, 2.8, 0.40),
+    (-8, 44, 3.0, 0.44), (36, 46, 3.0, 0.44), (-22, 56, 2.8, 0.40),
+    (6, 62, 2.6, 0.38), (30, 34, 3.2, 0.46), (-40, 44, 2.8, 0.38),
 ]
 
 POLAR = [                      # thin polar land, so the map is not bare
@@ -132,7 +161,9 @@ def build(seed=3, w=2400, land_threshold=0.40, crazing=0.75, cells=35,
         print("[1/5] laying out continents (Mediterranean model) ...")
     field = (_blob_field(h, w, LIDIA) + _blob_field(h, w, RESELIA)
              + _blob_field(h, w, THIRD) + _blob_field(h, w, ARCHIPELAGOS)
-             + _blob_field(h, w, POLAR))
+             + _blob_field(h, w, POLAR) + _blob_field(h, w, OUTLIERS))
+    # bite out the gulfs and bays
+    field = field - 1.15 * _blob_field(h, w, BITES)
 
     if verbose:
         print("[2/5] fractal coastlines ...")
@@ -144,10 +175,12 @@ def build(seed=3, w=2400, land_threshold=0.40, crazing=0.75, cells=35,
     # Warp the field itself so coasts wander instead of bulging: this is what
     # stops a metaball layout reading as circles.
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-    wx = G.smooth_noise((h, w), w * 0.02, rng) * (w * 0.012)
-    wy = G.smooth_noise((h, w), w * 0.02, rng) * (w * 0.012)
-    field = G.sample(field, yy + wy, xx + wx)
-    field = field + detail * 0.60
+    for scale, amp in [(0.045, 0.030), (0.020, 0.016), (0.009, 0.007)]:
+        wx = G.smooth_noise((h, w), w * scale, rng) * (w * amp)
+        wy = G.smooth_noise((h, w), w * scale, rng) * (w * amp * 0.8)
+        yy, xx = yy + wy, xx + wx
+    field = G.sample(field, yy, xx)
+    field = field + detail * 0.72
 
     z = (field - land_threshold) * 2600.0
 
@@ -183,7 +216,8 @@ def build(seed=3, w=2400, land_threshold=0.40, crazing=0.75, cells=35,
                                impact_lat=MARRENI[0], impact_lon=MARRENI[1],
                                mountain_avoidance=0.6, smoothing=0.5,
                                crack_width=crack_width)
-    return G.despeckle(z)
+    z = G.despeckle(z)
+    return P.cleanup(z, median_px=1)
 
 
 def main():

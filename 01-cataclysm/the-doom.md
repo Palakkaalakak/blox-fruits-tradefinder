@@ -1,111 +1,87 @@
-# The Doom (0 AC)
+# The Doom
 
-**Working name:** *the Doom* — the word the common people use. Scholars and liturgy will have longer names; those can differ by region and by faith, which is itself worldbuilding.
+**Working name.** *The Doom* is the common word for the event. Scholars and the various faiths use longer names, and these differ by region, which is itself a useful piece of worldbuilding.
 
----
-
-## The constraints it had to satisfy
-
-1. Rearranges the landmasses almost completely — full freedom to draw a new map
-2. Preserves a very large amount of knowledge
-3. Kills a very large proportion of the population
-4. Leaves very few ruins visible today
-5. Should be as physically defensible as possible
-
-## The shape of it: a confluence, not a cause
-
-**The Doom was not one catastrophe. It was several ordinary things arriving at once.**
-
-This is the single most important thing about it, and it should be stated plainly somewhere in the books.
-
-**The pole reversal was already due.** Magnetic reversals happen; ours is overdue by any reckoning. It was going to happen anyway, to nobody's fault and nobody's design, and during a reversal the field weakens and wanders and the compass becomes a liar. It had begun.
-
-**And then everything else happened alongside it.** The strike. The wave. The winter. The crust already under strain giving way. Each one survivable, perhaps, on its own. Together, and in that order, not survivable at all.
-
-### Why this is better than a single disaster
-
-**It makes the end of the world bad luck.** No judgement, no design, no meaning. Just several unremarkable processes coinciding badly — which is the Third Great Principle stated as *event* rather than as argument. The universe is neither benevolent nor malevolent. It did not aim at anyone. Things simply happened to overlap, and everybody died.
-
-**It explains why nothing could be saved.** A civilisation absorbs one catastrophe. It cannot absorb a compass that has stopped working *and* a wave that took the ports *and* a decade with no harvest *and* coastlines that will not stay still. Every redundancy failed at once because every redundancy assumed the others were holding.
-
-**It makes the faiths' disagreement inevitable and permanent.** With one cause there would be one story. With a confluence, every faith can point at a different element and be *partly right*. The one that blames the sky, the one that blames the sea, the one that blames human pride, the one that says it was accident — none can be refuted, because each is describing a real component. That is why there is no consensus, and never will be.
-
-**And it means it could happen again.** Not because anything is coming, but because nothing was ever aimed. If it was coincidence once, coincidence is still possible — which is exactly the thought a civilisation would rather not have, and therefore does not.
-
-## The mechanism: oceanic impact, then the Drowning
-
-An asteroid strikes deep ocean. Three consequences, on three timescales.
-
-**Within hours — the wave.** Mega-tsunami scours the coastlines of every ocean it touches. This alone kills an enormous share of humanity, because humanity lives on coasts, and destroys the ports, refineries, power plants and shipyards that industry depends on. Coastal siting is what makes industry vulnerable and libraries inland survivable.
-
-**Within years — the winter.** Ejecta and vapour darken the sky. Harvests fail globally for a decade or more. This is what turns a catastrophe into a collapse: famine, the failure of every supply chain, the end of the division of labour. It kills the *survivors* of the wave, and it kills states.
-
-**Over decades to centuries — the Drowning.** The impact destabilises crust already under strain. Continental shelves subside; ocean floor rises elsewhere; meltwater and displaced ocean redistribute. The sea takes some lands entirely and abandons others. The world's coastline is not merely altered but *unrecognisable*, and it keeps moving for generations — which is precisely why nobody could map the world until the Rediscovery. There was no stable world to map.
-
-## The magnetic reversal
-
-**The Doom's first element was a geomagnetic reversal — the ordinary, periodic kind, long overdue.** Earth's magnetic poles swap on a timescale of hundreds of thousands of years, and ours is overdue by any reckoning. It was going to happen anyway, to nobody's fault and nobody's design. It had already begun.
-
-**It is not a physical movement of the world.** The rotation axis does not shift. No continent changes latitude. No climate zone moves. This must be stated precisely, because the alternative is a much bigger and much less plausible claim.
-
-**What it actually does:**
-
-- **Every compass becomes a liar.** Real reversals take between 2,000 and 12,000 years — some far longer. Throughout, the field weakens, wanders and multiplies its poles. There is no reliable magnetic north for *centuries*.
-- **The magnetosphere thins.** More cosmic radiation reaching the surface. Aurorae at tropical latitudes — the sky visibly wrong, everywhere, for generations.
-- **Animals that navigate by the field are lost.** Birds, fish, turtles. Migrations fail, and with them the fisheries and the seasons people had organised their lives around.
-
-**What it does NOT do: change the climate.** That is the impact winter's work. The reversal is a navigational and biological catastrophe, not a meteorological one — and keeping the two separate is what stops the calamities blurring into one undifferentiated disaster.
-
-### Why it matters so much anyway
-
-**It is why the world had to be *rediscovered* rather than merely revisited.** A civilisation can survive losing its ports. It cannot easily survive losing its *bearings*. Charts assume a magnetic north that no longer exists; the almanacs and the compass disagree with each other and with the sky. Knowledge survived and was worthless — the Doom's whole signature, applied to navigation.
-
-**And it was nobody's fault.** A process that had been building for millennia happened to complete in the same era as everything else. That is the confluence in miniature.
-
-### Open
-- How long did the transition last, and was it finished before the Rediscovery began?
-- Did anyone record the field's behaviour? A surviving set of observations would be priceless
-- What did the tropical aurorae mean to the faiths?
-- Is the field stable *now*, or still settling?
-
-## Why this satisfies every constraint
-
-**Map freedom, honestly earned.** The landmasses are rearranged not by moving rock — which no real process does quickly — but by changing *which rock is above water*. Drown the continental shelves and expose the shallow basins and the map is transformed beyond recognition while remaining geologically sound. Draw whatever you like; it is defensible.
-
-**Knowledge preserved, industry destroyed.** A book requires a shelf. A factory requires ore, fuel, power, transport and ten thousand trained people. The Doom killed the second and spared the first. This is the single most important fact about your world: *the bottleneck was never knowing how — it was having the means.* The Dark Age was not ignorance. It was watching people who understood engines fail to build one.
-
-**Very few ruins.** Three reasons, all real:
-- Most of the old world's great cities were coastal. They are now under water, at depths no one salvages from.
-- What survived on land was stripped for a thousand years. Post-Doom populations scavenged metal, stone and glass relentlessly. Ruins were not preserved; they were *eaten*.
-- Fifteen centuries of weather does the rest. Concrete and steel do not last that long unmaintained.
-
-So a farmer ploughing a field in Lidia turns up almost nothing — and that absence is itself uncanny. The world knows it had a predecessor and can hardly find it. What does survive is the odd inland thing: a highway cutting, a dam, a buried vault, something in the mountains. **These are treasures, and whoever holds one holds power.**
-
-**Population.** Wave, then winter, then centuries of subsistence. A catastrophic reduction, and one that falls hardest on the most developed regions, because development meant coasts.
-
-## What this hands you for free
-
-- **Sunken cities offshore.** Every coast has drowned ruins somewhere below it. Salvage is an industry, a superstition, and a source of artefacts.
-- **New land with no history.** Land raised from the seabed has no ruins, no graves, no prior claim — it is *virgin*, and the fights over it are unlike any other.
-- **A coastline that moved within memory.** For the first centuries, maps expired. Ports became inland towns; islands appeared. This is why the Rediscovery had to wait: not for courage, but for the sea to hold still.
-- **Luck as the organising principle.** Who survived depended on where they stood — inland, elevated, sheltered. Lidia and Réselia kept their firearms by exactly this accident, and later conquered the world with them. The Third Great Principle says the universe is neither benevolent nor malevolent. The history agrees.
+The Doom is dated to year 0. All dates in these documents are given in years After the Cataclysm (AC). The present day of the first book is approximately 1500 AC.
 
 ---
 
-## Is it over? — nobody agrees
+## 1. What the Doom had to accomplish
 
-**Established: there is no consensus.** Some scholars hold the Doom finished centuries ago; others that it never stopped. The faiths differ. There is no authority able to settle it.
+The event was designed backwards from five requirements:
 
-This is the right answer for three reasons:
+1. It had to rearrange the landmasses almost completely, so that the map could be redrawn freely.
+2. It had to preserve a very large amount of recorded knowledge.
+3. It had to kill a very large proportion of the population.
+4. It had to leave very few ruins visible in the present day.
+5. It had to remain reasonably plausible in physical terms.
 
-1. **It is consistent with the religious plurality.** No dominant church means no dominant cosmology means no official position on whether the world is still ending.
-2. **It makes the question political rather than factual.** What a state believes about the Doom determines whether it funds sea defences, whether it insures a port, whether it lets people build on new land. Geology becomes budget, and budget becomes faction.
-3. **It is the Fallacy of Fear at civilisational scale.** Your philosophy explicitly names this: *"we pretend to have rationally analysed a situation and deemed it not important enough to be dealt with when in truth we are simply too scared to accept it… now we ignore climate change when once barbarian invaders were ignored."* A world that cannot agree whether its catastrophe is finished is a world that has agreed not to find out. That is a *thesis* being dramatised, not just texture.
+## 2. The structure of the event
 
-Practical consequences: coastal cities with contested defences · insurers who will not write certain ports · a scholarly discipline nobody funds · a minor faith that says the sea is still coming and is treated as a nuisance · charts that disagree with each other about a shoal.
+The Doom was not a single catastrophe. It was a coincidence of several separate processes, each of which was ordinary in itself, which happened to occur within the same few decades.
 
-## Open
+The first of these was a geomagnetic reversal, which was already overdue and had already begun. The others were an oceanic impact, the tsunami that followed it, the years of darkened sky and failed harvests that followed that, and the failure of crust that was already under strain. Any one of these would have been survivable. Their combination was not, because each of the redundancies a civilisation relies upon assumed that the others were still functioning.
 
-- Does anyone know what struck? Is the impact crater known, visited, holy?
-- Which of the faiths call it punishment, and which accident? Laurevinism says **indifference**, via the Third Great Principle — a minority position that tells the grieving nobody was watching.
-- Who is right about whether it is over? *You* need to know, even if the world never finds out.
+This structure has three useful consequences.
+
+It makes the end of the old world a matter of chance rather than of design or judgement. Nothing was aimed at anyone; several unremarkable processes simply overlapped badly.
+
+It explains why so little could be saved. A society can absorb the loss of its ports, or a decade of poor harvests, or the loss of reliable navigation. It cannot absorb all of them at once.
+
+It also guarantees that the faiths of the present day will never agree about what happened, because each of them can point to a different component of the Doom and be partly correct. No single account can be refuted, since every account describes something real.
+
+## 3. The geomagnetic reversal
+
+The Doom's first element was a geomagnetic reversal of the ordinary, periodic kind. Earth's magnetic poles exchange places on a timescale of hundreds of thousands of years, and such a reversal was long overdue. It would have happened regardless of anything else, and it had already begun before the impact.
+
+It is important to be precise about what this does and does not involve. A magnetic reversal is not a physical movement of the planet. The rotational axis does not shift, no continent changes latitude, and no climate zone moves. The reversal's effects are navigational and biological rather than geological or meteorological.
+
+Real reversals take between two thousand and twelve thousand years, and in some cases considerably longer. Throughout the transition the field weakens, wanders, and may briefly present more than two poles. The practical consequence is that there is no reliable magnetic north for a period of centuries.
+
+The weakened field also thins the magnetosphere, which increases the cosmic radiation reaching the surface and produces aurorae at latitudes where they are never normally seen. Animals that navigate by the magnetic field — birds, fish, and turtles among them — lose the ability to do so, and the migrations and fisheries that human populations depended on fail with them.
+
+The reversal did not cause the climate catastrophe. That was the work of the impact winter, and the two should be kept distinct.
+
+## 4. The impact and its consequences
+
+An asteroid struck deep ocean. Its consequences unfolded on three timescales.
+
+**Within hours,** a tsunami scoured the coastlines of every ocean it reached. Because human populations and industrial facilities are concentrated on coasts, this alone killed an enormous number of people and destroyed the ports, refineries, power stations and shipyards on which manufacturing depended. Inland libraries and archives were largely unaffected, which is the reason knowledge survived while the capacity to use it did not.
+
+**Within years,** ejecta and vapour in the upper atmosphere darkened the sky. Harvests failed globally for a decade or more. This is the point at which a catastrophe became a collapse: famine, the failure of supply chains, and the end of any meaningful division of labour. It killed many of those who had survived the wave, and it destroyed the remaining states.
+
+**Over decades and centuries,** the crust — already strained — gave way. Continental shelves subsided, sections of ocean floor rose, and displaced water redistributed itself. The coastline of the world was not merely altered but made unrecognisable, and it continued to move for several generations afterwards.
+
+The crater left by the impact is the basin now occupied by the **Marreni Sea**, in the southern part of the world. See `02-geography/world-structure.md`.
+
+## 5. Why the world had to be rediscovered
+
+The Rediscovery is often misunderstood as a matter of lost courage or lost shipbuilding. It was neither. It followed from two facts working together.
+
+First, the impact rearranged the map. The geography that survivors remembered no longer existed, and the coastlines continued to shift for generations afterwards.
+
+Second, communication between regions failed entirely and remained broken for centuries. Populations that had been in regular contact became isolated from one another, and the isolation lasted long enough that the memory of what lay beyond the horizon decayed into rumour.
+
+By the time ocean-going ships were being built again, and by the time the magnetic field had settled enough for compasses to be trusted, the people sailing out of harbour were not retracing known routes. They were finding places they did not know existed. The true geography of the old Earth had been known only to ancestors several centuries dead.
+
+What survives of that older knowledge exists in manuscripts, and those manuscripts are held almost entirely by the wealthier families. This is a significant fact about the present day: an accurate account of what the world used to look like is a form of private property, and access to it is a privilege of rank.
+
+## 6. Why this satisfies the original requirements
+
+**The map is rearranged, without requiring rock to move quickly.** The landmasses were not relocated. What changed was which land stood above water. Drowning the continental shelves and raising shallow basins transforms a map beyond recognition while remaining geologically defensible.
+
+**Knowledge was preserved but rendered unusable.** A book requires only a shelf. A factory requires ore, fuel, power, transport and a large trained workforce. The Doom destroyed the second while leaving the first largely intact. The bottleneck in the centuries that followed was never a lack of understanding; it was a lack of means.
+
+**Very few ruins remain,** for three reasons. Most of the old world's major cities were coastal and are now underwater at depths from which nothing is recovered. What survived on land was systematically stripped for materials over the following centuries, so ruins were not preserved but consumed. Fifteen centuries of weather accounts for the remainder, since neither concrete nor steel endures that long without maintenance.
+
+A farmer ploughing a field today therefore turns up almost nothing. The occasional inland survival — a cutting, a dam, a buried vault, something high in the mountains — is correspondingly valuable, and whoever controls such a site controls something significant.
+
+**The population was reduced catastrophically,** by the wave, then the winter, then several centuries of subsistence agriculture. The reduction fell most heavily on the most developed regions, because development meant coastal concentration.
+
+## 7. Open questions
+
+- Is the impact site known and identified as such in the present day, or merely charted as a deep sea?
+- Which of the faiths attribute the Doom to punishment, and which to accident?
+- How long did the magnetic transition last, and had it finished before the Rediscovery began?
+- Did anyone record the field's behaviour during the reversal? Such a record would be extremely valuable.
+- Is the sea finished moving, or is it still settling? There is no consensus on this in the present day.

@@ -2,7 +2,7 @@
 
 Worldbuilding, history, geography and continuity for **JR** (working title), first of a series.
 
-The books are the concretisation of **Laurevinism** — but they are meant to stand on their own as story first: intriguing, alive, fun, in the register of ASOIAF. The philosophy is the skeleton, not the skin.
+The books are intended to stand on their own as story first: intriguing, alive, and enjoyable, in the register of ASOIAF.
 
 ## Premise
 

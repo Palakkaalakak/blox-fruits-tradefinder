@@ -1,4 +1,17 @@
 # JR — World Bible v0
+
+> **SUPERSEDED IN PART.** This document was the first extraction pass and is kept
+> for its record of what the manuscript establishes. Two things in it are now out of
+> date and should be disregarded:
+>
+> 1. **Section 1.6 and question B3** discuss a philosophical framework. That material
+>    is deferred and is not part of the current worldbuilding.
+> 2. The Elsring extermination is described here as the world's "original sin". It is
+>    not. It is a footnote — see `03-peoples/elsring.md`.
+>
+> Current canon lives in `01-cataclysm/`, `02-geography/`, `03-peoples/`, `04-history/`
+> and `05-states/`.
+
 *Everything in Part 1 is extracted from the manuscript and is now CANON — you can't contradict it without a rewrite. Everything in Part 2 is a question for you.*
 
 ---

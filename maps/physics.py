@@ -164,11 +164,13 @@ def impact_field(h, w, lat_deg, lon_deg, impactor_d_m=14000.0,
     rim = depth * 0.9 * np.exp(-((dist - r_px) / (0.28 * r_px)) ** 2)
     out += rim
 
-    # ejecta blanket: t = 0.14 * R * (r/R)^-3 beyond the rim
+    # ejecta blanket: McGetchin's law, t = 0.14 * R^0.74 * (r/R)^-3
+    # (the exponent on R matters - 0.14*R gives kilometres of ejecta where
+    # the real relation gives hundreds of metres)
     outside = dist >= r_px
     t = np.zeros_like(out)
-    t[outside] = 0.14 * R_crater * (dist[outside] / r_px) ** -3.0
-    out += np.clip(t, 0, depth * 1.5)
+    t[outside] = 0.14 * R_crater ** 0.74 * (dist[outside] / r_px) ** -3.0
+    out += np.clip(t, 0, depth * 0.6)
 
     # antipodal disruption: seismic focusing on the far side
     focus = np.exp(-(anti / (2.2 * r_px)) ** 2)
@@ -203,3 +205,104 @@ def flexural_response(load_m, h, w, Te_m=25000.0):
     smoothed = ndimage.gaussian_filter(load_m, sigma_px,
                                        mode=("nearest", "wrap"))
     return -(RHO_CRUST / RHO_MANTLE) * smoothed, alpha, sigma_px
+
+
+# ---------------------------------------------------------------------------
+# 6. Landscape evolution — letting the world settle
+# ---------------------------------------------------------------------------
+
+def settle(z, myr=1.0, km_per_px=20.0, kappa=0.02, k_stream=4.4e-6,
+           steps=30, sea_level=0.0, verbose=False):
+    """Erode and relax the landscape for `myr` million years.
+
+    Calibrated against real rates. Continental denudation runs at roughly
+    20-100 m per million years (fast in wet uplands, far slower on cratons),
+    so the erosion law here is tuned to remove a few tens of metres per Myr
+    from steep ground and almost nothing from lowlands.
+
+    Processes:
+      * FLUVIAL INCISION, stream power dz/dt = -K A^m S^n, the dominant term.
+      * HILLSLOPE DIFFUSION, dz/dt = kappa * laplacian(z) — rounds scarps and
+        degrades crater rims.
+      * SEDIMENT INFILL — what erodes off the highlands settles into basins.
+
+    IMPORTANT, and worth stating plainly: at map scale one million years is
+    almost nothing. Expect softened summits, a degraded crater rim, slightly
+    filled basins and marginally smoother coasts — not a redrawn world.
+    Visible wholesale change needs 50-100 Myr, which this function will
+    happily run, but by then a real world's plates would have moved too.
+    """
+    z = z.astype(np.float32).copy()
+    dt = myr * 1e6 / steps                       # years per step
+    dx = km_per_px * 1000.0                      # metres per pixel
+
+    for i in range(steps):
+        gy, gx = np.gradient(z, dx)
+        slope = np.sqrt(gy ** 2 + gx ** 2)
+
+        above = np.clip(z - sea_level, 0, None)
+        # drainage-area proxy: how much upland lies nearby
+        acc = ndimage.uniform_filter(above, size=9, mode="nearest")
+        acc = acc / (acc.max() or 1.0)
+
+        incision = k_stream * dt * np.sqrt(np.maximum(acc, 0)) * slope * dx
+        incision = np.where(z > sea_level, incision, 0.0)
+
+        lap = ndimage.laplace(z) / (dx * dx)
+        diffusion = kappa * dt * lap
+
+        eroded = np.clip(incision, 0, None)
+        z = z - eroded + diffusion
+
+        # Sediment infill, restricted to shallow water adjacent to land.
+        # (An earlier version normalised the basin depth against the DEEPEST
+        # ocean, so eroded material piled into abyssal plains instead of local
+        # lows - which wrecked the landscape entirely.)
+        shelf = np.clip((z - (sea_level - 900.0)) / 900.0, 0.0, 1.0)
+        shelf = np.where(z < sea_level, shelf, 0.0)
+        sed = ndimage.gaussian_filter(eroded, 4.0, mode=("nearest", "wrap"))
+        z = z + sed * shelf * 0.8
+
+        if verbose and (i + 1) % 10 == 0:
+            print(f"    settled {(i+1)/steps*myr:.1f} Myr", flush=True)
+
+    return z
+
+
+def cleanup(z, median_px=2, fill_px=3, min_lake_frac=6e-5,
+            min_isle_frac=4e-5):
+    """A light retouch: remove artefacts that are not features.
+
+    Simulation output carries grid artefacts - single-pixel speckle, ragged
+    one-pixel coastlines, and above all pinhole lakes peppering continental
+    interiors, which read as noise rather than geography.
+
+    A median filter removes speckle without rounding real coastline detail
+    (unlike a blur). Then every enclosed body of water below a threshold area
+    is filled in, and every islet below a threshold is sunk - so what remains
+    is landforms rather than sampling artefacts.
+    """
+    z = ndimage.median_filter(z, size=median_px * 2 + 1, mode="nearest")
+    n_px = z.size
+
+    # fill pinhole lakes
+    sea = z < 0
+    lab, n = ndimage.label(sea)
+    if n:
+        sizes = np.bincount(lab.ravel())
+        # the real ocean is whichever water body is largest; everything under
+        # the threshold that is NOT it becomes land
+        small = np.where(sizes < max(int(min_lake_frac * n_px), 8))[0]
+        fill = np.isin(lab, small) & sea
+        z = np.where(fill, 55.0, z)
+
+    # sink speckle islands
+    land = z >= 0
+    lab, n = ndimage.label(land, structure=np.ones((3, 3)))
+    if n:
+        sizes = np.bincount(lab.ravel())
+        small = np.where(sizes < max(int(min_isle_frac * n_px), 6))[0]
+        drop = np.isin(lab, small) & land
+        z = np.where(drop, -55.0, z)
+
+    return z

@@ -1,48 +1,39 @@
 # The Elsring
 
-## The public history (what the world believes)
+## Public history
 
-The native people of the third continent. Encountered during the Rediscovery, ~1,000 years before the present day, and exterminated over roughly a century by disease, dispossession and firearms — in that order of lethality. The Lidians and Réselians had guns; the Elsring did not.
+The Elsring were the native population of the third continent. They were encountered during the Rediscovery, roughly a thousand years before the present day, and were destroyed over the following century by disease, dispossession and firearms, in that order of significance. The Lidian and Réselian expeditions had firearms; the Elsring did not.
 
-Today they are held to be **wholly extinct**. No nation, no surviving community, no living culture. What remains is artefacts, place-names, loanwords, and a certain amount of unresolved guilt. Where Elsring ancestry persists at all it is diluted and half-acknowledged, a matter of hushed family knowledge on the third continent.
+They are held today to be extinct. There is no surviving Elsring nation, community or living culture. What remains consists of artefacts, place-names, a few loanwords, and a certain amount of unresolved discomfort. Where Elsring ancestry survives at all, it is diluted and only half-acknowledged among the population of the third continent.
 
-**How it is spoken of:** exactly as the fate of the Native Americans is spoken of today. It is discussed. It is a hot topic. It appears in curricula and in speeches. And **nothing is done, because nobody really cares.**
+## How it is regarded in the present day
 
-That distinction matters and should be held precisely. This is not a suppressed crime, nor a denied one, nor one that provokes guilt in anybody who matters. It is a settled, acknowledged, thoroughly-debated fact that produces no action whatsoever. People are perfectly willing to call it monstrous and perfectly unwilling to give anything back.
+The comparison is to how the destruction of the Native Americans is regarded in our own present day. It is known, it is taught, it is discussed, and it is periodically a subject of argument. It produces no action of any kind.
 
-In the manuscript a student cites it in a classroom as a lesson in the value of technology, and no one flinches — not because they are callous, but because that is simply how the subject is handled. That is the correct temperature: not shame, not defiance. **Indifference wearing the costume of concern.**
+**This is a footnote, not a central theme.** It should be handled at the scale of an uncomfortable historical fact that educated people can discuss without much feeling, because that is what it is to them. The manuscript already handles it correctly: a student cites it in a classroom as an illustration of the value of technology, and nobody in the room reacts. That is the right temperature and should not be escalated.
 
-**And yet the Rediscovery itself is mythologised** — an Age of Heroes, with epics, holidays and statues of the captains who crossed the ocean. The world celebrates the era and admits the crime at its centre, and has never reconciled the two. Nobody is expected to.
+The Rediscovery itself is remembered as a heroic age, with the captains, first landfalls and national epics that implies. The world celebrates the era while acknowledging what happened during it, and has never felt any pressure to reconcile the two positions.
+
+## Story weight
+
+At present the Elsring carry no plot function. They are background: a fact about how the current world was made, of the same order as any number of other historical facts.
+
+This may change in a later book if the author chooses to bring them back, at which point the material below becomes relevant. Until that decision is made, the Elsring should be treated as history and given no more prominence than history gets.
 
 ---
 
-# ⚠ SECRET — series-level spoiler
+# Reserved — possible later development
 
-> **The Elsring are not extinct.**
->
-> They survive in vast underground cities, unknown to anyone on the surface. A thousand years of separate history, unobserved.
+> The following is optional and unused. It exists so that the door is open, not because anything currently depends on it.
 
-## Why this works
+The Elsring may not in fact be extinct. A population may have survived underground, in cities unknown to anyone on the surface, for the thousand years since.
 
-**The Doom made it plausible.** An oceanic impact followed by a decade of darkness is precisely the catastrophe a subterranean people survives and a surface people does not. If the Elsring were already partly underground before the Doom, then:
+If this is used, two details make it work:
 
-- their survival through the Doom is *explained*, not coincidental
-- their apparent helplessness at contact is explained — the surface population the Rediscovery met was a fraction of the whole
-- the conquerors' certainty is explained. They exterminated everyone they could find, and they were not lying. They simply never knew what they were counting.
+**A subterranean population survives an impact winter.** Years of darkness and failed harvests kill surface populations and leave underground ones comparatively untouched. If the Elsring were already partly subterranean before the Doom, their survival is explained rather than coincidental, and so is the small size of the surface population the Rediscovery encountered.
 
-**It reframes the world's original sin as unfinished.** The guilt the surface has learned to carry comfortably is not historical. It is a live situation with a living counterparty, and the comfortable version is a lie that no one on the surface is even aware of telling.
+**The conquerors were not lying.** They killed everyone they could find and recorded the people as destroyed. They had no way of knowing what they had not found.
 
-**It weaponises your philosophy.** The surface world's relationship with the Elsring is the Fallacy of Fear at civilisational scale — a thing everyone has agreed not to look at. And the eventual encounter is the Grand Conclusion's hardest possible test: *only humanity can aid humanity*, put to two peoples with a genocide between them, one of whom has been below ground nursing it for a millennium.
+Nobody on the surface suspects any of this. There is no rumour, no disputed account, and no order or family holding the secret. If hints are planted in the first book they must be environmental and unremarked — something noticed by a character and not thought about again.
 
-## Questions this raises (for you, not urgent)
-
-- **Were they underground before the Doom, or did they go under during the genocide?** Before is stronger — it explains everything at once, and it means the surface never understood what the Elsring were even at first contact. During is more tragic but strains credulity: a people fleeing a century-long extermination does not build vast cities in the middle of it.
-- **What is their technology?** A thousand years of isolation, no sunlight, no open agriculture, no oceans — but also no wars of the surface kind and a preserved grievance to focus the mind. They will be radically ahead in some things and absent in others. Deciding *which* is one of the most fun problems in the whole project.
-- **Do they watch the surface?** If yes, everything the surface has done for a thousand years has had an audience.
-- **Nobody on the surface knows. The secret is total.** No order, no House, no archive holds even a rumour. Everyone believes the Elsring are gone, and everyone is wrong. Whatever hints exist in book one must be legible only on a reread — a tremor, a sealed shaft, a word in no known language — never a character's suspicion.
-- **What do they call themselves?** "Elsring" is the conquerors' word. It should not be theirs.
-- **Are they united?** A thousand years is long enough for them to have their own factions, and their own disagreement about what to do about the surface.
-
-## Structural note
-
-Keep this out of book one except as texture — an unexplained tremor, a sealed shaft, a word in a language nobody places, an inexplicably accurate old map. The reader should be able to reread book one afterwards and find it was there.
+Open questions, should it ever be needed: whether they were underground before the Doom or went below during the extermination; what a thousand years of isolation does to a technology; whether they observe the surface; what they call themselves, since *Elsring* is the conquerors' word; and whether they are politically unified or divided about what to do.

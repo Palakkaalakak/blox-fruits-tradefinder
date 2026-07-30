@@ -21,13 +21,13 @@ It also quietly reinforces something already true: the Academy sits on a conquer
 - Romance survived as the language of the *preserved books* — so the families who could read them became the aristocracy, and their prestige dialect became noble naming
 - Simple prestige imitation: the aristocracy names itself in the old classical manner because that is what nobility does
 
-The second is the strongest, because it ties naming directly to your central mechanism — knowledge preserved, capacity destroyed — and explains why Latin and Greek are available to scholars, why Laurevine vocabulary is built from them, and why the people who had the books ended up on top.
+The second is the strongest, because it ties naming directly to the central mechanism of the setting — knowledge preserved, capacity destroyed — and explains both why Latin and Greek remain available to scholars and why the families who held the books ended up holding everything else.
 
 ## The Elsring register
 
 **Elsring** does not fit either family. It is harsh, consonant-clustered, and no European reader will place it. That is correct and should be preserved — the Elsring must sound *unrelated*, because they are.
 
-Note also that "Elsring" is the **conquerors' word**. It is what Lidians and Réselians called them. It should not be what they call themselves, and the difference will matter enormously later.
+Note also that "Elsring" is the conquerors' word — what Lidian and Réselian expeditions called them. It was presumably not what they called themselves, though nothing of their own name survives.
 
 ## The third continent's name
 
@@ -38,7 +38,7 @@ So:
 - The other calls it by a **corruption of an Elsring word** — misheard at first contact, applied to everything, its origin long forgotten
 - **Which name you use declares your loyalty**, and every use of it is a small political act
 
-And the payoff: the corrupted name is *actually Elsring*, and nobody alive on the surface knows what it originally meant. When the Elsring return, they will know. The world has been mispronouncing their word for a thousand years.
+One consequence worth noting: the corrupted name is genuinely Elsring in origin, and nobody now alive knows what it originally meant. The world has been mispronouncing a word in a dead language for a thousand years without noticing.
 
 ### Candidates to react to
 
@@ -56,4 +56,4 @@ Pick one from each column, or use them as a feel and coin your own. The only rul
 2. Commoners and professionals: Anglo-Saxon compounds (Herseworth = herse + worth; Langfield = lang + field)
 3. Places in the old settled world: Romance (Ouspré, Cevine, Marreni)
 4. Anything Elsring: consonant clusters, no soft endings, must feel foreign to both registers
-5. Institutions and classical concepts: Latin or Greek (Thalassus, and all Laurevine vocabulary)
+5. Institutions and classical concepts: Latin or Greek (Thalassus)

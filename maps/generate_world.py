@@ -419,9 +419,12 @@ def fracture_network(z, rng, scales=3, base_scale=None, depth=2200,
         m *= np.clip(1.0 - (relief - 0.525) / 0.22, 0.0, 1.0)
 
     if land_only:
-        near_land = ndimage.gaussian_filter(land.astype(np.float32), 2.0,
-                                            mode=("nearest", "wrap"))
-        m *= np.clip(near_land * 1.6, 0.0, 1.0)
+        # STRICT land mask. Feathering the mask into the sea let channels cut
+        # the seabed, which showed up as polygonal cracks in open water - the
+        # fractures are in the CRUST above sea level, and nowhere else.
+        m *= land.astype(np.float32)
+        m = ndimage.gaussian_filter(m, 0.6, mode=("nearest", "wrap"))
+        m *= land.astype(np.float32)
 
     m = ndimage.gaussian_filter(m, 0.7, mode=("nearest", "wrap"))
     floor = -abs(depth) * (0.55 + 0.95 * m)   # deeper, stronger channels
@@ -540,7 +543,8 @@ def despeckle(z, min_fraction=0.00012):
     min_px = max(int(min_fraction * land.size), 6)
     doomed = np.isin(lab, np.where(sizes < min_px)[0]) & land
     z = z.copy()
-    z[doomed] = -60.0
+    z[doomed] = -420.0   # sink properly, so removed fragments do not
+                         # linger as pale polygons in the shallows
     return z
 
 

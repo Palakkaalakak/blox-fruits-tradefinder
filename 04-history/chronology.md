@@ -54,9 +54,7 @@ Ships good enough to cross open ocean. Expeditions go out to find what the world
 - The Elsring are exterminated over roughly a century — disease, dispossession and firearms, in that order of lethality.
 - Colonies are planted. The wealth extracted funds the next four centuries.
 
-**How it is remembered:** the Rediscovery itself is nigh-mythological — heroic captains, first landfalls, national epics. The extermination is *not* denied. It sits in the textbooks the way the fate of the Native Americans sits in ours: acknowledged, taught, deplored in the abstract, and never undone. A student can cite it in a classroom as a lesson about the value of technology and feel nothing, because everyone does.
-
-> This is the world's original sin, and it is currently unowned by any character in the manuscript. Whoever picks it up gets a spine.
+**How it is remembered.** The Rediscovery is remembered as a heroic age, with the captains, first landfalls and national epics that implies. The extermination of the Elsring is not denied, and appears in the textbooks in much the way the fate of the Native Americans appears in ours: acknowledged, taught, deplored in general terms, and never acted upon. A student can cite it in a classroom as an illustration of the value of technology without any particular feeling. This is a footnote in the world's history rather than a central concern of it.
 
 ## Era V — The Colonial Age (~600 – ~1000 AC)
 
@@ -84,4 +82,4 @@ Society does not follow. Titles, vassalage and household guards persist through 
 - **No House predates 0 AC.** Maximum nobility age ~1,500 years, and most are far younger. Ancient lineage is a *short* ladder here, which is why it is defended so viciously.
 - **The gentry is still forming.** Edward's parents went from knights to dukes of a sovereign state within his lifetime. That is possible because the system is young and molten — and it is exactly why the old-money "Small" despise him. He is proof the hierarchy is arbitrary.
 - **Colonial descent is a live political fact.** If the third continent was carved up by both powers, then many present-day states are ex-colonies, and their relationship to Lidia and Réselia is unresolved. This is free conflict.
-- **Luck is the world's founding principle** — and Laurevinism says the universe is indifferent, neither benevolent nor malevolent. The conquerors won by accident. The philosophy and the history agree, which is the strongest possible position for a book that wants to argue something.
+- **Luck is the world's founding principle.** The peoples who conquered the world did so because of where they happened to be standing when the Doom occurred, and for no other reason.
