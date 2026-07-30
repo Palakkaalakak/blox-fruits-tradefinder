@@ -2,69 +2,105 @@
 """
 JR — the working world map.
 
-This is the settled recipe. It supersedes the earlier experiments in this
-directory (simulate_world.py, research_world.py), which are retained for
-reference.
-
 METHOD
 
-The world is Earth, deformed by the Doom, rather than a new planet invented
-from scratch. Real Earth elevation and bathymetry (ETOPO1) is the starting
-point, and the Doom's effects are applied to it:
+The world is Earth after the Doom. It is not a new planet invented from
+scratch, and it is not Earth with the coastlines merely nudged. The
+continents are Earth's own, but they have been moved.
 
-  1. Crustal deformation, as moderate domain warping. Kept deliberately
-     restrained so that the positions of the continents survive.
-  2. The impact at 48 degrees south, using pi-group crater scaling.
-  3. The Drowning, applied as a substantial fall in the amount of land
-     standing above sea level.
-  4. The crazing: the saltwater fracture network.
+  1. REARRANGE. Each continent is cut off the globe, rotated to a new
+     position and orientation, and set down again. Its internal terrain
+     travels with it, so its mountains, valleys and shelf are still Earth's,
+     but the arrangement of the world is new. ONE CONTINENT IS NOT REPLACED:
+     Europe is the landmass the Doom drowned, and it is simply absent.
+  2. IMPACT. The Marreni basin, at 48 degrees south.
+  3. DROWNING. Sea level falls, flooding lowlands and leaving highlands.
+  4. CRAZING. The saltwater fracture network.
 
-WHY THE DROWNING DOES THE WORK
+WHY REARRANGING WAS NECESSARY
 
-Warping alone does not disguise Earth. Domain warping bends and moves
-coastlines but preserves their silhouettes, so at any warp strength weak
-enough to keep continents intact, Africa still looks like Africa.
+Earlier versions only warped Earth. Warping bends coastlines but preserves
+the ARRANGEMENT - North America stays north-west of South America, Africa
+stays below Europe - so the map still read as Earth at a glance no matter how
+strong the warp. Moving the continents independently is what actually
+produces a new world while keeping each continent's geology recognisably
+Earth's on close inspection.
 
-Lowering the land fraction is what actually changes the map. It floods the
-lowlands and leaves the highlands standing, so the continents survive as
-scattered highland archipelago in roughly their former positions. Land is
-approximately where it used to be; its shape is not. That is what "a faint
-resemblance to the old continents" means in practice, and it is also exactly
-what the Doom is described as having done.
+WHY EUROPE IS THE SUNK ONE
 
-Land is set to about 19 percent after fracturing, against Earth's 29 percent.
+It explains something already in the canon. If the classical homeland is
+under water, then Latin and Greek survive only in manuscripts, which is
+exactly why an accurate account of the old world is the private property of
+wealthy families.
 
-THE MAGNETIC REVERSAL CONTRIBUTES NOTHING HERE, correctly: it does not move
-the axis, change any latitude, or alter the terrain. Its consequences are
-navigational and biological.
+A NOTE ON THE CRATER'S SIZE
+
+The crater is generated from real pi-group scaling laws, but the impactor
+required to make a basin large enough to read on a world map is far larger
+than anything that would leave a habitable planet. The scaling is used here
+for the SHAPE of the basin - cavity, rim, ejecta falloff - not as a claim
+about survivability.
 
 Usage:  python3 build_world.py --width 2200
 """
 
 import argparse
 import numpy as np
-import generate_world as G
 
-PARAMS = dict(
-    land_fraction=0.28,      # ~19% after the fractures remove their share
-    warp=0.030,              # crustal deformation; higher merges continents
-    rift=0.25,
-    mountains=0.35,
-    seas=2,
-    hotspots=5,
-    platform=0.0,            # 0 = keep Earth's own continents
-    lost_continent=True,     # the drowned seventh
-    rotation=(0, 0, 0),      # no axial shift: the reversal is magnetic only
-    sunder=False,            # the Almani Corridor is hand-drawn, not generated
-    crazing=0.75,
-    crazing_cells=35,
-    crack_width=0.00112,
-    crack_smoothing=0.5,
-    mountain_avoidance=0.6,
-    blob=0.9,
-    impact_lat=-48.0,        # the Marreni Sea: southern, central
-    impact_lon=0.0,
-)
+import generate_world as G
+import physics as P
+import rearrange as R
+
+SINK = "europe"
+IMPACT_LAT, IMPACT_LON = -48.0, 0.0
+IMPACTOR_KM = 260.0          # sized for visibility; see note above
+LAND_FRACTION = 0.30
+CRAZING = dict(scales=3, depth=3100, density=0.75, sharpness=14.0, cells=35,
+               mountain_avoidance=0.6, smoothing=0.5, crack_width=0.00112)
+
+
+def build(seed=44, w=2200, verbose=True):
+    G.set_resolution(w)
+    h = G.H
+    rng = np.random.default_rng(seed)
+
+    if verbose:
+        print("[1/5] rearranging the continents ...")
+    earth = G.load_earth()
+    z = R.rearrange(earth, sink=SINK, seed=seed, verbose=verbose)
+    z = R.blend_seafloor(z, earth)
+
+    if verbose:
+        print("[2/5] the impact ...")
+    field, D = P.impact_field(h, w, IMPACT_LAT, IMPACT_LON,
+                              impactor_d_m=IMPACTOR_KM * 1000.0)
+    z = z + field
+    resp, _, _ = P.flexural_response(field, h, w)
+    z = z + resp
+    if verbose:
+        print(f"    Marreni basin {D/1000:.0f} km across at "
+              f"{abs(IMPACT_LAT):.0f}S")
+
+    if verbose:
+        print("[3/5] the Drowning ...")
+    z = G.erode(z, rng)
+    wts = G.latitude_weight(h, w).ravel()
+    vals = z.ravel()
+    order = np.argsort(vals)
+    cw = np.cumsum(wts[order]) / wts.sum()
+    z = z - vals[order][min(int(np.searchsorted(cw, 1 - LAND_FRACTION)),
+                            vals.size - 1)]
+
+    if verbose:
+        print("[4/5] the crazing ...")
+    z = G.fracture_network(z, rng, impact_lat=IMPACT_LAT,
+                           impact_lon=IMPACT_LON, **CRAZING)
+
+    if verbose:
+        print("[5/5] cleanup ...")
+    z = P.cleanup(z, median_px=1)
+    z = G.despeckle(z)
+    return z
 
 
 def main():
@@ -74,9 +110,7 @@ def main():
     ap.add_argument("--out", default="WORLD")
     a = ap.parse_args()
 
-    G.set_resolution(a.width)
-    z, lost = G.build(a.seed, **PARAMS)
-
+    z = build(a.seed, a.width)
     G.render_colour(z).save(f"{a.out}.png")
     G.render_heightmap(z).save(f"{a.out}_height.png")
     np.save(f"{a.out}_elevation.npy", z)
@@ -84,15 +118,11 @@ def main():
     land = z >= 0
     wts = G.latitude_weight(*z.shape)
     lab, n = G.ndimage.label(land, structure=np.ones((3, 3)))
-    sizes = np.sort(np.bincount(lab.ravel())[1:])[::-1]
-    tot = sizes.sum()
-    print(f"land {100*(land*wts).sum()/wts.sum():.1f}% | {n} landmasses | "
-          f"largest {100*sizes[0]/tot:.1f}%")
-    print("top:", ", ".join(f"{100*s/tot:.1f}" for s in sizes[:8]))
-    if lost:
-        print(f"drowned continent: {100*lost:.1f}% of former land")
-    print(f"\nwrote {a.out}.png (view), {a.out}_height.png (import to Azgaar), "
-          f"{a.out}_elevation.npy (metres)")
+    sz = np.sort(np.bincount(lab.ravel())[1:])[::-1]
+    tot = sz.sum()
+    print(f"\nland {100*(land*wts).sum()/wts.sum():.1f}% | {n} landmasses")
+    print("continents:", ", ".join(f"{100*s/tot:.1f}%" for s in sz[:8]))
+    print(f"wrote {a.out}.png, {a.out}_height.png, {a.out}_elevation.npy")
 
 
 if __name__ == "__main__":
