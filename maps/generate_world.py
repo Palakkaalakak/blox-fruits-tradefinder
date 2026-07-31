@@ -450,7 +450,7 @@ def inland_seas(z, rng, n, radius, depth):
     return out
 
 
-def sunder_pair(z, rng, rank=0, width_px=6.0, taper=0.55):
+def sunder_pair(z, rng, rank=0, width_px=6.0, taper=0.55, angle=None):
     """The Sundering of a single continent into two.
 
     Cuts a channel through one landmass so that it becomes two continents
@@ -477,7 +477,7 @@ def sunder_pair(z, rng, rank=0, width_px=6.0, taper=0.55):
 
     ys, xs = np.nonzero(mask)
     cy, cx = ys.mean(), xs.mean()
-    ang = rng.uniform(0, np.pi)
+    ang = rng.uniform(0, np.pi) if angle is None else angle
 
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     latw = latitude_weight(h, w)

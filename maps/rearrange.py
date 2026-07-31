@@ -80,6 +80,58 @@ def _box_mask(h, w, bounds, rng=None, jitter=6.0):
     return (lat >= la0) & (lat <= la1) & (lon >= lo0) & (lon <= lo1)
 
 
+def trim_filaments(moved, ocean_floor=-4200.0, radius_px=6):
+    """Remove any part of a landmass narrower than roughly 2*radius_px,
+    keeping only what's left of the main body.
+
+    A landmass permitted to touch the map edge (Africa, so it can straddle
+    the seam on request) can otherwise throw a thin tendril the width of a
+    handful of pixels all the way across open ocean to another continent -
+    exactly the cross-ocean arm bug, just relocated. Morphological opening
+    erases anything that thin regardless of where it sits, without requiring
+    it to reach the edge first the way the edge-margin filter does.
+    """
+    land = moved >= 0
+    structure = np.ones((2 * radius_px + 1, 2 * radius_px + 1), dtype=bool)
+    opened = ndimage.binary_opening(land, structure=structure)
+    lab, n = ndimage.label(opened, structure=np.ones((3, 3)))
+    out = moved.copy()
+    if n == 0:
+        out[land] = ocean_floor
+        return out
+    # Reconnect each surviving body with whatever original land touches it,
+    # so real coastline detail isn't lost - only the thin connective tissue
+    # between bodies is what the opening actually removed.
+    survivors = ndimage.binary_dilation(opened, structure=np.ones((3, 3)),
+                                        iterations=radius_px, mask=land)
+    out[land & ~survivors] = ocean_floor
+    return out
+
+
+def twist_center(moved, max_angle_deg=30.0):
+    """Twist a landmass around its own centroid: the centre rotates by
+    max_angle_deg, the amount tapers linearly to zero at the farthest point
+    of the shape (its 'corner'), so the outline's extremes stay put while
+    everything inward of them swirls.
+    """
+    land = moved >= 0
+    ys, xs = np.where(land)
+    if len(ys) == 0 or max_angle_deg == 0:
+        return moved
+    cy, cx = ys.mean(), xs.mean()
+    radius = max(np.hypot(ys - cy, xs - cx).max(), 1.0)
+    h, w = moved.shape
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    dy, dx = yy - cy, xx - cx
+    r = np.hypot(dy, dx)
+    t = np.clip(1.0 - r / radius, 0.0, 1.0)
+    theta = np.radians(max_angle_deg) * t
+    cos, sin = np.cos(-theta), np.sin(-theta)
+    sx = cx + dx * cos - dy * sin
+    sy = cy + dx * sin + dy * cos
+    return G.sample(moved, sy, sx)
+
+
 def _drop_edge_filaments(moved, ocean_floor=-4200.0, margin_frac=0.03):
     """Remove any land within a margin of the map's left/right edge, then
     drop whatever that disconnects from the main body.
@@ -133,13 +185,20 @@ def bend_hunchback(moved, pivot_frac=0.42, max_shift_frac=0.42, power=2.0):
 
 
 def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
-              africa_mode="bend"):
+              africa_mode="bend", africa_twist_deg=0.0, africa_split_angle=None):
     """Cut the continents out of Earth and set them down somewhere else.
 
     africa_mode: "bend" curves Africa's northward point over to the right;
     "sunder" cuts Africa itself into two separate landmasses, the way the
     Almani Corridor split one continent into Lidia and Réselia; "none"
     leaves it as placed.
+    africa_twist_deg: independent of africa_mode - swirls Africa around its
+    own centroid by this many degrees, tapering to zero at its outline's
+    farthest point, so the shape's extremes stay fixed and the interior
+    rotates. 0 leaves it untouched.
+    africa_split_angle: radians, only used when africa_mode="sunder" - fixes
+    the cut's angle instead of drawing one at random, so it can be varied
+    deliberately between renders.
     """
     h, w = z.shape
     rng = np.random.default_rng(seed)
@@ -180,6 +239,9 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
             moved = _drop_edge_filaments(moved, ocean_floor)
 
         if name == "africa":
+            if africa_twist_deg:
+                moved = twist_center(moved, africa_twist_deg)
+
             if africa_mode == "bend":
                 # The point that used to run north now curves over to the
                 # right, like a hunchback's shoulder, instead of standing
@@ -190,7 +252,12 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
                 # split one landmass into Lidia and Réselia - the two
                 # halves splay apart from a single near-touching point.
                 moved, _ = G.sunder_pair(moved, rng, rank=0,
-                                         width_px=w * 0.006, taper=0.7)
+                                         width_px=w * 0.006, taper=0.7,
+                                         angle=africa_split_angle)
+
+            # Allowed to touch the seam, but not to throw a thin tendril
+            # all the way across open ocean to another continent.
+            moved = trim_filaments(moved, ocean_floor, radius_px=6)
 
         out = np.maximum(out, moved)
 
