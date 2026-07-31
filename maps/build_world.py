@@ -72,11 +72,12 @@ def build(seed=44, w=2200, verbose=True):
 
     if verbose:
         print("[2/5] the impact ...")
-    field, D = P.impact_field(h, w, IMPACT_LAT, IMPACT_LON,
+    field, D, dist, r_px = P.impact_field(h, w, IMPACT_LAT, IMPACT_LON,
                               impactor_d_m=IMPACTOR_KM * 1000.0)
     z = z + field
     resp, _, _ = P.flexural_response(field, h, w)
     z = z + resp
+    basin = dist < 1.4 * r_px
     if verbose:
         print(f"    Marreni basin {D/1000:.0f} km across at "
               f"{abs(IMPACT_LAT):.0f}S")
@@ -90,6 +91,12 @@ def build(seed=44, w=2200, verbose=True):
     cw = np.cumsum(wts[order]) / wts.sum()
     z = z - vals[order][min(int(np.searchsorted(cw, 1 - LAND_FRACTION)),
                             vals.size - 1)]
+
+    # Marreni is canonically a sea. Whatever the local seafloor height ended
+    # up being after erosion and the sea-level cut, the crater and its rim
+    # must not break the surface - apply the clamp LAST, after every step
+    # that shifts elevation, or an earlier clamp just gets undone.
+    z[basin] = np.minimum(z[basin], -60.0)
 
     if verbose:
         print("[4/5] the crazing ...")

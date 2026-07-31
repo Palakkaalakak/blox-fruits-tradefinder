@@ -94,11 +94,16 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True):
         patch = np.where(mask, z, ocean_floor).astype(np.float32)
 
         if name == "africa":
-            # Distorted harder than the rest: it is the strongest single
-            # result so far, but still needs to read as less literally
-            # African at a glance.
-            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.028,
-                                     base_scale=w * 0.10)
+            # Distorted harder than the rest: still readable as Africa even
+            # after one warp pass, including when the map is recentred so
+            # the piece isn't split across the seam. Two passes at different
+            # scales - one large-scale to break the silhouette, one finer to
+            # break the coastline detail - so it stops reading as a rotated
+            # crop of the real continent.
+            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.05,
+                                     base_scale=w * 0.22)
+            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.035,
+                                     base_scale=w * 0.08)
 
         moved = G.spherical_rotate(patch, *PLACEMENT[name])
         out = np.maximum(out, moved)

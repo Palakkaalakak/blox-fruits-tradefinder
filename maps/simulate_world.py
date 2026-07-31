@@ -91,7 +91,7 @@ def build(seed=7, w=2048, plates=12, cycles=3, impactor_km=45.0,
 
     if verbose:
         print("[2/5] impact ...", flush=True)
-    field, D = P.impact_field(h, w, impact_lat, impact_lon,
+    field, D, _, _ = P.impact_field(h, w, impact_lat, impact_lon,
                               impactor_d_m=impactor_km * 1000.0)
     z = z + field
     if verbose:

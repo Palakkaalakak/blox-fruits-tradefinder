@@ -191,7 +191,7 @@ def build(seed=3, w=2400, land_threshold=0.40, crazing=0.75, cells=35,
 
     if verbose:
         print("[4/5] the Marreni impact ...")
-    imp, D = P.impact_field(h, w, MARRENI[0], MARRENI[1],
+    imp, D, _, _ = P.impact_field(h, w, MARRENI[0], MARRENI[1],
                             impactor_d_m=42000.0)
     z = z + imp
     resp, _, _ = P.flexural_response(imp, h, w)

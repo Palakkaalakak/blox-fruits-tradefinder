@@ -160,8 +160,10 @@ def impact_field(h, w, lat_deg, lon_deg, impactor_d_m=14000.0,
     inside = dist < r_px
     out[inside] -= depth * (1.0 - (dist[inside] / r_px) ** 2)
 
-    # rim uplift, ~4% of depth, concentrated at the rim
-    rim = depth * 0.04 * np.exp(-((dist - r_px) / (0.28 * r_px)) ** 2)
+    # rim uplift, ~4% of depth, concentrated at the rim. Kept well below sea
+    # level - even a submerged rim shows up as a shallow ring on the height
+    # map, and if it breaks the surface it reads as an atoll, which is wrong.
+    rim = depth * 0.015 * np.exp(-((dist - r_px) / (0.28 * r_px)) ** 2)
     out += rim
 
     # ejecta blanket: McGetchin's law, t = 0.14 * R^0.74 * (r/R)^-3
@@ -176,7 +178,10 @@ def impact_field(h, w, lat_deg, lon_deg, impactor_d_m=14000.0,
     focus = np.exp(-(anti / (2.2 * r_px)) ** 2)
     out += 0.10 * depth * focus
 
-    return out.astype(np.float32), D
+    # dist/r_px returned so the caller can guarantee the basin stays a sea:
+    # Marreni is canonically underwater, and no fixed rim coefficient is
+    # safe against every local seafloor height it might land on.
+    return out.astype(np.float32), D, dist, r_px
 
 
 # ---------------------------------------------------------------------------
