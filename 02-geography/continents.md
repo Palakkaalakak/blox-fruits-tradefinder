@@ -32,9 +32,26 @@ The sixth continent is the polar landmass, equivalent to Antarctica. It is ice-c
 
 A seventh landmass was drowned during the Doom and never returned to the surface. It exists today as a shallow plateau on the seabed. Because the world is Earth and the Doom drowned land, this follows as a consequence rather than being an invention; the arithmetic of how much land there ought to be does not otherwise balance. Details are in `the-lost-continent.md`.
 
+## Positions on the final map
+
+The base map (`maps/WORLD.png`, `maps/WORLD_elevation.npy`) was measured directly to find where each landmass ended up. By size, largest to smallest among the five non-polar continents:
+
+| # | Continent | Share of world land | Centroid |
+|---|---|---|---|
+| — | Polar continent (#6) | ~40% | 79°S, 16°E |
+| 1 | Lidia | ~31% | 48°N, 70°E |
+| 2 | Réselia | ~20% | 3°N, 66°W |
+| 3 | The Elsring continent | ~7.5% | 12°S, 169°W |
+| 4 | Unnamed | ~1.4% | 3°N, 168°E |
+| 5 | Unnamed | ~1.1% | 32°S, 176°E |
+
+Lidia and Réselia being the two largest habitable landmasses fits their status as the Rediscovery's dominant powers. The Elsring continent being smaller than either fits its conquest by expeditions from both. Continents 4 and 5 are small — closer to large island groups than to Lidia's or Réselia's scale — which is consistent with their remaining unnamed and unvisited by the plot so far. The polar continent is by far the largest by area but is ice-locked and uninhabited.
+
+These are raw measurements from the map, not narrative decisions — the numbers only fix relative size and rough position. Exact coastlines will still change once the base map is refined in Azgaar's Fantasy Map Generator.
+
 ## Open
 
-- Names for continents 4, 5 and 6
+- Names for continents 4 and 5
 - Which continents were reached during the Rediscovery and which were already known
 - Whether continents 4 and 5 are inhabited by peoples comparable to the Lidians and Réselians, or are less developed, or are colonial possessions
-- Where each of the six sits relative to the Almani Corridor and the Marreni Sea
+- Where each continent sits relative to the Almani Corridor and the Marreni Sea (not yet placed on the base map)
