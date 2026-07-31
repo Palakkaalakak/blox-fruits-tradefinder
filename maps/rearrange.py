@@ -31,7 +31,7 @@ CONTINENTS = {
     "south_america": (-57.0, 13.0, -82.0, -33.0),
     "europe":        (35.0, 72.0, -12.0, 60.0),
     "asia":          (2.0, 78.0, 60.0, 180.0),
-    "africa":        (-18.0, 26.0, -8.0, 42.0),
+    "africa":        (-34.0, 32.0, -12.0, 40.0),
     "oceania":       (-48.0, 0.0, 112.0, 180.0),
     "antarctica":    (-90.0, -62.0, -180.0, 180.0),
 }
@@ -53,7 +53,7 @@ PLACEMENT = {
     # attempt avoided that but landed the whole continent on top of Asia
     # instead. Found by search, scored against every other continent's
     # final position: this orientation touches neither.
-    "africa":        (-146.0, -24.7, 44.6),
+    "africa":        (172.1, 1.0, -122.1),
     "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
@@ -257,7 +257,7 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
 
             # Allowed to touch the seam, but not to throw a thin tendril
             # all the way across open ocean to another continent.
-            moved = trim_filaments(moved, ocean_floor, radius_px=6)
+            moved = trim_filaments(moved, ocean_floor, radius_px=14)
 
             # The distance-to-Antarctica check that picked this placement
             # was run on the UNTWISTED shape. twist_center() rotates around
