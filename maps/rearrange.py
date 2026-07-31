@@ -80,6 +80,36 @@ def _box_mask(h, w, bounds, rng=None, jitter=6.0):
     return (lat >= la0) & (lat <= la1) & (lon >= lo0) & (lon <= lo1)
 
 
+def _drop_edge_filaments(moved, ocean_floor=-4200.0, margin_frac=0.03):
+    """Remove any land within a margin of the map's left/right edge, then
+    drop whatever that disconnects from the main body.
+
+    Every continent's placement was chosen to sit away from the antimeridian
+    seam, so land reaching the edge is never real coastline - it is a thin
+    filament introduced by the box mask jitter or the rotation. Because the
+    map wraps horizontally, two such filaments on unrelated continents can
+    appear to connect into one long land bridge across the open ocean. A
+    thin filament is still attached to its parent body (this is not a
+    separate island), so clipping the edge and re-checking connectivity is
+    what actually separates it, rather than just looking for components
+    that already touch the edge in isolation.
+    """
+    h, w = moved.shape
+    margin = max(int(w * margin_frac), 1)
+    out = moved.copy()
+    out[:, :margin] = ocean_floor
+    out[:, -margin:] = ocean_floor
+
+    land = out >= 0
+    lab, n = ndimage.label(land, structure=np.ones((3, 3)))
+    if n == 0:
+        return out
+    sizes = np.bincount(lab.ravel())
+    main = np.argmax(sizes[1:]) + 1
+    out[(lab != main) & (lab != 0)] = ocean_floor
+    return out
+
+
 def bend_hunchback(moved, pivot_frac=0.42, max_shift_frac=0.42, power=2.0):
     """Curve a continent's northward point over to the right, like a
     hunchback's shoulder. Works in final map space: finds the landmass's own
@@ -142,6 +172,11 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
                                      base_scale=w * 0.08)
 
         moved = G.spherical_rotate(patch, *PLACEMENT[name])
+        if name != "antarctica":
+            # Antarctica alone is meant to touch both edges - it keeps its
+            # real, unrotated position and legitimately wraps around every
+            # longitude at the pole.
+            moved = _drop_edge_filaments(moved, ocean_floor)
 
         if name == "africa":
             if africa_mode == "bend":
