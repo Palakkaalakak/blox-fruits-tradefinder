@@ -80,6 +80,28 @@ def _box_mask(h, w, bounds, rng=None, jitter=6.0):
     return (lat >= la0) & (lat <= la1) & (lon >= lo0) & (lon <= lo1)
 
 
+def bend_hunchback(moved, pivot_frac=0.42, max_shift_frac=0.42, power=2.0):
+    """Curve a continent's northward point over to the right, like a
+    hunchback's shoulder. Works in final map space: finds the landmass's own
+    bounding box, then shifts each row rightward by an amount that grows
+    toward the north (small y), tapering to nothing at and below the pivot
+    row, so only the point itself bends and the rest of the body stays put.
+    """
+    land = moved >= 0
+    ys, xs = np.where(land)
+    if len(ys) == 0:
+        return moved
+    y0, y1 = ys.min(), ys.max()
+    x0, x1 = xs.min(), xs.max()
+    pivot = y0 + (y1 - y0) * pivot_frac
+    max_shift = (x1 - x0) * max_shift_frac
+    h, w = moved.shape
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    t = np.clip((pivot - yy) / max(pivot - y0, 1e-6), 0.0, 1.0)
+    shift = max_shift * (t ** power)
+    return G.sample(moved, yy, xx - shift)
+
+
 def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True):
     """Cut the continents out of Earth and set them down somewhere else."""
     h, w = z.shape
@@ -113,6 +135,13 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True):
                                      base_scale=w * 0.08)
 
         moved = G.spherical_rotate(patch, *PLACEMENT[name])
+
+        if name == "africa":
+            # The point that used to run north now curves over to the
+            # right, like a hunchback's shoulder, instead of standing
+            # straight up.
+            moved = bend_hunchback(moved)
+
         out = np.maximum(out, moved)
 
         if verbose:
