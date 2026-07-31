@@ -53,7 +53,7 @@ PLACEMENT = {
     # attempt avoided that but landed the whole continent on top of Asia
     # instead. Found by search, scored against every other continent's
     # final position: this orientation touches neither.
-    "africa":        (-155.6, 8.9, -173.5),
+    "africa":        (-131.0, -39.7, 64.6),
     "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
@@ -102,8 +102,15 @@ def bend_hunchback(moved, pivot_frac=0.42, max_shift_frac=0.42, power=2.0):
     return G.sample(moved, yy, xx - shift)
 
 
-def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True):
-    """Cut the continents out of Earth and set them down somewhere else."""
+def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
+              africa_mode="bend"):
+    """Cut the continents out of Earth and set them down somewhere else.
+
+    africa_mode: "bend" curves Africa's northward point over to the right;
+    "sunder" cuts Africa itself into two separate landmasses, the way the
+    Almani Corridor split one continent into Lidia and Réselia; "none"
+    leaves it as placed.
+    """
     h, w = z.shape
     rng = np.random.default_rng(seed)
     out = np.full((h, w), ocean_floor, dtype=np.float32)
@@ -137,10 +144,17 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True):
         moved = G.spherical_rotate(patch, *PLACEMENT[name])
 
         if name == "africa":
-            # The point that used to run north now curves over to the
-            # right, like a hunchback's shoulder, instead of standing
-            # straight up.
-            moved = bend_hunchback(moved)
+            if africa_mode == "bend":
+                # The point that used to run north now curves over to the
+                # right, like a hunchback's shoulder, instead of standing
+                # straight up.
+                moved = bend_hunchback(moved)
+            elif africa_mode == "sunder":
+                # Cut clean through, the same way the Almani Corridor
+                # split one landmass into Lidia and Réselia - the two
+                # halves splay apart from a single near-touching point.
+                moved, _ = G.sunder_pair(moved, rng, rank=0,
+                                         width_px=w * 0.006, taper=0.7)
 
         out = np.maximum(out, moved)
 

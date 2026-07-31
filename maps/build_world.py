@@ -76,7 +76,7 @@ def carve_channel(z, p0, p1, width, floor=-250.0):
     return np.minimum(z, z * (1 - trough) + floor * trough)
 
 
-def build(seed=44, w=2200, verbose=True):
+def build(seed=44, w=2200, verbose=True, africa_mode="bend"):
     G.set_resolution(w)
     h = G.H
     rng = np.random.default_rng(seed)
@@ -84,7 +84,8 @@ def build(seed=44, w=2200, verbose=True):
     if verbose:
         print("[1/5] rearranging the continents ...")
     earth = G.load_earth()
-    z = R.rearrange(earth, sink=SINK, seed=seed, verbose=verbose)
+    z = R.rearrange(earth, sink=SINK, seed=seed, verbose=verbose,
+                     africa_mode=africa_mode)
     z = R.blend_seafloor(z, earth)
 
     if verbose:
@@ -132,9 +133,11 @@ def main():
     ap.add_argument("--seed", type=int, default=44)
     ap.add_argument("--width", type=int, default=2200)
     ap.add_argument("--out", default="WORLD")
+    ap.add_argument("--africa-mode", default="bend",
+                    choices=["bend", "sunder", "none"])
     a = ap.parse_args()
 
-    z = build(a.seed, a.width)
+    z = build(a.seed, a.width, africa_mode=a.africa_mode)
     G.render_colour(z).save(f"{a.out}.png")
     G.render_heightmap(z).save(f"{a.out}_height.png")
     np.save(f"{a.out}_elevation.npy", z)
