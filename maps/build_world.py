@@ -148,6 +148,24 @@ def build(seed=44, w=2200, verbose=True):
     z = np.where(supp > 0, np.minimum(z, z * (1 - supp) - 250.0 * supp), z)
 
     if verbose:
+        print("[4.7/5] cutting the seam peninsula loose from the pole ...")
+    # A second, much larger fused mass: whatever landed near the antimeridian
+    # (x near the map seam) is directly welded to the polar continent's own
+    # patch, since both are real elevation and np.maximum() joins anything
+    # that touches. It reaches up to about y=530, far north of the polar
+    # continent's real baseline (~y=930-970) - sever it there instead of
+    # deciding which source continent it is.
+    band2 = (yy >= 800.0) & (yy <= 910.0) & ((xx >= 1900) | (xx <= 300))
+    z = np.where(band2, np.minimum(z, -150.0), z)
+    edge2 = (((yy >= 770) & (yy < 800)) | ((yy > 910) & (yy <= 940))) & \
+            ((xx >= 1880) | (xx <= 320))
+    z = np.where(edge2, np.minimum(z, z * 0.4 - 60.0), z)
+    from scipy import ndimage as _nd
+    softmask = (((yy >= 760) & (yy <= 945)) & ((xx >= 1860) | (xx <= 340)))
+    blurred = _nd.gaussian_filter(z, 3.0, mode=("nearest", "wrap"))
+    z = np.where(softmask, blurred, z)
+
+    if verbose:
         print("[5/5] cleanup ...")
     z = P.cleanup(z, median_px=1)
     z = G.despeckle(z)
