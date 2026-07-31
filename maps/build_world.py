@@ -59,6 +59,23 @@ CRAZING = dict(scales=3, depth=3100, density=0.75, sharpness=14.0, cells=35,
                mountain_avoidance=0.6, smoothing=0.9, crack_width=0.00112)
 
 
+def carve_channel(z, p0, p1, width, floor=-250.0):
+    """Cut a strait between two points. Only ever lowers ground - it cannot
+    raise land that fracturing or erosion left below sea level."""
+    h, w_ = z.shape
+    yy, xx = np.mgrid[0:h, 0:w_].astype(np.float32)
+    y0, x0 = p0
+    y1, x1 = p1
+    dx, dy = x1 - x0, y1 - y0
+    length = max(np.hypot(dx, dy), 1e-6)
+    ux, uy = dx / length, dy / length
+    t = np.clip((xx - x0) * ux + (yy - y0) * uy, 0, length)
+    projx, projy = x0 + t * ux, y0 + t * uy
+    d = np.hypot(xx - projx, yy - projy)
+    trough = np.exp(-(d / (width * 0.5)) ** 2)
+    return np.minimum(z, z * (1 - trough) + floor * trough)
+
+
 def build(seed=44, w=2200, verbose=True):
     G.set_resolution(w)
     h = G.H
@@ -102,6 +119,14 @@ def build(seed=44, w=2200, verbose=True):
         print("[4/5] the crazing ...")
     z = G.fracture_network(z, rng, impact_lat=IMPACT_LAT,
                            impact_lon=IMPACT_LON, **CRAZING)
+
+    if verbose:
+        print("[4.5/5] the Sundered Horn ...")
+    # The eastern spur of the Africa-derived continent was already a thin
+    # neck before any of this - the Doom's crustal failure and the
+    # subsequent millennium of erosion simply finished what continental
+    # rifting was already doing. It calves off as its own landmass.
+    z = carve_channel(z, (365, 715), (525, 800), width=70, floor=-320.0)
 
     if verbose:
         print("[5/5] cleanup ...")
