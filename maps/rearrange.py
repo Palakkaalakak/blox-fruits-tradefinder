@@ -42,12 +42,12 @@ CONTINENTS = {
 # separate continents, their balance, and how little land is lost. This one
 # gives six distinct continents with the largest holding a third of the land.
 PLACEMENT = {
-    "north_america": (12.0, -28.0, -60.0),
-    "south_america": (-42.0, 8.0, 24.0),
+    "north_america": (-6.8, -15.5, -45.5),
+    "south_america": (-30.2, -7.7, 33.8),
     "europe":        (25.0, 10.0, 15.0),   # unused: europe is the sunk one
-    "asia":          (-96.0, -42.0, 78.0),
-    "africa":        (-155.1, 15.8, 8.8), # kept: the best result so far
-    "oceania":       (150.0, -50.0, 52.0),
+    "asia":          (-108.9, -66.0, 60.1),  # nudged south of the previous spot
+    "africa":        (-155.1, 15.8, 8.8),    # kept: the best result so far
+    "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
 

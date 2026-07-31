@@ -161,7 +161,7 @@ def impact_field(h, w, lat_deg, lon_deg, impactor_d_m=14000.0,
     out[inside] -= depth * (1.0 - (dist[inside] / r_px) ** 2)
 
     # rim uplift, ~4% of depth, concentrated at the rim
-    rim = depth * 0.9 * np.exp(-((dist - r_px) / (0.28 * r_px)) ** 2)
+    rim = depth * 0.04 * np.exp(-((dist - r_px) / (0.28 * r_px)) ** 2)
     out += rim
 
     # ejecta blanket: McGetchin's law, t = 0.14 * R^0.74 * (r/R)^-3
