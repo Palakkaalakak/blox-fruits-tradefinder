@@ -650,13 +650,21 @@ def render_colour(z):
 
 
 def render_heightmap(z):
-    """8-bit greyscale for Azgaar import: sea level lands at 127."""
+    """8-bit greyscale for Azgaar import.
+
+    Azgaar's own height scale is 0-100 with water strictly below 20. Its
+    "auto-assign by luminosity" maps input brightness 0-255 linearly onto
+    that 0-100 scale, so sea level needs to land at luminosity ~51 (20/100
+    of 255), not the middle of the range - putting it at 127 like a normal
+    centered greyscale (as this used to) pushes most of the ocean above the
+    water threshold and the whole map imports as land.
+    """
     out = np.zeros_like(z)
     sea, land = z < 0, z >= 0
     if sea.any():
-        out[sea] = 127 * (1 - z[sea] / (z[sea].min() or -1))
+        out[sea] = 51 * (1 - z[sea] / (z[sea].min() or -1))
     if land.any():
-        out[land] = 128 + 127 * (z[land] / (z[land].max() or 1)) ** 0.65
+        out[land] = 51 + 204 * (z[land] / (z[land].max() or 1)) ** 0.65
     return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), mode="L")
 
 
