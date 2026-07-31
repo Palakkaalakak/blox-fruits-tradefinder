@@ -121,51 +121,6 @@ def build(seed=44, w=2200, verbose=True):
                            impact_lon=IMPACT_LON, **CRAZING)
 
     if verbose:
-        print("[4.5/5] the Sundered Horn ...")
-    # The eastern spur of the Africa-derived continent was already a thin
-    # neck before any of this - the Doom's crustal failure and the
-    # subsequent millennium of erosion simply finished what continental
-    # rifting was already doing. It calves off as its own landmass.
-    z = carve_channel(z, (365, 715), (525, 800), width=70, floor=-320.0)
-
-    if verbose:
-        print("[4.6/5] trimming the polar continent's reach ...")
-    # The polar continent's own shape carried a peninsula that swings north
-    # and wraps around the Marreni basin - wrong twice over, since Marreni
-    # is meant to sit in open water and the polar continent is meant to stay
-    # polar. Push that reach back under, smoothly, so only the rest of the
-    # landmass is untouched.
-    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-    # The arm sat roughly between y=750 and y=905 - bounded on BOTH sides.
-    # The previous version only bounded the south edge, so it suppressed
-    # everything further north in that longitude band too, including the
-    # real Asia-derived continent up around y=100-470.
-    south_fade = np.clip((905.0 - yy) / 60.0, 0.0, 1.0)
-    north_fade = np.clip((yy - 750.0) / 60.0, 0.0, 1.0)
-    yband = south_fade * north_fade
-    xband = np.clip(np.minimum(xx - 930.0, 1450.0 - xx) / 40.0, 0.0, 1.0)
-    supp = yband * xband
-    z = np.where(supp > 0, np.minimum(z, z * (1 - supp) - 250.0 * supp), z)
-
-    if verbose:
-        print("[4.7/5] cutting the seam peninsula loose from the pole ...")
-    # A second, much larger fused mass: whatever landed near the antimeridian
-    # (x near the map seam) is directly welded to the polar continent's own
-    # patch, since both are real elevation and np.maximum() joins anything
-    # that touches. It reaches up to about y=530, far north of the polar
-    # continent's real baseline (~y=930-970) - sever it there instead of
-    # deciding which source continent it is.
-    band2 = (yy >= 800.0) & (yy <= 910.0) & ((xx >= 1900) | (xx <= 300))
-    z = np.where(band2, np.minimum(z, -150.0), z)
-    edge2 = (((yy >= 770) & (yy < 800)) | ((yy > 910) & (yy <= 940))) & \
-            ((xx >= 1880) | (xx <= 320))
-    z = np.where(edge2, np.minimum(z, z * 0.4 - 60.0), z)
-    from scipy import ndimage as _nd
-    softmask = (((yy >= 760) & (yy <= 945)) & ((xx >= 1860) | (xx <= 340)))
-    blurred = _nd.gaussian_filter(z, 3.0, mode=("nearest", "wrap"))
-    z = np.where(softmask, blurred, z)
-
-    if verbose:
         print("[5/5] cleanup ...")
     z = P.cleanup(z, median_px=1)
     z = G.despeckle(z)

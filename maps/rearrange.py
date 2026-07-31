@@ -46,7 +46,14 @@ PLACEMENT = {
     "south_america": (-30.2, -7.7, 33.8),
     "europe":        (25.0, 10.0, 15.0),   # unused: europe is the sunk one
     "asia":          (-108.9, -66.0, 60.1),  # nudged south of the previous spot
-    "africa":        (-155.1, 27.0, 8.8),      # kept; 148px clear of the polar continent already
+    # Earlier angles brought part of Africa close to the new pole - a patch
+    # that crosses near a pole gets split across the left/right edges of an
+    # equirectangular map, and the piece that reappeared on the far side
+    # was landing directly on the polar continent's territory. A second
+    # attempt avoided that but landed the whole continent on top of Asia
+    # instead. Found by search, scored against every other continent's
+    # final position: this orientation touches neither.
+    "africa":        (-11.3, -7.3, 79.4),
     "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
