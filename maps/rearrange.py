@@ -259,6 +259,17 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
             # all the way across open ocean to another continent.
             moved = trim_filaments(moved, ocean_floor, radius_px=6)
 
+            # The distance-to-Antarctica check that picked this placement
+            # was run on the UNTWISTED shape. twist_center() rotates around
+            # the centroid, which can swing part of the shape further south
+            # than the original footprint ever reached, silently undoing
+            # that guarantee. Enforce it directly instead of trusting the
+            # placement search alone: nothing of Africa is allowed south of
+            # -55 latitude, a real margin above Antarctica's own box, which
+            # starts at -62.
+            south_limit_y = int((90.0 + 55.0) / 180.0 * moved.shape[0])
+            moved[south_limit_y:, :] = ocean_floor
+
         out = np.maximum(out, moved)
 
         if verbose:

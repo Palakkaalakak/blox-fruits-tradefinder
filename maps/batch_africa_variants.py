@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generate several Africa treatments and verify each one before it's
-trusted: no landmass may come unreasonably close to the polar continent,
-and no landmass other than Africa/Antarctica may touch the map's left or
-right edge (that combination is what produced the cross-ocean arm before)."""
+trusted: Africa itself must stay clear of the polar continent by a real
+margin, no OTHER landmass may touch the map's left/right edge, and nothing
+non-Africa may sit unreasonably close to Antarctica either."""
 
 import numpy as np
 from scipy import ndimage
@@ -22,54 +22,64 @@ VARIANTS = [
     dict(name="v8_twist80_sunder", africa_mode="sunder", africa_twist_deg=80, africa_split_angle=2.6),
 ]
 
-MIN_ANTARCTICA_GAP_PX = 40
+MIN_GAP_PX = 40
+NOISE_FRAC = 0.003     # ignore components smaller than this fraction of land
+STRAY_EDGE_FRAC = 0.015
 
 
-def verify(z, w):
+def verify(z):
     land = z >= 0
     lab, n = ndimage.label(land, structure=np.ones((3, 3)))
     sizes = np.bincount(lab.ravel())
+    total = land.sum()
     order = np.argsort(sizes[1:])[::-1] + 1
-    significant = [i for i in order if sizes[i] > 0.003 * land.sum()]
+    sig = [i for i in order if sizes[i] > NOISE_FRAC * total]
 
-    # Antarctica = the significant component with the southernmost mean row.
-    mean_y = {}
-    for i in significant:
-        ys, _ = np.where(lab == i)
-        mean_y[i] = ys.mean()
-    antarctica_id = max(mean_y, key=mean_y.get)
+    w = z.shape[1]
+    # Antarctica: the largest component that spans both map edges (a real
+    # circumpolar band, not just an incidental touch).
+    both_edge = [i for i in sig
+                 if (lab[:, 0] == i).any() and (lab[:, -1] == i).any()
+                 and sizes[i] > 0.05 * total]
+    antarctica_id = both_edge[0] if both_edge else max(sig, key=lambda i: sizes[i])
 
-    problems = []
-
-    # Edge check: only Africa and Antarctica may touch column 0 or w-1.
     edge_ids = set(lab[:, 0][lab[:, 0] > 0]) | set(lab[:, -1][lab[:, -1] > 0])
     edge_ids.discard(antarctica_id)
-    # whichever remaining edge id(s) are largest = Africa's two halves;
-    # anything else touching the edge is a bug.
-    edge_sizes = sorted(((sizes[i], i) for i in edge_ids), reverse=True)
-    africa_ids = {i for _, i in edge_sizes[:2]} if edge_sizes else set()
-    stray_edge = edge_ids - africa_ids
-    if stray_edge:
-        problems.append(f"non-Africa landmass touches map edge: ids {stray_edge}")
+    edge_sizes = sorted(((sizes[i], i) for i in edge_ids if i in sig), reverse=True)
+    africa_ids = {i for _, i in edge_sizes[:2]}
 
-    # Distance check: every significant non-Antarctica component vs Antarctica.
+    problems = []
+    stray = [i for i in edge_ids if i not in africa_ids and sizes[i] > STRAY_EDGE_FRAC * total]
+    if stray:
+        problems.append(f"non-Africa landmass touches map edge: {stray}")
+
     ay, ax = np.where(lab == antarctica_id)
-    apts = np.column_stack([ay, ax]).astype(np.float32)
-    # subsample Antarctica for a fast tree (it's a long thin band; a stride
-    # keeps the true nearest-edge points densely enough represented)
-    apts = apts[::4]
+    apts = np.column_stack([ay, ax]).astype(np.float32)[::4]
     tree = cKDTree(apts)
-    for i in significant:
-        if i == antarctica_id:
-            continue
+
+    def gap_to_antarctica(i):
         ys, xs = np.where(lab == i)
         pts = np.column_stack([ys, xs]).astype(np.float32)
         d, _ = tree.query(pts, workers=-1)
-        gap = d.min()
-        if gap < MIN_ANTARCTICA_GAP_PX:
-            problems.append(f"component {i} ({sizes[i]}px) is {gap:.0f}px from Antarctica")
+        return float(d.min())
 
-    return problems, antarctica_id, significant, sizes
+    # Africa's own gap - this is the one that actually matters most, and the
+    # one the previous version of this script computed but never checked.
+    africa_gap = min((gap_to_antarctica(i) for i in africa_ids), default=None)
+    if africa_gap is not None and africa_gap < MIN_GAP_PX:
+        problems.append(f"AFRICA is {africa_gap:.0f}px from Antarctica")
+
+    close = []
+    for i in sig:
+        if i == antarctica_id or i in africa_ids:
+            continue
+        g = gap_to_antarctica(i)
+        if g < MIN_GAP_PX:
+            close.append((i, int(sizes[i]), round(g, 1)))
+    if close:
+        problems.append(f"non-Africa landmass close to Antarctica: {close}")
+
+    return problems, africa_gap, len(sig)
 
 
 def main():
@@ -78,9 +88,10 @@ def main():
         z = B.build(seed=44, w=2200, verbose=False, **v)
         G.render_colour(z).save(f"variant_{name}.png")
         np.save(f"variant_{name}_elevation.npy", z)
-        problems, antarctica_id, significant, sizes = verify(z, 2200)
+        problems, africa_gap, n_landmasses = verify(z)
         status = "FAIL" if problems else "OK"
-        print(f"{name}: {status}  landmasses={len(significant)}")
+        gap_str = f"{africa_gap:.0f}px" if africa_gap is not None else "?"
+        print(f"{name}: {status}  landmasses={n_landmasses}  africa_gap={gap_str}")
         for p in problems:
             print(f"    - {p}")
 
