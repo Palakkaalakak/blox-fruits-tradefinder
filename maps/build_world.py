@@ -136,10 +136,15 @@ def build(seed=44, w=2200, verbose=True):
     # polar. Push that reach back under, smoothly, so only the rest of the
     # landmass is untouched.
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-    north_cut = 905.0
-    band = np.clip((north_cut - yy) / 60.0, 0.0, 1.0)
+    # The arm sat roughly between y=750 and y=905 - bounded on BOTH sides.
+    # The previous version only bounded the south edge, so it suppressed
+    # everything further north in that longitude band too, including the
+    # real Asia-derived continent up around y=100-470.
+    south_fade = np.clip((905.0 - yy) / 60.0, 0.0, 1.0)
+    north_fade = np.clip((yy - 750.0) / 60.0, 0.0, 1.0)
+    yband = south_fade * north_fade
     xband = np.clip(np.minimum(xx - 930.0, 1450.0 - xx) / 40.0, 0.0, 1.0)
-    supp = band * xband
+    supp = yband * xband
     z = np.where(supp > 0, np.minimum(z, z * (1 - supp) - 250.0 * supp), z)
 
     if verbose:

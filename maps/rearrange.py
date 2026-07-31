@@ -46,7 +46,7 @@ PLACEMENT = {
     "south_america": (-30.2, -7.7, 33.8),
     "europe":        (25.0, 10.0, 15.0),   # unused: europe is the sunk one
     "asia":          (-108.9, -66.0, 60.1),  # nudged south of the previous spot
-    "africa":        (-155.1, 40.0, 8.8),      # kept, moved well clear of the polar continent
+    "africa":        (-155.1, 27.0, 8.8),      # kept; 148px clear of the polar continent already
     "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
