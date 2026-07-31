@@ -129,6 +129,20 @@ def build(seed=44, w=2200, verbose=True):
     z = carve_channel(z, (365, 715), (525, 800), width=70, floor=-320.0)
 
     if verbose:
+        print("[4.6/5] trimming the polar continent's reach ...")
+    # The polar continent's own shape carried a peninsula that swings north
+    # and wraps around the Marreni basin - wrong twice over, since Marreni
+    # is meant to sit in open water and the polar continent is meant to stay
+    # polar. Push that reach back under, smoothly, so only the rest of the
+    # landmass is untouched.
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    north_cut = 905.0
+    band = np.clip((north_cut - yy) / 60.0, 0.0, 1.0)
+    xband = np.clip(np.minimum(xx - 930.0, 1450.0 - xx) / 40.0, 0.0, 1.0)
+    supp = band * xband
+    z = np.where(supp > 0, np.minimum(z, z * (1 - supp) - 250.0 * supp), z)
+
+    if verbose:
         print("[5/5] cleanup ...")
     z = P.cleanup(z, median_px=1)
     z = G.despeckle(z)
