@@ -53,10 +53,10 @@ import rearrange as R
 
 SINK = "europe"
 IMPACT_LAT, IMPACT_LON = -48.0, 0.0
-IMPACTOR_KM = 260.0          # sized for visibility; see note above
+IMPACTOR_KM = 400.0          # sized for visibility; see note above
 LAND_FRACTION = 0.30
 CRAZING = dict(scales=3, depth=3100, density=0.75, sharpness=14.0, cells=35,
-               mountain_avoidance=0.6, smoothing=0.5, crack_width=0.00112)
+               mountain_avoidance=0.6, smoothing=0.9, crack_width=0.00112)
 
 
 def build(seed=44, w=2200, verbose=True):

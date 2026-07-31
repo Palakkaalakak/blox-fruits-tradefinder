@@ -42,12 +42,12 @@ CONTINENTS = {
 # separate continents, their balance, and how little land is lost. This one
 # gives six distinct continents with the largest holding a third of the land.
 PLACEMENT = {
-    "north_america": (-6.8, -15.5, -45.5),
-    "south_america": (-30.2, -7.7, 33.8),
+    "north_america": (12.0, -28.0, -60.0),
+    "south_america": (-42.0, 8.0, 24.0),
     "europe":        (25.0, 10.0, 15.0),   # unused: europe is the sunk one
-    "asia":          (-108.9, -54.5, 60.1),
-    "africa":        (-155.1, 15.8, 8.8),
-    "oceania":       (171.0, -37.2, 69.8),
+    "asia":          (-96.0, -42.0, 78.0),
+    "africa":        (-155.1, 15.8, 8.8), # kept: the best result so far
+    "oceania":       (150.0, -50.0, 52.0),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
 
@@ -92,6 +92,14 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True):
         # Isolate the continent, with deep water everywhere else, so that
         # rotating it does not smear its neighbours across the globe.
         patch = np.where(mask, z, ocean_floor).astype(np.float32)
+
+        if name == "africa":
+            # Distorted harder than the rest: it is the strongest single
+            # result so far, but still needs to read as less literally
+            # African at a glance.
+            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.028,
+                                     base_scale=w * 0.10)
+
         moved = G.spherical_rotate(patch, *PLACEMENT[name])
         out = np.maximum(out, moved)
 
@@ -111,7 +119,11 @@ def blend_seafloor(z, earth, ocean_floor=-4200.0):
     """
     bath = np.where(earth < 0, earth, ocean_floor)
     bath = G.spherical_rotate(bath, 73.0, 41.0, -22.0)
-    bath = ndimage.gaussian_filter(bath, 2.0, mode=("nearest", "wrap"))
+    bath = ndimage.gaussian_filter(bath, 9.0, mode=("nearest", "wrap"))
+    # Flatten the texture toward the ocean floor rather than reusing Earth's
+    # ridges at full strength - real bathymetry variation read as visible
+    # cracking in open water once the map was viewed at world scale.
+    bath = ocean_floor + 0.35 * (bath - ocean_floor)
     deep = z <= ocean_floor + 1.0
     out = z.copy()
     out[deep] = bath[deep]
