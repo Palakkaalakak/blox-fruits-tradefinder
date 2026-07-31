@@ -53,7 +53,7 @@ PLACEMENT = {
     # attempt avoided that but landed the whole continent on top of Asia
     # instead. Found by search, scored against every other continent's
     # final position: this orientation touches neither.
-    "africa":        (86.1, -14.3, -153.4),
+    "africa":        (-155.6, 8.9, -173.5),
     "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
