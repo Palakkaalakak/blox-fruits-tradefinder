@@ -53,7 +53,7 @@ PLACEMENT = {
     # attempt avoided that but landed the whole continent on top of Asia
     # instead. Found by search, scored against every other continent's
     # final position: this orientation touches neither.
-    "africa":        (-11.3, -7.3, 79.4),
+    "africa":        (86.1, -14.3, -153.4),
     "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
@@ -107,9 +107,9 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True):
             # scales - one large-scale to break the silhouette, one finer to
             # break the coastline detail - so it stops reading as a rotated
             # crop of the real continent.
-            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.05,
+            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.022,
                                      base_scale=w * 0.22)
-            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.035,
+            patch = G.tectonic_warp(patch, rng, amplitude=w * 0.016,
                                      base_scale=w * 0.08)
 
         moved = G.spherical_rotate(patch, *PLACEMENT[name])
