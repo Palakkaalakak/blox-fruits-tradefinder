@@ -53,7 +53,7 @@ PLACEMENT = {
     # attempt avoided that but landed the whole continent on top of Asia
     # instead. Found by search, scored against every other continent's
     # final position: this orientation touches neither.
-    "africa":        (-131.0, -39.7, 64.6),
+    "africa":        (-81.0, -39.7, 64.6),
     "oceania":       (171.0, -37.2, 69.8),
     "antarctica":    (0.0, 0.0, 0.0),      # stays polar; it is the ice cap
 }
@@ -172,10 +172,11 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
                                      base_scale=w * 0.08)
 
         moved = G.spherical_rotate(patch, *PLACEMENT[name])
-        if name != "antarctica":
-            # Antarctica alone is meant to touch both edges - it keeps its
-            # real, unrotated position and legitimately wraps around every
-            # longitude at the pole.
+        if name not in ("antarctica", "africa"):
+            # Antarctica is meant to touch both edges (it keeps its real,
+            # unrotated position and wraps every longitude at the pole).
+            # Africa is deliberately placed to straddle the seam too, so
+            # both its pieces should survive rather than be trimmed to one.
             moved = _drop_edge_filaments(moved, ocean_floor)
 
         if name == "africa":
