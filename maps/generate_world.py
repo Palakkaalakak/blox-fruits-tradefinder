@@ -658,13 +658,29 @@ def render_heightmap(z):
     of 255), not the middle of the range - putting it at 127 like a normal
     centered greyscale (as this used to) pushes most of the ocean above the
     water threshold and the whole map imports as land.
+
+    The ocean floor is deliberately textured (reused, rotated bathymetry,
+    for visual interest in the colour render) rather than flat. Once
+    compressed into a narrow low band that texture's variation is large
+    relative to the band, and Azgaar's own colour quantization can push a
+    scattered handful of ocean cells across the water threshold - hundreds
+    of one-cell "land" slivers out in open water. Two fixes: heavily smooth
+    the sea BEFORE encoding it (the colour render is unaffected, only this
+    export), and leave a real dead zone between the highest sea value and
+    the lowest land value instead of having them meet exactly at the
+    boundary, so quantization rounding can't cross it.
     """
-    out = np.zeros_like(z)
     sea, land = z < 0, z >= 0
+    out = np.zeros_like(z)
     if sea.any():
-        out[sea] = 51 * (1 - z[sea] / (z[sea].min() or -1))
+        smoothed_sea = ndimage.gaussian_filter(
+            np.where(sea, z, 0.0), 6.0, mode=("nearest", "wrap")
+        )
+        depth = np.clip(-smoothed_sea[sea], 0, None)
+        max_depth = depth.max() or 1.0
+        out[sea] = 30 * (1 - (depth / max_depth) ** 0.5)
     if land.any():
-        out[land] = 51 + 204 * (z[land] / (z[land].max() or 1)) ** 0.65
+        out[land] = 60 + 195 * (z[land] / (z[land].max() or 1)) ** 0.65
     return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), mode="L")
 
 
