@@ -10,7 +10,7 @@
 |---|---|
 | **Lidia** | Retained firearms through the Doom by luck. A Rediscovery power and co-perpetrator of the Elsring extermination. The **Academy** stands here — meaning the world's peace school sits on one of the two conquering continents, which is either bitter irony or hard politics. Famous marble somewhere (Edward's homeland). |
 | **Réselia** | The other gun-bearing continent and the other conqueror. Opàl is Réselian — a *continental* identity, the scale of saying "European", and therefore a vague answer to give a stranger. |
-| **The third continent** *(unnamed)* | Homeland of the **Elsring**, exterminated ~1,000 years ago during the Rediscovery. Today: **a mix — some states independent, some still held as colonies.** The borders between free and held are the world's rawest wounds. |
+| **The third continent** *(unnamed)* | Homeland of the **Elsring**, exterminated ~800 years ago during the Rediscovery. Today: **a mix — some states independent, some still held as colonies.** The borders between free and held are the world's rawest wounds. |
 
 **Source landmasses — decided.** Lidia and Réselia are two separate, whole continents. **Réselia is the "Africa" continent** — Cevine, Parvaan, the Almani Corridor and the Fenes are all here. **Lidia is the "America" continent** — the Academy and Edward's marble homeland are here. They are not two halves of a single torn continent; that idea (formerly written below) was wrong and has been removed.
 

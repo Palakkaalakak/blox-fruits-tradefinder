@@ -23,7 +23,7 @@ The story takes place on **Earth**, long after a geological catastrophe so large
 
 ## Established canon (from the manuscript)
 
-- **Lidia** and **Réselia** are *continents*. Both retained firearms through the collapse; during **the Rediscovery** they used that advantage to exterminate the native **Elsring** (~1,000 years ago) — a New World colonisation in structure and outcome.
+- **Lidia** and **Réselia** are *continents*. Both retained firearms through the collapse; during **the Rediscovery** they used that advantage to exterminate the native **Elsring** (~800 years ago) — a New World colonisation in structure and outcome.
 - **Cevine** is a naval power in the mould of Venice, with the mass and strength of France. Its monarchs sit the **Throne of Thalassus**. It dominates the **Almani Corridor**.
 - **Parvaan** seceded from Cevine ~15 years ago and was given the **Port of Ouspré** as a gift of goodwill — in fact a deliberate vector for *sevaravirus*, which killed roughly a third of its people.
 - Technology is modern (aircraft, vaccines, cyber-attacks, wristwatches) but political order is feudal (kings, dukes, household guards, direct vassals). The uneven technological collapse after the Cataclysm is the single cause behind this.

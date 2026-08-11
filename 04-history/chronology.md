@@ -1,6 +1,6 @@
 # Chronology — from the Cataclysm to the present
 
-*Dates are in **AC** (After the Cataclysm). All figures are proposals: the shape is fixed by decisions already made, the exact numbers are yours to move. The one hard anchor from the manuscript is that the Elsring were exterminated **~1,000 years before the present day**.*
+*Dates are in **AC** (After the Cataclysm). All figures are proposals: the shape is fixed by decisions already made, the exact numbers are yours to move. The one hard anchor from the manuscript is that the Elsring were exterminated **~800 years before the present day**.*
 
 *The Cataclysm itself is provisionally placed at **~2040 in the old, pre-Doom calendar** — close enough to the present real world that AI data centres already existed and were digitising books at mass scale when it happened; see `01-cataclysm/the-doom.md` §6 for what that does to knowledge preservation.*
 
@@ -18,7 +18,7 @@
 
 400 + 300 + 400 + 400 = 1,500.
 
-**Note on the hard anchor:** the extermination happens in Era IV's closing 100 years (600–700 AC), so it's actually ~800–900 years before the ~1,500 AC present, not exactly ~1,000. Close enough to the manuscript's "~1,000" to leave as is, but flagging the gap rather than silently rounding it away.
+**Note on the hard anchor:** the extermination happens in Era IV's closing 100 years (600–700 AC). With the manuscript figure now set to ~800 years before present, that lines up exactly with the end of that window (1,500 − 700 = 800).
 
 ---
 

@@ -23,20 +23,20 @@ This is the single most distinctive thing about your world and you seem to have 
 
 **Pre-modern register:** war drums at a thirteenth birthday · household guards · House colours and insignias · knights, lordlings, dukes, kings, queens · "Your Graces" · a Throne (of Thalassus) · direct vassals (100+ for Karois-Marain) · embroidered shoes · marble floors as national pride · a Great Council of all rulers
 
-**Modern/contemporary register:** glass-and-steel architecture · wristwatch · lectern and microphone · aeroplanes that can be grounded · a *hostile cyber-attack* · vaccines, waves, regional border closures · guns (1000 years ago) · sevaravirus (a COVID/Black-Death analogue) · Band-Aids, a nurse's office, P.E. · calculus, economics as a taught discipline · bar with a cellar, cobblestones, streetlamps
+**Modern/contemporary register:** glass-and-steel architecture · wristwatch · lectern and microphone · aeroplanes that can be grounded · a *hostile cyber-attack* · vaccines, waves, regional border closures · guns (800 years ago) · sevaravirus (a COVID/Black-Death analogue) · Band-Aids, a nurse's office, P.E. · calculus, economics as a taught discipline · bar with a cellar, cobblestones, streetlamps
 
 **This is not an inconsistency — it is your premise.** A world that kept the technology and lost the political modernity. That is *exactly* what a civilisation-resetting geological catastrophe on Earth would produce: knowledge preserved, states destroyed, and the thing that rebuilt order was the family with the guards. Feudalism is not a survival of the past here; it is a *re-invention* after the disaster. Say this out loud in the book once and the whole aesthetic snaps into focus.
 
 ### 1.2 Political geography (all named so far)
 | Name | Type | What we know |
 |---|---|---|
-| **Lidia** | State | The Academy is here ("are you from here, from Lidia"). With Réselia, exterminated the native **Elsring** ~1000 years ago using guns — i.e. a colonial power, and one of the two oldest gunpowder states |
+| **Lidia** | State | The Academy is here ("are you from here, from Lidia"). With Réselia, exterminated the native **Elsring** ~800 years ago using guns — i.e. a colonial power, and one of the two oldest gunpowder states |
 | **Réselia** | State | Opàl's homeland. Co-perpetrator of the Elsring genocide |
 | **Cevine** | Kingdom | Ruled by House Karois-Marain from the **Throne of Thalassus**. "The main power in the Almani Corridor." Robert is Crown Prince |
 | **Parvaan** | Kingdom | Seceded from Cevine ~15 years ago. Given the **Port of Ouspré** as a "gift" — actually a plague vector. Lost ~⅓ of its population. Sophie is Crown Princess |
 | **The Almani Corridor** | Region | Contains Cevine. "Corridor" implies a strait, pass, or land bridge — geography as chokepoint |
 | **The Marreni Sea of the South** | Sea | Aquamarine, deep. "Sailors would lose their way and poets would find their muses" — it has a reputation, therefore a mythology |
-| **The Elsring** | Extinct people | Native, wiped out ~1000 years ago. **This is your world's original sin and it is currently unowned by any character** |
+| **The Elsring** | Extinct people | Native, wiped out ~800 years ago. **This is your world's original sin and it is currently unowned by any character** |
 | Edward's homeland | Dukedom | Sovereign state. Famous for marble. His parents rose from *knights to dukes* within his lifetime — meaning your world's nobility is **permeable**, which is politically enormous |
 
 ### 1.3 Houses
@@ -77,7 +77,7 @@ Answer in any order. Answer badly and fast; you can revise. The ones marked ★ 
 ### A. The Cataclysm ("the Sundering", TBD)
 ★ **A1. How long ago?** This one decision determines your entire world.
 - ~300 years → survivors' grandchildren; the old world is *documented*, contested, politically live; ruins everywhere; Roman remains are museum pieces beside pre-Cataclysm skyscrapers
-- ~1,000 years → the Elsring genocide happens *at the edge of living history*, guns are ancient, the old world is scripture and rumour
+- ~800 years → the Elsring genocide happens *at the edge of living history*, guns are ancient, the old world is scripture and rumour
 - ~5,000+ years → Earth is legend, "Rome" is a word in a dead liturgy, and your Latin/Greek Laurevine vocabulary is *sacred* language
 
 **A2. What actually happened?** Not the mechanism — the *image*. One sentence a fisherman would use. (Supervolcano winter? Crustal displacement? Sea-level collapse exposing ocean floor as new continents? An impact?) Note: whatever it is, it must explain how *technical knowledge survived while every state died*.
