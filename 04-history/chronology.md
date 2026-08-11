@@ -38,7 +38,7 @@ The centuries with no world map.
 - Survival is local. Regions cannot reach one another; nobody knows what remains of anywhere else.
 - Knowledge survives but cannot be *applied* — you cannot build an engine without a foundry, ore, fuel and two hundred other people.
 - **The aristocracy is born.** Families that controlled food, defensible ground, water or a working workshop became first indispensable, then dominant, then hereditary. Within a few generations this is normal; within ten it is sacred.
-- Latin and Greek survive as the languages of the preserved books — which is why the classical vocabulary is available to scholars in the present day.
+- **English** survives as the language of the preserved books — the realistic choice given the Cataclysm's ~2040 date (English being the dominant international academic/scientific language at that point), not Latin or Greek. This is why a shared scholarly vocabulary is available to educated people in the present day, even across populations whose everyday speech has otherwise diverged completely.
 
 **Settlement scale varies by region, but river and coastal villages do best.** They cluster into larger groups earlier than isolated inland settlements, and it's this kind of cluster that goes on to become the first and strongest nations — Cevine's own origin (the first villages, trading across the Corridor, consolidating into kingdoms and then Cevine) is the clearest example of the general pattern, not an exception to it.
 
@@ -80,6 +80,8 @@ Slow re-industrialisation. Metallurgy, powder, shipbuilding, printing. Coastal p
 Lidia and Réselia recover fastest — not through virtue but because working firearms never entirely disappeared there, which meant their strongmen could enforce larger and more stable territories sooner. Scale begets scale.
 
 Knowledge recovery lags behind this and continues well past Era III: books gave back general knowledge early, but recovering the finer, digitally-stored detail required first working out how to pull data off dead old-world servers — a problem not solved until much later, which is part of why the present day still mixes eras of technology rather than sitting at one consistent level.
+
+**First contact runs on a mix, split by class.** Given how hard everyday speech has fragmented, ordinary traders and sailors meeting across the language gap build rough pidgin trade-tongues on the docks — slow, ad hoc, good enough for commerce. Captains, scholars and nobles, meanwhile, lean on the shared scholarly English preserved in books, which makes literacy itself a form of power at first contact: the educated can talk to each other directly while everyone else is still gesturing over crates.
 
 ## Era IV — The Rediscovery (~450 – ~600 AC) — *the Age of Heroes*
 

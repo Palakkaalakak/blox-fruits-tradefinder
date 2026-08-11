@@ -63,6 +63,8 @@ The single most important polity established so far.
 
 **Fixed geography.** Cevine's heartland is the western shore of the Corridor, and it controls the entire northern stretch of the Corridor on *both* shores — its territory does not stop at the water, it straddles it, which is the literal sense in which Cevine "is" the seam rather than a country next to one.
 
+**Ethnic and linguistic composition.** Cevine is a blend of French, Italian and Spanish descent — the Fenes who migrated south as Europe sank (see `01-cataclysm/the-lost-continent.md`) — layered onto the Arabic-speaking Algerian population that was already on that stretch of coast before the migration. Cevine's culture, language and look should read as that specific mixture, not as generic "Europe."
+
 ## Parvaan
 
 Seceded from Cevine ~15 years ago. Was **landlocked**, which is why the **Port of Ouspré** was the one gift that could buy its trust — a great but not major port. Valuable enough to be believed, affordable enough for a naval empire to lose. A ruinous concession would have aroused suspicion; this one didn't.

@@ -42,6 +42,8 @@ The weakened field also thins the magnetosphere, which increases the cosmic radi
 
 The reversal did not cause the climate catastrophe. That was the work of the impact winter, and the two should be kept distinct.
 
+**Language note.** Given the Cataclysm is set around 2040 (see `04-history/chronology.md`), the scholarly bridge language preserved in books is **English**, not Latin or Greek — English is what a real ~2040 world's international academic and scientific literature would overwhelmingly be written in, so that's what survives among the literate.
+
 ## 4. The impact and its consequences
 
 An asteroid struck deep ocean. Its consequences unfolded on three timescales.
