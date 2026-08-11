@@ -189,9 +189,10 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
     """Cut the continents out of Earth and set them down somewhere else.
 
     africa_mode: "bend" curves Africa's northward point over to the right;
-    "sunder" cuts Africa itself into two separate landmasses, the way the
-    Almani Corridor split one continent into Lidia and Réselia; "none"
-    leaves it as placed.
+    "sunder" cuts Africa itself into two separate landmasses — the two
+    shores of the internal Almani Corridor strait, both still part of
+    whichever single continent (Lidia or Réselia) Africa ends up being;
+    "none" leaves it as placed.
     africa_twist_deg: independent of africa_mode - swirls Africa around its
     own centroid by this many degrees, tapering to zero at its outline's
     farthest point, so the shape's extremes stay fixed and the interior
@@ -248,9 +249,10 @@ def rearrange(z, sink="europe", ocean_floor=-4200.0, seed=0, verbose=True,
                 # straight up.
                 moved = bend_hunchback(moved)
             elif africa_mode == "sunder":
-                # Cut clean through, the same way the Almani Corridor
-                # split one landmass into Lidia and Réselia - the two
-                # halves splay apart from a single near-touching point.
+                # Cut clean through to make the two shores of the internal
+                # Almani Corridor strait - both halves stay part of the
+                # same continent, and splay apart from a single
+                # near-touching point.
                 moved, _ = G.sunder_pair(moved, rng, rank=0,
                                          width_px=w * 0.006, taper=0.7,
                                          angle=africa_split_angle)

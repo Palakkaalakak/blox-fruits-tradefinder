@@ -12,38 +12,17 @@
 | **Réselia** | The other gun-bearing continent and the other conqueror. Opàl is Réselian — a *continental* identity, the scale of saying "European", and therefore a vague answer to give a stranger. |
 | **The third continent** *(unnamed)* | Homeland of the **Elsring**, exterminated ~1,000 years ago during the Rediscovery. Today: **a mix — some states independent, some still held as colonies.** The borders between free and held are the world's rawest wounds. |
 
-## Arrangement — diagonal / offset
+**Source landmasses.** Lidia and Réselia are two separate, whole continents — one is sourced from the map's Africa landmass, the other from the fused America landmass. **Which is which has not been decided yet.** They are not two halves of a single torn continent; that idea (formerly written below) was wrong and has been removed. See Open, below.
 
-Lidia and Réselia lie at an angle to one another, overlapping only where they meet at the Corridor. Each therefore reaches latitudes the other does not.
+## The Almani Corridor is internal to one continent, not between two
 
-This is the untidy, Earth-like option, and it buys a great deal:
+**Correction.** An earlier version of this document claimed Lidia and Réselia were once a single landmass torn in two by the Doom, with the Corridor as the rift between them. That was wrong and has been removed along with everything that followed from it (the "same rock, same ancestral population" claim, the joint-genocide reasoning built on it, and the "Corridor is the one place they touch" framing). Do not reintroduce it.
 
-- **Each continent has internal climate diversity** — a cold end and a warm end — so each contains regions with genuinely different crops, economies and temperaments. States fight their neighbours over grain and grazing before they fight across the ocean.
-- **Neither power is a straightforward mirror of the other.** Their rivalry is asymmetric, which is more interesting than symmetry: they want different things and are strong in different ways.
-- **The Corridor is the one place they touch**, which concentrates all contact — trade, war, migration, disease — into a single strait. Cevine sits on that pinch point.
-- The **Marreni Sea of the South** then lies off whichever continent extends furthest toward the equator.
+**What's actually true:** `sunder_pair` was used to split **Africa** — one single source continent — into two shores, and adjusted by hand until it read as a real strait. Both shores belong to the *same* continent (whichever of Lidia/Réselia that turns out to be). The Almani Corridor is an internal strait within that one continent, not a gap between Lidia and Réselia. Cevine and Parvaan both sit on this one continent, on either shore of that internal strait — not on two different continents.
 
-## The water between Lidia and Réselia — a drowned rift, not an ocean
+**Naming note.** The strait itself doesn't have a settled name beyond "the Almani Corridor," which is specific and already fixed. Whether people also use "the Corridor" loosely for the wider stretch of water around it is still open.
 
-**Naming note.** The body of water separating Lidia and Réselia does not itself have a settled name — that's still TBD. "The Almani Corridor" is the name of its single most famous strait, and it's common enough for people to refer to the whole crossing loosely as "the Corridor" after it, the way a whole mountain range might get called by its best-known pass. Keep this distinction in mind: "the Corridor" below is doing double duty as both the specific strait and the informal name for the whole water, until the whole is properly named.
-
-**A strait between two continents** — the narrow water separating Lidia and Réselia, and the only practical passage between them. A Bosphorus: small, priceless, permanently contested.
-
-Whoever holds it controls the traffic of the world. Cevine holds it.
-
-### Lidia and Réselia were one continent
-
-The Corridor is not an ocean between strangers. It is **the rift that tore a single landmass in two** during the Doom — drowned, and never closed.
-
-Consequences, all of them useful:
-
-- **The two continents are near-touching at one end and splay apart along their length.** Which is exactly the diagonal, offset arrangement already established: they meet nowhere but the Corridor.
-- **Lidians and Réselians are far more closely related than either admits.** Same rock, same ancestral population, sundered for fifteen centuries. Their languages should share a substrate; their oldest myths should rhyme. Both would deny it.
-- **It explains the joint genocide.** Two peoples who split the same continent, recovered at the same rate, kept firearms by the same luck, and reached the third continent at the same moment — because they were never really two peoples. They were one, twice.
-- **It makes the Corridor a wound rather than a border.** The Doom cut them apart; the strait is the scar; and the world's paramount power sits in it, holding both edges of the tear together. Cevine as the country that *is* the seam.
-- **The crossing is short.** Which is why Cevine's villages could trade across it from the very beginning, and why it became the cradle. A wide ocean would have prevented all of it.
-
-> **The Corridor is now generated and hand-placed.** The base map (`maps/`) uses `sunder_pair` to split one landmass into the Corridor's two shores, then the placement, size and shape were adjusted by hand over many passes until the result read as a real strait rather than an automated notch. Lidia and Réselia are that landmass's two halves.
+Whoever holds the Corridor holds the choke point of that one continent's internal traffic. Cevine holds it.
 
 ## Cevine — the cradle and the hinge
 
@@ -54,7 +33,7 @@ The single most important polity established so far.
 **What that means:**
 
 - Cevine is the **oldest continuous civilisation of the new world** — the place where human society restarted. Its prestige is not merely military; it is *primordial*. Other states are upstarts by comparison, and Cevine will never let them forget it.
-- Its territory sits on **both shores of the Almani Corridor**, since the villages formed around the trade across it. Cevine is not on Lidia or on Réselia — it is the hinge *between* them, and its identity is the passage itself.
+- Its territory sits on **both shores of the Almani Corridor**, since the villages formed around the trade across it — but both shores are part of the *same* continent (the sundered-Africa one, whichever of Lidia/Réselia that is). Cevine is a hinge *within* that continent, not a country suspended between two different continents.
 - The **Throne of Thalassus** — the sea-throne — is therefore literal. Cevine's monarchy is founded on water.
 - Venice's character with France's mass: a maritime empire of ports, fleets and scattered holdings, resting on a deep territorial core with the manpower to hold it. Its colonies on the third continent follow naturally.
 - **It is inherently overextended.** An empire of chokepoints and distant possessions can lose a piece anywhere. Which is why the secession of Parvaan was intolerable — not for the land, but for the precedent.
@@ -102,10 +81,12 @@ This retro-fits the manuscript exactly. From the text: *"the aquamarine eyes, as
 
 - **The old world's cities are under water.** Every coast has drowned ruins offshore. Salvage is an industry and a superstition.
 - **Some land is new.** Raised seabed carries no ruins, no graves, no ancestral claim. Contested differently from everywhere else.
-- **The Corridor is the world's throat.** Every rivalry that matters eventually runs through it, which is your central conflict axis and the reason Cevine is at the centre of the story.
+- **The Corridor is the world's throat.** Every rivalry that matters eventually runs through it, which is your central conflict axis and the reason Cevine is at the centre of the story — even though the Corridor sits inside one continent rather than between two.
 
 ## Open
 
+- **Which of Lidia/Réselia is sourced from Africa and which from America** — not decided yet. Everything about Cevine, Parvaan and the Corridor sits on whichever one is Africa.
 - Names for the third continent, and for the oceans
 - Which Edward's marble dukedom sits on (Parvaan's own location is now fixed, above)
 - Where the Elsring lands are now free and where still held, and which Houses hold them
+- Now that Lidia and Réselia are unrelated continents rather than one torn landmass, is there still a reason the two of them jointly perpetrated the Elsring genocide, or does that need a new explanation?
