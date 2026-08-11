@@ -32,6 +32,8 @@ The sixth continent is the polar landmass, equivalent to Antarctica. It is ice-c
 
 A seventh landmass was drowned during the Doom and never returned to the surface. It exists today as a shallow plateau on the seabed. Because the world is Earth and the Doom drowned land, this follows as a consequence rather than being an invention; the arithmetic of how much land there ought to be does not otherwise balance. Details are in `the-lost-continent.md`.
 
+**This is Europe.** Despite being far from the Marreni impact site, it was wiped off the map entirely — sunk, not merely devastated. During the Dark Age, people descended from it only know their homeland is lost, not what actually happened to it; it's only once the Rediscovery's expeditions redraw the map that it becomes understood that Europe is literally gone, underwater. The Cevinese and the other northern peoples of the Africa-derived landmass (the "Fenes") carry migration-origin myths of a homeland across the water, warped over the generations but not false — they're descended from Europeans who fled south as Europe was sinking, which is also the source of Cevine's strong European character and influence.
+
 ## Positions on the final map
 
 The base map (`maps/WORLD.png`, `maps/WORLD_elevation.npy`) was measured directly to find where each landmass ended up. By size, largest to smallest among the five non-polar continents:
