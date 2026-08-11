@@ -31,7 +31,7 @@ What it did:
 - Broke every state on Earth
 - Redrew coastlines and severed the continents from one another so completely that their shapes had to be *learned again*
 
-## Era II — The Dark Age (0 – ~250 AC)
+## Era II — The Dark Age (0 – ~400 AC)
 
 The centuries with no world map.
 
@@ -56,7 +56,7 @@ The centuries with no world map.
 
 **What actually kills people in the early Dark Age is a mix, not one dominant cause:** the ground itself is still unstable and shifting unpredictably as the crust keeps settling (see `01-cataclysm/the-doom.md` §4), the climate is erratic and doesn't behave the way anyone's experience says it should, disease is already a factor — an early, milder wave of what will eventually be called **sevaravirus** moves through this period the way smallpox did in our history — and violence between survivors over scarce, defensible resources is constant. No single cause explains the population collapse; all of them are operating on top of each other.
 
-**Sevaravirus has more than one historical wave — but it's one coherent disease, not three different diseases wearing the same name.** It's a single virus that mutates into distinct strains over the centuries, the way real flu and coronavirus lineages do, not a shape-shifter that's a poxvirus in one era and a flea-borne bacterium in another (that would be biologically incoherent — smallpox, plague and COVID are three unrelated categories of pathogen in reality, and stitching them together under one name doesn't hold up). The Dark Age strain above is an early, less-transmissible form. A far worse strain emerges later, around the end of the Rediscovery, more lethal and faster-spreading than the original. The recent outbreak that hits Ouspré and kills roughly a third of Parvaan (Era VII) is the newest strain — same viral lineage throughout, evolving over 1,500 years the way real pandemic diseases do, not a single one-off outbreak invented for the present-day plot.
+**Sevaravirus has more than one historical wave — but it's one coherent disease, not three different diseases wearing the same name.** It's a single virus that mutates into distinct strains over the centuries, the way real flu and coronavirus lineages do, not a shape-shifter that's a poxvirus in one era and a flea-borne bacterium in another (that would be biologically incoherent — smallpox, plague and COVID are three unrelated categories of pathogen in reality, and stitching them together under one name doesn't hold up). The Dark Age strain above is an early, less-transmissible form. A far worse strain emerges later, around the end of the Rediscovery, more lethal and faster-spreading than the original. The recent outbreak that hits Ouspré and kills roughly a third of Parvaan (Era VII) is the newest strain — same viral lineage throughout, evolving over 1,800 years the way real pandemic diseases do, not a single one-off outbreak invented for the present-day plot.
 
 **What ordinary people believe caused the Cataclysm is mostly folk theory, not memory.** Everyone has their own account, and the more isolated a village was, the less likely it is to have any real explanation at all — a meaningful fraction of the most cut-off communities simply believe the world has always looked and behaved this way, with no concept of a "before." Real, closer-to-accurate accounts of the Cataclysm's actual mechanism survive only where books and scholarship survived alongside them — which ties directly back to knowledge being a privilege of rank (`01-cataclysm/the-doom.md` §5).
 
@@ -73,7 +73,7 @@ The centuries with no world map.
 
 **The two-part founding pattern.** Every House's rise starts the same general way — controlling something scarce (food, defensible ground, water, a workshop) — but that alone only explains the merely landed families, the ones who stayed local and stayed minor. What separates a House from a *Great* House is a second, specific thing: one cunning act, unique to that House, that took a family from "controls a scarce local resource" to commanding territory and loyalty beyond what the resource alone could buy. The common pattern gives every House the same starting condition; the cunning act is what the House's own telling of its founding story is actually about — and why, per the note above, the true version is usually uglier than the one the House tells.
 
-## Era III — The Recovery (~250 – ~450 AC)
+## Era III — The Recovery (~400 – ~600 AC)
 
 Slow re-industrialisation. Metallurgy, powder, shipbuilding, printing. Coastal polities consolidate into the first true states.
 
@@ -83,11 +83,11 @@ Knowledge recovery lags behind this and continues well past Era III: books gave 
 
 **First contact runs on a mix, split by class.** Given how hard everyday speech has fragmented, ordinary traders and sailors meeting across the language gap build rough pidgin trade-tongues on the docks — slow, ad hoc, good enough for commerce. Captains, scholars and nobles, meanwhile, lean on the shared scholarly English preserved in books, which makes literacy itself a form of power at first contact: the educated can talk to each other directly while everyone else is still gesturing over crates.
 
-## Era IV — The Rediscovery (~450 – ~750 AC, 300 years) — *the Age of Heroes*
+## Era IV — The Rediscovery (~600 – ~900 AC, 300 years) — *the Age of Heroes*
 
 Ships good enough to cross open ocean. Expeditions go out to find what the world now looks like.
 
-**Two phases.** The first ~200 years (~450–650 AC) are spent establishing communication and discovering most of the world — first contact between Lidia and Réselia, mapping, the early expeditions. The last ~100 years (~650–750 AC) are the closing years of the era: reaching and exterminating the Elsring.
+**Two phases.** The first ~200 years (~600–800 AC) are spent establishing communication and discovering most of the world — first contact between Lidia and Réselia, mapping, the early expeditions. The last ~100 years (~800–900 AC) are the closing years of the era: reaching and exterminating the Elsring.
 
 - Lidia and Réselia make contact with each other first, and only later with the **third continent** and the **Elsring** — not a planned joint venture, simply two separate continents each reaching the Elsring independently once they were capable of it. The order isn't chosen either: the open-ocean crossing between Lidia and Réselia happens to be shorter and calmer than the crossings toward the third continent, so ship technology that was already good enough for the first reunion took longer to be good enough for the second. (Note: this is a *different* stretch of water from the Almani Corridor, which is internal to Réselia alone — see `02-geography/world-structure.md`.)
 - The Elsring's own regions found *each other* late too, and separately from being found by Lidia/Réselia — the waters around and between Elsring territories were frozen or treacherous, so the third continent was internally fragmented for longer than either Lidia or Réselia was.
@@ -104,19 +104,19 @@ Ships good enough to cross open ocean. Expeditions go out to find what the world
 
 **How it is remembered.** The Rediscovery is remembered as a heroic age, with the captains, first landfalls and national epics that implies. The extermination of the Elsring is not denied, and appears in the textbooks in much the way the fate of the Native Americans appears in ours: acknowledged, taught, deplored in general terms, and never acted upon. A student can cite it in a classroom as an illustration of the value of technology without any particular feeling. This is a footnote in the world's history rather than a central concern of it.
 
-## Era V — The Colonial Age (~600 – ~1000 AC)
+## Era V — The Colonial Age (~900 – ~1300 AC)
 
 Extracted wealth accelerates industry. Rivalry between Lidian and Réselian powers is fought out on the third continent and at sea.
 
 **Cevine** rises here: a naval power on the Venetian model, but with the landmass and manpower of France — the rare state that is both a thalassocracy and a great territorial power. Its monarchs sit the **Throne of Thalassus**. Its dominance of the **Almani Corridor** dates from this era.
 
-## Era VI — The Long Acceleration (~1000 – ~1400 AC)
+## Era VI — The Long Acceleration (~1300 – ~1700 AC)
 
 Technology reaches and passes pre-Cataclysm levels. Medicine, flight, electronics, eventually networks.
 
 Society does not follow. Titles, vassalage and household guards persist through every technological revolution, because each revolution made the existing holders of power *richer* rather than displacing them. There was no bourgeois revolution. The aristocracy simply bought the factories.
 
-## Era VII — The Present (~1500 AC)
+## Era VII — The Present (~1800 AC)
 
 - Aircraft, vaccines, cyber-warfare, wristwatches, mass media — alongside kings, dukes, lordlings and direct vassals.
 - The **sevaravirus** pandemic: a Black-Death-scale plague in a world with the means to make vaccines, which makes distribution a weapon.
@@ -127,7 +127,7 @@ Society does not follow. Titles, vassalage and household guards persist through 
 
 ## Immediate consequences worth holding on to
 
-- **No House predates 0 AC.** Maximum nobility age ~1,500 years, and most are far younger. Ancient lineage is a *short* ladder here, which is why it is defended so viciously.
+- **No House predates 0 AC.** Maximum nobility age ~1,800 years, and most are far younger. Ancient lineage is a *short* ladder here, which is why it is defended so viciously.
 - **The gentry is still forming.** Edward's parents went from knights to dukes of a sovereign state within his lifetime. That is possible because the system is young and molten — and it is exactly why the old-money "Small" despise him. He is proof the hierarchy is arbitrary.
 - **Colonial descent is a live political fact.** If the third continent was carved up by both powers, then many present-day states are ex-colonies, and their relationship to Lidia and Réselia is unresolved. This is free conflict.
 - **Luck is the world's founding principle.** The peoples who conquered the world did so because of where they happened to be standing when the Doom occurred, and for no other reason.

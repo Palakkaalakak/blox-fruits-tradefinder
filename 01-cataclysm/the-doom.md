@@ -2,7 +2,7 @@
 
 **Working name.** *The Doom* is the common word for the event. Scholars and the various faiths use longer names, and these differ by region, which is itself a useful piece of worldbuilding.
 
-The Doom is dated to year 0. All dates in these documents are given in years After the Cataclysm (AC). The present day of the first book is approximately 1500 AC.
+The Doom is dated to year 0. All dates in these documents are given in years After the Cataclysm (AC). The present day of the first book is approximately 1800 AC.
 
 ---
 
