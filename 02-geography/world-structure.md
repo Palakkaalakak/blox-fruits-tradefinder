@@ -88,4 +88,3 @@ This retro-fits the manuscript exactly. From the text: *"the aquamarine eyes, as
 - Names for the third continent, and for the oceans
 - Which Edward's marble dukedom sits on (Parvaan's own location is now fixed, above)
 - Where the Elsring lands are now free and where still held, and which Houses hold them
-- Now that Lidia and Réselia are unrelated continents rather than one torn landmass, is there still a reason the two of them jointly perpetrated the Elsring genocide, or does that need a new explanation?
