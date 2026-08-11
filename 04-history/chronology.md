@@ -42,6 +42,8 @@ The centuries with no world map.
 
 > This era is the origin of everything political in the present. Every House's founding story is here, and most of them are uglier than the version the House tells.
 
+**The two-part founding pattern.** Every House's rise starts the same general way — controlling something scarce (food, defensible ground, water, a workshop) — but that alone only explains the merely landed families, the ones who stayed local and stayed minor. What separates a House from a *Great* House is a second, specific thing: one cunning act, unique to that House, that took a family from "controls a scarce local resource" to commanding territory and loyalty beyond what the resource alone could buy. The common pattern gives every House the same starting condition; the cunning act is what the House's own telling of its founding story is actually about — and why, per the note above, the true version is usually uglier than the one the House tells.
+
 ## Era III — The Recovery (~250 – ~450 AC)
 
 Slow re-industrialisation. Metallurgy, powder, shipbuilding, printing. Coastal polities consolidate into the first true states.
