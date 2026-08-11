@@ -23,7 +23,9 @@ This is the untidy, Earth-like option, and it buys a great deal:
 - **The Corridor is the one place they touch**, which concentrates all contact — trade, war, migration, disease — into a single strait. Cevine sits on that pinch point.
 - The **Marreni Sea of the South** then lies off whichever continent extends furthest toward the equator.
 
-## The Almani Corridor — a drowned rift, not an ocean
+## The water between Lidia and Réselia — a drowned rift, not an ocean
+
+**Naming note.** The body of water separating Lidia and Réselia does not itself have a settled name — that's still TBD. "The Almani Corridor" is the name of its single most famous strait, and it's common enough for people to refer to the whole crossing loosely as "the Corridor" after it, the way a whole mountain range might get called by its best-known pass. Keep this distinction in mind: "the Corridor" below is doing double duty as both the specific strait and the informal name for the whole water, until the whole is properly named.
 
 **A strait between two continents** — the narrow water separating Lidia and Réselia, and the only practical passage between them. A Bosphorus: small, priceless, permanently contested.
 
