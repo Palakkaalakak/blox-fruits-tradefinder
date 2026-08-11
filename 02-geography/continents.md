@@ -55,3 +55,4 @@ These are raw measurements from the map, not narrative decisions — the numbers
 - Which continents were reached during the Rediscovery and which were already known
 - Whether continents 4 and 5 are inhabited by peoples comparable to the Lidians and Réselians, or are less developed, or are colonial possessions
 - Where each continent sits relative to the Almani Corridor and the Marreni Sea (not yet placed on the base map)
+- **Pending map edit:** move the Elsring continent (currently the largest landmass, our working "Asia") further north, to increase its distance from Lidia/Réselia and reinforce why it was reached later and separately

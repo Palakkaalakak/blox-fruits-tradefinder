@@ -50,7 +50,7 @@ Lidia and Réselia recover fastest — not through virtue but because working fi
 
 Ships good enough to cross open ocean. Expeditions go out to find what the world now looks like.
 
-- The two continents make contact with each other and, decisively, with the **third continent** and the **Elsring**.
+- The two continents make contact with each other first, and only later with the **third continent** and the **Elsring** — not because anyone chose that order, but because the water between Lidia and Réselia is calm and narrow (the Corridor) while the crossings toward the third continent are rougher and longer. Ship technology that was already good enough for the first reunion took longer to be good enough for the second.
 - The Elsring are exterminated over roughly a century — disease, dispossession and firearms, in that order of lethality.
 - Colonies are planted. The wealth extracted funds the next four centuries.
 
