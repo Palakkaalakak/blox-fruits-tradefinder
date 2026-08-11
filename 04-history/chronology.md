@@ -92,6 +92,10 @@ Ships good enough to cross open ocean. Expeditions go out to find what the world
 - The Elsring are exterminated over roughly a century — disease, dispossession and firearms, in that order of lethality.
 - Colonies are planted. The wealth extracted funds the next four centuries.
 
+**By the later Rediscovery, radio already exists.** Technology moved fast enough within this single era that near its end, long-distance wireless communication is available. This is why Lidia and Réselia are in full contact with each other and fully aware of one another's presence and actions on the Elsring's continent by the time the extermination happens — it isn't two isolated conquests that later turn out to overlap, both sides know exactly what the other is doing as it happens.
+
+**No continent-level bloc.** Lidia and Réselia are each home to many separate, independent states (see `02-geography/continents.md` — "not equivalents" of countries). There's no single "Lidia vs. Réselia" rivalry or alliance as a unit; competition and cooperation over Elsring territory happens state by state, the same way it always does within a continent. Era V's colonial rivalry (below) should be read as individual Lidian and Réselian *powers* competing, not the continents themselves acting as two teams.
+
 **How it is remembered.** The Rediscovery is remembered as a heroic age, with the captains, first landfalls and national epics that implies. The extermination of the Elsring is not denied, and appears in the textbooks in much the way the fate of the Native Americans appears in ours: acknowledged, taught, deplored in general terms, and never acted upon. A student can cite it in a classroom as an illustration of the value of technology without any particular feeling. This is a footnote in the world's history rather than a central concern of it.
 
 ## Era V — The Colonial Age (~600 – ~1000 AC)
