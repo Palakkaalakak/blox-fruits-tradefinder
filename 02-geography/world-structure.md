@@ -12,13 +12,13 @@
 | **Réselia** | The other gun-bearing continent and the other conqueror. Opàl is Réselian — a *continental* identity, the scale of saying "European", and therefore a vague answer to give a stranger. |
 | **The third continent** *(unnamed)* | Homeland of the **Elsring**, exterminated ~1,000 years ago during the Rediscovery. Today: **a mix — some states independent, some still held as colonies.** The borders between free and held are the world's rawest wounds. |
 
-**Source landmasses.** Lidia and Réselia are two separate, whole continents — one is sourced from the map's Africa landmass, the other from the fused America landmass. **Which is which has not been decided yet.** They are not two halves of a single torn continent; that idea (formerly written below) was wrong and has been removed. See Open, below.
+**Source landmasses — decided.** Lidia and Réselia are two separate, whole continents. **Réselia is the "Africa" continent** — Cevine, Parvaan, the Almani Corridor and the Fenes are all here. **Lidia is the "America" continent** — the Academy and Edward's marble homeland are here. They are not two halves of a single torn continent; that idea (formerly written below) was wrong and has been removed.
 
 ## The Almani Corridor is internal to one continent, not between two
 
 **Correction.** An earlier version of this document claimed Lidia and Réselia were once a single landmass torn in two by the Doom, with the Corridor as the rift between them. That was wrong and has been removed along with everything that followed from it (the "same rock, same ancestral population" claim, the joint-genocide reasoning built on it, and the "Corridor is the one place they touch" framing). Do not reintroduce it.
 
-**What's actually true:** `sunder_pair` was used to split **Africa** — one single source continent — into two shores, and adjusted by hand until it read as a real strait. Both shores belong to the *same* continent (whichever of Lidia/Réselia that turns out to be). The Almani Corridor is an internal strait within that one continent, not a gap between Lidia and Réselia. Cevine and Parvaan both sit on this one continent, on either shore of that internal strait — not on two different continents.
+**What's actually true:** `sunder_pair` was used to split **Africa** — one single source continent — into two shores, and adjusted by hand until it read as a real strait. Both shores belong to the *same* continent — Réselia. The Almani Corridor is an internal strait within Réselia, not a gap between Lidia and Réselia. Cevine and Parvaan both sit on Réselia, on either shore of that internal strait — not on two different continents.
 
 **Naming note.** The strait itself doesn't have a settled name beyond "the Almani Corridor," which is specific and already fixed. Whether people also use "the Corridor" loosely for the wider stretch of water around it is still open.
 
@@ -33,7 +33,7 @@ The single most important polity established so far.
 **What that means:**
 
 - Cevine is the **oldest continuous civilisation of the new world** — the place where human society restarted. Its prestige is not merely military; it is *primordial*. Other states are upstarts by comparison, and Cevine will never let them forget it.
-- Its territory sits on **both shores of the Almani Corridor**, since the villages formed around the trade across it — but both shores are part of the *same* continent (the sundered-Africa one, whichever of Lidia/Réselia that is). Cevine is a hinge *within* that continent, not a country suspended between two different continents.
+- Its territory sits on **both shores of the Almani Corridor**, since the villages formed around the trade across it — but both shores are part of **Réselia**. Cevine is a hinge *within* Réselia, not a country suspended between two different continents.
 - The **Throne of Thalassus** — the sea-throne — is therefore literal. Cevine's monarchy is founded on water.
 - Venice's character with France's mass: a maritime empire of ports, fleets and scattered holdings, resting on a deep territorial core with the manpower to hold it. Its colonies on the third continent follow naturally.
 - **It is inherently overextended.** An empire of chokepoints and distant possessions can lose a piece anywhere. Which is why the secession of Parvaan was intolerable — not for the land, but for the precedent.
@@ -85,7 +85,6 @@ This retro-fits the manuscript exactly. From the text: *"the aquamarine eyes, as
 
 ## Open
 
-- **Which of Lidia/Réselia is sourced from Africa and which from America** — not decided yet. Everything about Cevine, Parvaan and the Corridor sits on whichever one is Africa.
 - Names for the third continent, and for the oceans
 - Which Edward's marble dukedom sits on (Parvaan's own location is now fixed, above)
 - Where the Elsring lands are now free and where still held, and which Houses hold them
