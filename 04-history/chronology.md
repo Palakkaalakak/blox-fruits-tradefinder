@@ -2,6 +2,8 @@
 
 *Dates are in **AC** (After the Cataclysm). All figures are proposals: the shape is fixed by decisions already made, the exact numbers are yours to move. The one hard anchor from the manuscript is that the Elsring were exterminated **~1,000 years before the present day**.*
 
+*The Cataclysm itself is provisionally placed at **~2040 in the old, pre-Doom calendar** — close enough to the present real world that AI data centres already existed and were digitising books at mass scale when it happened; see `01-cataclysm/the-doom.md` §6 for what that does to knowledge preservation.*
+
 ---
 
 ## The causal spine
@@ -45,6 +47,8 @@ The centuries with no world map.
 Slow re-industrialisation. Metallurgy, powder, shipbuilding, printing. Coastal polities consolidate into the first true states.
 
 Lidia and Réselia recover fastest — not through virtue but because working firearms never entirely disappeared there, which meant their strongmen could enforce larger and more stable territories sooner. Scale begets scale.
+
+Knowledge recovery lags behind this and continues well past Era III: books gave back general knowledge early, but recovering the finer, digitally-stored detail required first working out how to pull data off dead old-world servers — a problem not solved until much later, which is part of why the present day still mixes eras of technology rather than sitting at one consistent level.
 
 ## Era IV — The Rediscovery (~450 – ~600 AC) — *the Age of Heroes*
 
