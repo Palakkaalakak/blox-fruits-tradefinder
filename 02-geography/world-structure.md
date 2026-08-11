@@ -41,7 +41,7 @@ Consequences, all of them useful:
 - **It makes the Corridor a wound rather than a border.** The Doom cut them apart; the strait is the scar; and the world's paramount power sits in it, holding both edges of the tear together. Cevine as the country that *is* the seam.
 - **The crossing is short.** Which is why Cevine's villages could trade across it from the very beginning, and why it became the cradle. A wide ocean would have prevented all of it.
 
-> **The Corridor is hand-drawn, not generated.** An automated attempt (the `sunder_pair` stage) produced a straight notch, a meaningless land bridge and then open ocean — a formation with no geological reason to exist. Significant places have to be authored. The stage remains in the code but is disabled. See `maps/README.md`.
+> **The Corridor is now generated and hand-placed.** The base map (`maps/`) uses `sunder_pair` to split one landmass into the Corridor's two shores, then the placement, size and shape were adjusted by hand over many passes until the result read as a real strait rather than an automated notch. Lidia and Réselia are that landmass's two halves.
 
 ## Cevine — the cradle and the hinge
 
@@ -59,11 +59,15 @@ The single most important polity established so far.
 
 **Question this raises:** why did the first villages arise *there*? Sheltered from the wave by the geometry of the strait? Elevated? The likeliest answer is that the Corridor's shape protected it, and that is a good answer — luck again, exactly as with the guns.
 
+**Fixed geography.** Cevine's heartland is the western shore of the Corridor, and it controls the entire northern stretch of the Corridor on *both* shores — its territory does not stop at the water, it straddles it, which is the literal sense in which Cevine "is" the seam rather than a country next to one.
+
 ## Parvaan
 
 Seceded from Cevine ~15 years ago. Was **landlocked**, which is why the **Port of Ouspré** was the one gift that could buy its trust — a great but not major port. Valuable enough to be believed, affordable enough for a naval empire to lose. A ruinous concession would have aroused suspicion; this one didn't.
 
 Ouspré was the only port unfortified against sevaravirus. Roughly a third of Parvaan died.
+
+**Fixed geography.** Parvaan sits on the eastern shore of the Corridor, at the corner where the coastline bends — an L-shaped landmass, with Parvaan occupying the angle of the L. Ouspré is at Parvaan's northernmost point, the tip closest to Cevine's own northern holdings across the water.
 
 ## The Marreni Sea of the South — the impact basin
 
@@ -99,6 +103,5 @@ This retro-fits the manuscript exactly. From the text: *"the aquamarine eyes, as
 ## Open
 
 - Names for the third continent, and for the oceans
-- Which continent Parvaan sits on, and which Edward's marble dukedom
+- Which Edward's marble dukedom sits on (Parvaan's own location is now fixed, above)
 - Where the Elsring lands are now free and where still held, and which Houses hold them
-- Whether Lidia and Réselia are north/south or east/west of the Corridor — the cardinal anchor, needed before drawing

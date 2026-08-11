@@ -58,17 +58,17 @@ The crater left by the impact is the basin now occupied by the **Marreni Sea**, 
 
 The Rediscovery is often misunderstood as a matter of lost courage or lost shipbuilding. It was neither. It followed from two facts working together.
 
-First, the impact rearranged the map. The geography that survivors remembered no longer existed, and the coastlines continued to shift for generations afterwards.
+First, the impact rearranged the map completely. Land sank, land that had been underwater rose, and whole landmasses warped and shifted from where they had stood. The geography that survivors remembered did not just erode at the edges — it stopped being true. An old map was not an imperfect guide to the new world; it was a description of a world that no longer existed.
 
 Second, communication between regions failed entirely and remained broken for centuries. Populations that had been in regular contact became isolated from one another, and the isolation lasted long enough that the memory of what lay beyond the horizon decayed into rumour.
 
-By the time ocean-going ships were being built again, and by the time the magnetic field had settled enough for compasses to be trusted, the people sailing out of harbour were not retracing known routes. They were finding places they did not know existed. The true geography of the old Earth had been known only to ancestors several centuries dead.
+By the time ocean-going ships were being built again, and by the time the magnetic field had settled enough for compasses to be trusted, the people sailing out of harbour were not retracing known routes. They were finding places they did not know existed — and this was as true of the two continents finding each other again as it was of either of them finding the third. Nobody had a working map of anybody, including their own neighbours. The true geography of the old Earth had been known only to ancestors several centuries dead.
 
 What survives of that older knowledge exists in manuscripts, and those manuscripts are held almost entirely by the wealthier families. This is a significant fact about the present day: an accurate account of what the world used to look like is a form of private property, and access to it is a privilege of rank.
 
 ## 6. Why this satisfies the original requirements
 
-**The map is rearranged, without requiring rock to move quickly.** The landmasses were not relocated. What changed was which land stood above water. Drowning the continental shelves and raising shallow basins transforms a map beyond recognition while remaining geologically defensible.
+**The map is rearranged.** Landmasses sank, rose, warped and shifted, so the finished world keeps each continent's underlying geology while placing it somewhere unrecognizable relative to the others — close enough to Earth that a continent studied on its own still reads as Earth's, far enough that the globe as a whole does not.
 
 **Knowledge was preserved but rendered unusable.** A book requires only a shelf. A factory requires ore, fuel, power, transport and a large trained workforce. The Doom destroyed the second while leaving the first largely intact. The bottleneck in the centuries that followed was never a lack of understanding; it was a lack of means.
 
