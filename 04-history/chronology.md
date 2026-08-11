@@ -83,9 +83,11 @@ Knowledge recovery lags behind this and continues well past Era III: books gave 
 
 **First contact runs on a mix, split by class.** Given how hard everyday speech has fragmented, ordinary traders and sailors meeting across the language gap build rough pidgin trade-tongues on the docks — slow, ad hoc, good enough for commerce. Captains, scholars and nobles, meanwhile, lean on the shared scholarly English preserved in books, which makes literacy itself a form of power at first contact: the educated can talk to each other directly while everyone else is still gesturing over crates.
 
-## Era IV — The Rediscovery (~450 – ~600 AC) — *the Age of Heroes*
+## Era IV — The Rediscovery (~450 – ~750 AC, 300 years) — *the Age of Heroes*
 
 Ships good enough to cross open ocean. Expeditions go out to find what the world now looks like.
+
+**Two phases.** The first ~200 years (~450–650 AC) are spent establishing communication and discovering most of the world — first contact between Lidia and Réselia, mapping, the early expeditions. The last ~100 years (~650–750 AC) are the closing years of the era: reaching and exterminating the Elsring.
 
 - Lidia and Réselia make contact with each other first, and only later with the **third continent** and the **Elsring** — not a planned joint venture, simply two separate continents each reaching the Elsring independently once they were capable of it. The order isn't chosen either: the open-ocean crossing between Lidia and Réselia happens to be shorter and calmer than the crossings toward the third continent, so ship technology that was already good enough for the first reunion took longer to be good enough for the second. (Note: this is a *different* stretch of water from the Almani Corridor, which is internal to Réselia alone — see `02-geography/world-structure.md`.)
 - The Elsring's own regions found *each other* late too, and separately from being found by Lidia/Réselia — the waters around and between Elsring territories were frozen or treacherous, so the third continent was internally fragmented for longer than either Lidia or Réselia was.
