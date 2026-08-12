@@ -137,9 +137,9 @@ Extracted wealth accelerates industry. Rivalry between Lidian and Réselian powe
 
 ## Era VI — The Long Acceleration (1100 – 1500 AC)
 
-Technology reaches and passes pre-Cataclysm levels. Medicine, flight, electronics, eventually networks.
+Technology reaches roughly the *kind* of things pre-Cataclysm civilisation had — medicine, flight, electronics, eventually networks — but not the *scale*. Industry stays fractured across many small, feudally-held territories instead of consolidating the way a modern nation-state's economy would. Total production and infrastructure never reach, let alone pass, pre-Cataclysm levels. This is why the present world can have aircraft and cyber-attacks in some places while still running on horses and windmills in others — it's not that a uniform modern civilisation was rebuilt, it's that scattered pieces of old-world-equivalent technology exist unevenly across a much smaller, much less integrated industrial base than the old world had.
 
-Society does not follow. Titles, vassalage and household guards persist through every technological revolution, because each revolution made the existing holders of power *richer* rather than displacing them. There was no bourgeois revolution. The aristocracy simply bought the factories.
+Society does not follow the technology it does have, either. Titles, vassalage and household guards persist through every technological revolution, because each revolution made the existing holders of power *richer* rather than displacing them. There was no bourgeois revolution. The aristocracy simply bought the factories.
 
 ## Era VII — The Present (~1500 AC)
 
