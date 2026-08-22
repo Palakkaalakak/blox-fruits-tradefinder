@@ -40,6 +40,8 @@ The single most important polity established so far.
 
 **Question this raises:** why did the first villages arise *there*? Sheltered from the wave by the geometry of the strait? Elevated? The likeliest answer is that the Corridor's shape protected it, and that is a good answer — luck again, exactly as with the guns.
 
+**Origin of the Throne of Thalassus.** During the Cataclysm, Cevine's founding population sheltered in a cave network within the moving landmass — geologically unusual in staying stable while the terrain around it warped, and fed by a freshwater river running through it. The network was large enough for rudimentary boats to move goods between settlements inside it. At the heart of the river network stood a natural stone formation on a small island, used as a landmark to guide the boats. The Throne was later carved into that formation; the palace was built up around it and has since grown to the size of the original cavern, encompassing all of Old Cevine.
+
 **Fixed geography.** Cevine's heartland is the western shore of the Corridor, and it controls the entire northern stretch of the Corridor on *both* shores — its territory does not stop at the water, it straddles it, which is the literal sense in which Cevine "is" the seam rather than a country next to one.
 
 **Ethnic and linguistic composition.** Cevine is a blend of French, Italian and Spanish descent — the Fenes who migrated south as Europe sank (see `01-cataclysm/the-lost-continent.md`) — layered onto the Arabic-speaking Algerian population that was already on that stretch of coast before the migration. Cevine's culture, language and look should read as that specific mixture, not as generic "Europe."
