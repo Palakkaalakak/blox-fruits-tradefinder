@@ -15,7 +15,7 @@ Two engines, and a multiplier.
 ## What this implies
 
 - **Wealth is a pyramid, and it is visible.** A great power is one with industry *and* a trade position *and* dependencies feeding both. Cevine has all three, which is why it is paramount.
-- **The Age of Heroes still pays.** Colonial extraction is not history; it is current income. That is why nobody stops it, and why the free states of the third continent are resented — every one of them is a leak in the circuit.
+- **The Rediscovery still pays.** Colonial extraction is not history; it is current income. That is why nobody stops it, and why the free states of the third continent are resented — every one of them is a leak in the circuit.
 - **Vassalage is economic, not sentimental.** Karois-Marain's hundred-plus direct vassals are not decoration; they are the revenue base. And Parvaan's secession was not a matter of pride. It was a hole in the pyramid, and worse, a *demonstration* — which is motive enough for Ouspré.
 - **A state can be rich without being sovereign, and sovereign without being rich.** Edward's parents built a sovereign duchy famous for marble — a commodity state. Small, independent, and utterly dependent on someone else's industry and someone else's shipping.
 - **Ramwin teaches this.** Mathematics as the ratios of coercion and loyalty, economics as the thing that keeps a realm afloat. The curriculum is downstream of the economy.

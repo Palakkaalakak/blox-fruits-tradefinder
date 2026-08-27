@@ -116,7 +116,7 @@ Lidia and Réselia recover fastest — not through virtue but because working fi
 
 Knowledge recovery lags behind this and continues well past the Dark Age: books gave back general knowledge early, but recovering the finer, digitally-stored detail required first working out how to pull data off dead old-world servers — a problem not solved until much later, which is part of why the present day still mixes eras of technology rather than sitting at one consistent level.
 
-## Era IV — The Rediscovery (400 – 700 AC, 300 years) — *the Age of Heroes*
+## Era IV — The Rediscovery (400 – 700 AC, 300 years)
 
 **First contact runs on a mix, split by class.** Given how hard everyday speech has fragmented, ordinary traders and sailors meeting across the language gap build rough pidgin trade-tongues on the docks — slow, ad hoc, good enough for commerce. Captains, scholars and nobles, meanwhile, lean on the shared scholarly English preserved in books, which makes literacy itself a form of power at first contact: the educated can talk to each other directly while everyone else is still gesturing over crates.
 

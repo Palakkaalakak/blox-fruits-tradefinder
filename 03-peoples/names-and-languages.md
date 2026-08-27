@@ -34,7 +34,7 @@ Note also that "Elsring" is the conquerors' word — what Lidian and Réselian e
 **Established: it has two competing names, and one of them is a corrupted Elsring word.**
 
 So:
-- One continent's powers call it by a **conqueror's name** — after a captain, a patron, or a formal coinage from the Age of Heroes
+- One continent's powers call it by a **conqueror's name** — after a captain, a patron, or a formal coinage from the Rediscovery
 - The other calls it by a **corruption of an Elsring word** — misheard at first contact, applied to everything, its origin long forgotten
 - **Which name you use declares your loyalty**, and every use of it is a small political act
 
