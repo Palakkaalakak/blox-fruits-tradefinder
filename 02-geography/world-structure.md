@@ -90,4 +90,4 @@ This retro-fits the manuscript exactly. From the text: *"the aquamarine eyes, as
 - Names for the third continent, and for the oceans
 - Where the Elsring lands are now free and where still held, and which Houses hold them
 
-**Fixed: Edward's dukedom.** Edward's family holds the **Grand Duchy of Faring**, ruling House **Faringale**. (Continent placement still open.)
+**Fixed: Edward's dukedom.** Edward's family holds the **Grand Duchy of Faring**, ruling House **Faringale**, on Lidia (per the table above).
