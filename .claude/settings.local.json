@@ -11,7 +11,11 @@
       "Bash(\".venv/Scripts/python.exe\" -m blox_trade_finder --inventory config/inventory.json --any-fair --want Yeti --want Control)",
       "Bash(PYTHONIOENCODING=utf-8 .venv/Scripts/python.exe -c ' *)",
       "Bash(rtk git *)",
-      "Bash(gh auth *)"
+      "Bash(gh auth *)",
+      "Bash(mkdir -p manuscript)",
+      "Bash(cp \"/root/.claude/uploads/aa893261-fc30-5c0c-b548-8e973feccb8a/691566f2-JR_WIP.docx\" manuscript/JR_WIP.docx)",
+      "Bash(command -v pandoc)",
+      "Bash(pandoc -t plain manuscript/JR_WIP.docx)"
     ]
   }
 }
