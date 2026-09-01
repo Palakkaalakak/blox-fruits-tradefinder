@@ -19,6 +19,7 @@ The story takes place on **Earth**, long after a geological catastrophe so large
 | `05-states/` | Sovereign polities: Cevine, Parvaan, and the rest |
 | `06-houses/` | Noble Houses, heraldry, vassalage, succession |
 | `07-reference/` | Canon extracted from the manuscript; style and continuity notes |
+| `manuscript/` | The manuscript itself (work in progress) |
 | `maps/` | Exports from Azgaar; working map files |
 
 ## Established canon (from the manuscript)
