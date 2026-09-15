@@ -31,13 +31,19 @@ around the original cave.
 - Mythologizes that slow economic absorption of rival cave-families as a
   single physical guardian Thalassus defeats in personal combat — turning
   a hundred years of contracts and defaults into one man's fight.
-- Omits that Thalassus was already the ranking head of the Karois
-  hub-business before he sailed (not an untested heir), and that
-  formalizing the Kingdom on his return was a practical response to new
-  contact with the outside world, not pure ambition or destiny.
+- Omits entirely that the voyage was funded by an uncle who wanted
+  Thalassus dead and used his absence to seize the headship, and that
+  Thalassus had to expose and depose that uncle before he could be
+  enthroned. The myth's version has no internal rival at all — Thalassus
+  departs a hero and returns to an uncontested welcome.
+- Omits that formalizing the Kingdom was driven by two practical causes —
+  new contact with the outside world, and the need to close off the kind
+  of internal succession plot the uncle had just exploited — not pure
+  ambition or destiny.
 - Simplifies the mixed reaction of the other cave-families (most accepted
   titles willingly, a few resisted and were bought off or sidelined) into
-  a single moment of universal acclaim at the enthronement.
+  a single moment of universal acclaim at the enthronement, and says
+  nothing of the separately-origined independent landed families at all.
 - Rounds "~800 years before present" up to "a thousand years" — ordinary
   legendary inflation, not a contradiction to reconcile.
 
