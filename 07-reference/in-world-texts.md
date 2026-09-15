@@ -1,0 +1,85 @@
+# In-world texts
+
+Myths, legends, and other texts that exist *within* the world, as opposed to
+the doc files elsewhere in this repo, which describe what actually happened.
+These are deliberately biased, incomplete, or wrong where the real history
+(see `04-history/chronology.md`, `02-geography/world-structure.md`) is not.
+
+## The Throne of Thalassus (Cevine's founding myth)
+
+**Form:** Originated as oral epic — formulaic, alliterative, repetitive,
+epithet-heavy (in the mode of Homeric epithets or Beowulf-style kennings).
+Later formalized by court scribes into a fixed written version. Not pure
+folk drift: it carries a court-redaction layer on top of the oral original,
+shaped for dynastic legitimacy.
+
+**Centrality:** Universal. Every Cevinese child knows it. It functions as
+the kingdom's national foundation myth — recited at festivals and
+coronations, on the level of a creation story — because the Throne it
+describes is the literal seat of the ruling dynasty and the palace is built
+around the original cave.
+
+**Known distortions from the real account:**
+- Omits the cave-and-river shelter entirely as source material for
+  Thalassus's family already ruling before he was born — the myth presents
+  him as departing from an ordinary life to seek his destiny, not as an heir
+  defending or extending inherited power.
+- Omits the internal power struggle by which his family won control of the
+  cave-hub, and either omits or mythologizes any killing involved in it —
+  reframed as trial-by-hardship or monster-slaying rather than family
+  violence. Consistent with the general pattern that Great House founding
+  stories are uglier than the versions the Houses tell (see
+  `04-history/chronology.md`, Dark Age section).
+- Rounds "~800 years before present" up to "a thousand years" — ordinary
+  legendary inflation, not a contradiction to reconcile.
+
+**Draft text (in progress, working title, subject to revision):**
+
+> A thousand years ago, humanity was unshackled from its bindings of earth
+> and sea. No longer did the ground move as a serpent; no longer would
+> humans be still as the sea.
+>
+> Thusly so did the Rediscovery begin, as heroes and captains set off for
+> their estranged home, among them a Karois holding a destiny that would
+> one day restore the Race.
+>
+> Thalassus was he, a man in full, with eyes of sky and complexion of
+> cloud, a face of stone and a mind of diamond.
+>
+> His heart, of power unimaginable and passion irresistible, had
+> determined that he would venture to meet the Mother of us all: the
+> Ocean.
+>
+> No man can stand against his heart lest he get a broken wing, not even a
+> man of godly being as he, and so, for a thousand nights and a thousand
+> days did he labour for his ship, the Cevine, a vessel not only of wood
+> and steel, but of hopes and dreams.
+>
+> His mother bid him heart with mind, and his sister bid him tears: for
+> him, of joy; for her, of fear.
+>
+> And so did Thalassus set off, with the words of his mother, the tears of
+> his sister, and the ambitions of his men.
+>
+> On his voyage, a thousand hardships did he face, and ten thousand did he
+> brave, for no gold captain allows his men to suffer alone, as a ship is
+> its crew, and the captain goes down with his ship.
+>
+> Boiling seas and freezing deserts became for him and his as cities and
+> buildings are for us and ours now, but peace was as rare as ever, as
+> monsters and beasts ravaged his body and his mind.
+>
+> The gods craft men as men craft swords: through heat, and fire, and
+> great hammering.
+>
+> Thus, so are the strongest of swords and the strongest of men created,
+> and thus so was the King formed, through the fires of battle and the
+> blows of the sea.
+
+**Open in the myth itself, not yet decided:**
+- Whether the poem ever gets to founding Cevine and taking the Throne, or
+  the excerpt so far is the whole surviving fragment/opening canto.
+- Whether Thalassus's mother and sister are meant to become named,
+  established figures, or stay unnamed myth-furniture.
+- Which named god(s) "the gods craft men" refers to — depends on the
+  still-undefined religion system (see `HANDOFF.md` open decisions list).
