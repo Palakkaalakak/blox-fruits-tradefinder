@@ -31,15 +31,19 @@ around the original cave.
 - Mythologizes that slow economic absorption of rival cave-families as a
   single physical guardian Thalassus defeats in personal combat — turning
   a hundred years of contracts and defaults into one man's fight.
-- Omits entirely that the voyage was funded by an uncle who wanted
-  Thalassus dead and used his absence to seize the headship, and that
-  Thalassus had to expose and depose that uncle before he could be
-  enthroned. The myth's version has no internal rival at all — Thalassus
-  departs a hero and returns to an uncontested welcome.
-- Omits that formalizing the Kingdom was driven by two practical causes —
-  new contact with the outside world, and the need to close off the kind
-  of internal succession plot the uncle had just exploited — not pure
-  ambition or destiny.
+- Omits that the voyage itself was funded and championed by an uncle who
+  publicly framed it as a trial worthy of the next head while privately
+  expecting it to kill Thalassus, and who ran the hub as de facto head in
+  his absence.
+- Supplies a clean ending the real record doesn't have: the myth has the
+  uncle fall to his death from the Heartstone, onto the rocks he tried to
+  seize. What actually became of him afterward is genuinely unknown — he
+  disappears from the real record entirely. The myth resolves an open
+  question with poetic justice, not a documented fact.
+- Presents the Kingdom's founding as pure destiny rather than what it was:
+  Thalassus explicitly used the exposed plot as his stated justification
+  for declaring himself king, alongside the separate, practical need to
+  deal with the newly-contacted outside world as a recognized state.
 - Simplifies the mixed reaction of the other cave-families (most accepted
   titles willingly, a few resisted and were bought off or sidelined) into
   a single moment of universal acclaim at the enthronement, and says
