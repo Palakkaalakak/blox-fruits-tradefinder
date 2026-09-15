@@ -19,17 +19,25 @@ coronations, on the level of a creation story — because the Throne it
 describes is the literal seat of the ruling dynasty and the palace is built
 around the original cave.
 
-**Known distortions from the real account:**
-- Omits the cave-and-river shelter entirely as source material for
-  Thalassus's family already ruling before he was born — the myth presents
-  him as departing from an ordinary life to seek his destiny, not as an heir
-  defending or extending inherited power.
-- Omits the internal power struggle by which his family won control of the
-  cave-hub, and either omits or mythologizes any killing involved in it —
-  reframed as trial-by-hardship or monster-slaying rather than family
-  violence. Consistent with the general pattern that Great House founding
-  stories are uglier than the versions the Houses tell (see
-  `04-history/chronology.md`, Dark Age section).
+**Known distortions from the real account (see `02-geography/world-structure.md`,
+"Origin of the Throne of Thalassus"):**
+- Omits that Thalassus's family, the Karois, already ruled the cave-hub for
+  a hundred years and more before he was born — built not on conquest but
+  on an engineering monopoly, tolls, and a Templar-style protection service
+  that absorbed most rival cave-families through dependency and one-way
+  transfers of trade rights on death, not violence. The myth erases this
+  entirely and instead has him personally discover the Heartstone, cave,
+  and river as though for the first time.
+- Mythologizes that slow economic absorption of rival cave-families as a
+  single physical guardian Thalassus defeats in personal combat — turning
+  a hundred years of contracts and defaults into one man's fight.
+- Omits that Thalassus was already the ranking head of the Karois
+  hub-business before he sailed (not an untested heir), and that
+  formalizing the Kingdom on his return was a practical response to new
+  contact with the outside world, not pure ambition or destiny.
+- Simplifies the mixed reaction of the other cave-families (most accepted
+  titles willingly, a few resisted and were bought off or sidelined) into
+  a single moment of universal acclaim at the enthronement.
 - Rounds "~800 years before present" up to "a thousand years" — ordinary
   legendary inflation, not a contradiction to reconcile.
 
@@ -76,10 +84,9 @@ around the original cave.
 > and thus so was the King formed, through the fires of battle and the
 > blows of the sea.
 
-**Open in the myth itself, not yet decided:**
-- Whether the poem ever gets to founding Cevine and taking the Throne, or
-  the excerpt so far is the whole surviving fragment/opening canto.
-- Whether Thalassus's mother and sister are meant to become named,
-  established figures, or stay unnamed myth-furniture.
-- Which named god(s) "the gods craft men" refers to — depends on the
-  still-undefined religion system (see `HANDOFF.md` open decisions list).
+**Settled:** the poem continues past the voyage through Thalassus's
+homecoming, his (mythologized) claiming of the Heartstone and cave-hub, and
+his enthronement as Cevine's first king — not a standalone voyage fragment.
+Mother and sister stay unnamed myth-furniture for now. "The gods" is
+generalized epic language, not a reference to a specific named deity —
+does not depend on the still-undefined religion system.
