@@ -24,10 +24,10 @@ around the original cave.
 - Omits that Thalassus's family, the Karois, already ruled the cave-hub for
   a hundred years and more before he was born — built not on conquest but
   on an engineering monopoly, tolls, and a Templar-style protection service
-  that absorbed most rival cave-families through dependency and one-way
-  transfers of trade rights on death, not violence. The myth erases this
-  entirely and instead has him personally discover the Heartstone, cave,
-  and river as though for the first time.
+  that absorbed most rival cave-families into dependency through one-way
+  transfers of trade rights on death. The myth erases this entirely and
+  instead has him personally discover the Heartstone, cave, and river as
+  though for the first time.
 - Mythologizes that slow economic absorption of rival cave-families as a
   single physical guardian Thalassus defeats in personal combat — turning
   a hundred years of contracts and defaults into one man's fight.
