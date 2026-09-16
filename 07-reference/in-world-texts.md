@@ -41,9 +41,10 @@ around the original cave.
   disappears from the real record entirely. The myth resolves an open
   question with poetic justice, not a documented fact.
 - Presents the Kingdom's founding as pure destiny rather than what it was:
-  Thalassus explicitly used the exposed plot as his stated justification
-  for declaring himself king, alongside the separate, practical need to
-  deal with the newly-contacted outside world as a recognized state.
+  Thalassus explicitly used the exposed plot as his stated public
+  justification for declaring himself king, when the real reason
+  underneath it was plainer — he wanted to be king, and the opportunity
+  to seize that much power doesn't come twice.
 - Simplifies the mixed reaction of the other cave-families (most accepted
   titles willingly, a few resisted and were bought off or sidelined) into
   a single moment of universal acclaim at the enthronement, and says
