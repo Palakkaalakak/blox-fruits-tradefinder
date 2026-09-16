@@ -22,15 +22,10 @@ around the original cave.
 **Known distortions from the real account (see `02-geography/world-structure.md`,
 "Origin of the Throne of Thalassus"):**
 - Omits that Thalassus's family, the Karois, already ruled the cave-hub for
-  a hundred years and more before he was born — built not on conquest but
-  on an engineering monopoly, tolls, and a Templar-style protection service
-  that absorbed most rival cave-families into dependency through one-way
-  transfers of trade rights on death. The myth erases this entirely and
-  instead has him personally discover the Heartstone, cave, and river as
-  though for the first time.
-- Mythologizes that slow economic absorption of rival cave-families as a
-  single physical guardian Thalassus defeats in personal combat — turning
-  a hundred years of contracts and defaults into one man's fight.
+  a hundred years and more before he was born, on an engineering monopoly,
+  tolls, and a Templar-style protection service. The myth erases this
+  entirely and instead has him personally discover the Heartstone, cave,
+  and river as though for the first time.
 - Omits that the voyage itself was funded and championed by an uncle who
   publicly framed it as a trial worthy of the next head while privately
   expecting it to kill Thalassus, and who ran the hub as de facto head in
