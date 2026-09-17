@@ -34,6 +34,8 @@ Two engines, and a multiplier.
 
 All the rulers of the world, of every rank, gathered after the murder of Queen Renilda and voted — almost unanimously, for the first time in history — to found the Academy. Then it dissolved.
 
+*Not to be confused with Cevine's own Great Council* — a standing, domestic body of Cevine's great houses, founded at Thalassus's enthronement specifically to check the Crown, and still meeting today. Same name, different scale: see `02-geography/world-structure.md`, "Origin of the Throne of Thalassus."
+
 ## Why this is the strongest choice
 
 The Academy is the **only surviving product of a moment of unity the world can no longer reproduce.** Not an institution, not the start of an order. A single miracle, already over.

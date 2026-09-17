@@ -21,29 +21,37 @@ around the original cave.
 
 **Known distortions from the real account (see `02-geography/world-structure.md`,
 "Origin of the Throne of Thalassus"):**
-- Omits that Thalassus's family, the Karois, already ruled the cave-hub for
-  a hundred years and more before he was born, on an engineering monopoly,
-  tolls, and a Templar-style protection service. The myth erases this
-  entirely and instead has him personally discover the Heartstone, cave,
-  and river as though for the first time.
-- Omits that the voyage itself was funded and championed by an uncle who
-  publicly framed it as a trial worthy of the next head while privately
-  expecting it to kill Thalassus, and who ran the hub as de facto head in
-  his absence.
+- Omits that Thalassus's family, the Karois, already held roughly a century
+  of wealth and control over the Heartstone hub before he was born, on an
+  engineering monopoly, tolls, and a Templar-style protection service —
+  and that Karois was only the strongest of several great houses, not the
+  region's master. The myth erases the whole prior century and has him
+  personally discover the Heartstone as though for the first time.
+- Omits that the uncle's help with the voyage was genuine, not a plot —
+  he supported and funded Thalassus's ambition to join the Rediscovery in
+  good faith, and only turned to tyranny afterward, opportunistically,
+  once Thalassus was gone and the headship was his to run.
+- Omits that House Karois itself split during Thalassus's absence, with
+  some kinsmen backing the uncle, some backing Thalassus's claim, and
+  others simply waiting to see how it fell.
+- Omits that Thalassus's return to power was a negotiated political
+  settlement, not a solo act: he secretly secured the backing of several
+  great houses before confronting the uncle, and became king only by
+  promising to end the uncle's extraordinary tolls and return the money
+  extracted under them — the great houses built the settlement; his own
+  fame from the Rediscovery is what made ordinary people accept it.
+- Omits that the monarchy was deliberately decentralized from its first
+  day, with Cevine's own Great Council (the great houses collectively)
+  established at the same settlement specifically to prevent the Crown
+  from ever using the Heartstone as unchecked leverage again.
 - Supplies a clean ending the real record doesn't have: the myth has the
-  uncle fall to his death from the Heartstone, onto the rocks he tried to
-  seize. What actually became of him afterward is genuinely unknown — he
-  disappears from the real record entirely. The myth resolves an open
-  question with poetic justice, not a documented fact.
-- Presents the Kingdom's founding as pure destiny rather than what it was:
-  Thalassus explicitly used the exposed plot as his stated public
-  justification for declaring himself king, when the real reason
-  underneath it was plainer — he wanted to be king, and the opportunity
-  to seize that much power doesn't come twice.
-- Simplifies the mixed reaction of the other cave-families (most accepted
-  titles willingly, a few resisted and were bought off or sidelined) into
-  a single moment of universal acclaim at the enthronement, and says
-  nothing of the separately-origined independent landed families at all.
+  uncle fall to his death from the Heartstone. In the real account he was
+  killed or fell to his death in the confrontation there — the precise
+  circumstances are genuinely uncertain, not unknown outright, but the
+  myth resolves the uncertainty with clean poetic justice.
+- Presents the Kingdom's founding as pure destiny and universal instant
+  acclaim, rather than a negotiated settlement between houses followed by
+  a genuinely earned popular reputation.
 - Rounds "~800 years before present" up to "a thousand years" — ordinary
   legendary inflation, not a contradiction to reconcile.
 
