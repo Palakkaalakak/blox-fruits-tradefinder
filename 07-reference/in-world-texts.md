@@ -138,8 +138,8 @@ around the original cave.
 standalone voyage fragment. Mother and sister stay unnamed myth-furniture.
 "The gods" is generalized epic language, not a reference to a specific
 named deity — does not depend on the still-undefined religion system. The
-uncle's fall is framed as a lunge away from Thalassus's outstretched,
-reasoning hand, not a fight — an accident born of refusal, not a battle.
+uncle's fall is framed as Thalassus reaching out to reason with him, the
+uncle attacking, and falling to his death.
 The enthronement is instant and unanimous in the myth's telling: no
 mention of the other great houses, any negotiated settlement, or the
 Great Council founded alongside the Crown.
