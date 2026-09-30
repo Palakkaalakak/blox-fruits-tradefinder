@@ -28,7 +28,7 @@ Whoever holds the Corridor holds the choke point of that one continent's interna
 
 The single most important polity established so far.
 
-**Origin.** The first villages after the Doom sprang up here. Early trade routes formed between them. Cevine itself was only a village-town until Thalassus founded the kingdom. How the surrounding settlements came to be part of it is not yet settled.
+**Origin.** The first villages after the Doom sprang up here. Early trade routes formed between them. Cevine itself was only a village-town until Thalassus founded the kingdom. The surrounding settlements united with it both before and after his reign.
 
 **What that means:**
 
