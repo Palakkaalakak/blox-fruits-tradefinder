@@ -25,8 +25,10 @@ around the original cave.
   of wealth and control over the Heartstone hub before he was born, on an
   engineering monopoly, tolls, and a Templar-style protection service —
   and that Karois was only the strongest of several great houses, not the
-  region's master. The myth erases the whole prior century and has him
-  personally discover the Heartstone as though for the first time.
+  region's master. The myth simply treats the Heartstone as already
+  "theirs," with no trace of the century of private economic dominance
+  behind that ownership, or of the other great houses' own independent
+  power.
 - Omits that the uncle's help with the voyage was genuine, not a plot —
   he supported and funded Thalassus's ambition to join the Rediscovery in
   good faith, and only turned to tyranny afterward, opportunistically,
@@ -55,7 +57,7 @@ around the original cave.
 - Rounds "~800 years before present" up to "a thousand years" — ordinary
   legendary inflation, not a contradiction to reconcile.
 
-**Draft text (in progress, working title, subject to revision):**
+**Full text (complete through the enthronement; working title, subject to revision):**
 
 > A thousand years ago, humanity was unshackled from its bindings of earth
 > and sea. No longer did the ground move as a serpent; no longer would
@@ -77,7 +79,7 @@ around the original cave.
 > days did he labour for his ship, the Cevine, a vessel not only of wood
 > and steel, but of hopes and dreams.
 >
-> His mother bid him heart with mind, and his sister bid him tears: for
+> His mother bid him heart with mind, and his sister bid him tears, for
 > him, of joy; for her, of fear.
 >
 > And so did Thalassus set off, with the words of his mother, the tears of
@@ -97,10 +99,47 @@ around the original cave.
 > Thus, so are the strongest of swords and the strongest of men created,
 > and thus so was the King formed, through the fires of battle and the
 > blows of the sea.
+>
+> After innumerable peoples and miles, did his men find what they sought:
+> riches, glory, fame, but only through innumerable miles more did
+> Thalassus uncover his true prize: knowledge of the world and the wisdom
+> of the Mother.
+>
+> Now knowing the ocean, our Mother, he could finally return home. Once
+> more did he face a thousand hardships, and once more did he ten-thousand
+> brave, but this time with calm, for they all held a familiar face.
+>
+> Thus so did he return to his home, only to find it aching and weak, for
+> his uncle had seized the Heartstone, centre of their trade and land, and
+> now as a tyrant controlled their rivers and lives.
+>
+> Now conflicted between what was just and what was painful, Thalassus had
+> to choose between his people and his family.
+>
+> Of great use would his voyages prove to be, for the Mother's wise words
+> would help him to choose truly.
+>
+> So, on the third day of his return, he and his men confronted his uncle,
+> who now lived as an emperor on his stone.
+>
+> Booming did his uncle reply, that no wretched man would wrest the stone
+> from his grasp, and that it would forever be his.
+>
+> Thalassus, our man, reached out to his uncle to attempt to reason with
+> him, but this one would not have it, and so lunged back, falling off the
+> Heartstone and plunging into its rocky floor, now truly never going to
+> part with his stone.
+>
+> So, the people cheered, and declared Thalassus their King, and he
+> declared them Cevine, for they were now all his ship and crew, and now
+> all his hardships to share.
 
-**Settled:** the poem continues past the voyage through Thalassus's
-homecoming, his (mythologized) claiming of the Heartstone and cave-hub, and
-his enthronement as Cevine's first king — not a standalone voyage fragment.
-Mother and sister stay unnamed myth-furniture for now. "The gods" is
-generalized epic language, not a reference to a specific named deity —
-does not depend on the still-undefined religion system.
+**Settled:** the poem is complete through the enthronement — not a
+standalone voyage fragment. Mother and sister stay unnamed myth-furniture.
+"The gods" is generalized epic language, not a reference to a specific
+named deity — does not depend on the still-undefined religion system. The
+uncle's fall is framed as a lunge away from Thalassus's outstretched,
+reasoning hand, not a fight — an accident born of refusal, not a battle.
+The enthronement is instant and unanimous in the myth's telling: no
+mention of the other great houses, any negotiated settlement, or the
+Great Council founded alongside the Crown.
