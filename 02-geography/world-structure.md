@@ -28,7 +28,7 @@ Whoever holds the Corridor holds the choke point of that one continent's interna
 
 The single most important polity established so far.
 
-**Origin.** The first villages after the Doom sprang up here. Early trade routes formed between them. Those villages consolidated into small kingdoms, and the kingdoms eventually united into Cevine.
+**Origin.** The first villages after the Doom sprang up here. Early trade routes formed between them. Those villages consolidated into small kingdoms. Cevine was one of them, and the others eventually united into it.
 
 **What that means:**
 
