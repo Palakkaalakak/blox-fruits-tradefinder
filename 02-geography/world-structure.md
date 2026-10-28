@@ -18,7 +18,7 @@
 
 **Correction.** An earlier version of this document claimed Lidia and Réselia were once a single landmass torn in two by the Doom, with the Corridor as the rift between them. That was wrong and has been removed along with everything that followed from it (the "same rock, same ancestral population" claim, the joint-genocide reasoning built on it, and the "Corridor is the one place they touch" framing). Do not reintroduce it.
 
-**What's actually true:** `sunder_pair` was used to split **Africa** — one single source continent — into two shores, and adjusted by hand until it read as a real strait. Both shores belong to the *same* continent — Réselia. The Almani Corridor is an internal strait within Réselia, not a gap between Lidia and Réselia. Cevine and Parvaan both sit on Réselia, on either shore of that internal strait — not on two different continents.
+**What's actually true:** The Almani Corridor is the strait separating East and West Réselia. It is a naturally formed fracture, opened by the natural events of the Doom. Both shores belong to the *same* continent — Réselia. The Corridor is an internal strait within Réselia, not a gap between Lidia and Réselia. Cevine and Parvaan both sit on Réselia, on either shore of that internal strait — not on two different continents.
 
 **Naming note.** The strait itself doesn't have a settled name beyond "the Almani Corridor," which is specific and already fixed. Whether people also use "the Corridor" loosely for the wider stretch of water around it is still open.
 
