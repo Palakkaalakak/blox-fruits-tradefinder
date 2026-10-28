@@ -93,7 +93,7 @@ Ouspré was the only port unfortified against sevaravirus. Roughly a third of Pa
 This retro-fits the manuscript exactly. From the text: *"the aquamarine eyes, as deep as the Marreni sea of the South, where sailors would lose their way and poets would find their muses."*
 
 - **"As deep as"** — of course. It is an impact basin. It is the deepest water in the world.
-- **"Sailors would lose their way"** — **because their compasses fail over it.** A strike of that magnitude leaves a magnetic anomaly in the rock: the field over the basin is wrong, and has been for fifteen hundred years. Ships lose their heading in open water with a clear sky and no explanation anyone can offer. That line was written before there was a reason for it, and the reason turns out to be the best one available.
+- **"Sailors would lose their way"** — **because their compasses fail over it.** A strike of that magnitude leaves a magnetic anomaly in the rock: the field over the basin is wrong, and has been for fifteen hundred years. Ships lose their heading in open water with a clear sky and no explanation anyone can offer. Visual distortion adds to it, caused by asteroid material in the sea and the changed ocean. That line was written before there was a reason for it, and the reason turns out to be the best one available.
 - **"Poets would find their muses"** — a sea that swallows navigation and returns nothing accumulates stories. Of course poets go there.
 
 ### What this hands you

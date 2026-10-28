@@ -54,7 +54,7 @@ An asteroid struck deep ocean. Its consequences unfolded on three timescales.
 
 **Over decades and centuries,** the crust — already strained — gave way. Continental shelves subsided, sections of ocean floor rose, and displaced water redistributed itself. The coastline of the world was not merely altered but made unrecognisable, and it continued to move for several generations afterwards.
 
-The crater left by the impact is the basin now occupied by the **Marreni Sea**, in the southern part of the world. See `02-geography/world-structure.md`.
+The crater left by the impact is the basin now occupied by the **Marreni Sea**, in the southern part of the world. In-world, this is not established knowledge: there are theories of an asteroid impact, but nobody has conclusively proved that it happened or where. See `02-geography/world-structure.md`.
 
 ## 5. Why the world had to be rediscovered
 
@@ -86,7 +86,6 @@ A farmer ploughing a field today therefore turns up almost nothing. The occasion
 
 ## 7. Open questions
 
-- Is the impact site known and identified as such in the present day, or merely charted as a deep sea?
 - Which of the faiths attribute the Doom to punishment, and which to accident?
 - How long did the magnetic transition last, and had it finished before the Rediscovery began?
 - Did anyone record the field's behaviour during the reversal? Such a record would be extremely valuable.
