@@ -38,7 +38,7 @@ So:
 - The other calls it by a **corruption of an Elsring word** — misheard at first contact, applied to everything, its origin long forgotten
 - **Which name you use declares your loyalty**, and every use of it is a small political act
 
-One consequence worth noting: the corrupted name is genuinely Elsring in origin, and nobody now alive knows what it originally meant. The world has been mispronouncing a word in a dead language for a thousand years without noticing.
+One consequence worth noting: the corrupted name is genuinely Elsring in origin, and nobody now alive knows what it originally meant. The world has been mispronouncing a word in a dead language for some 800 years without noticing.
 
 ### Candidates to react to
 

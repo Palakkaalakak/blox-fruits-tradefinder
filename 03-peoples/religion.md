@@ -22,7 +22,7 @@ Rough taxonomy; most regions will hold a blend.
 |---|---|---|
 | **Punitive** | Judgement on the old world's pride | Recovered technology is morally suspect; a brake on progress |
 | **Probative** | A test, a proving-ground | Justifies hierarchy — those who rose were meant to. The aristocracy's favourite theology |
-| **Venerative** | The end of a holy age | The old Earth itself is sacred; ruins are relics, surviving books scripture, Latin and Greek sacred languages |
+| **Venerative** | The end of a holy age | The old Earth itself is sacred; ruins are relics, surviving books scripture; Latin and Greek as sacred languages is possible here but not necessarily common |
 | **Indifferentist** | Nothing. An accident | Rare and unpopular |
 
 The fourth position is worth noting because it is the historically accurate one and also the least popular. A doctrine which holds that the Doom meant nothing is a difficult thing to preach in a world that was built out of the wreckage, and its adherents are correspondingly few.
