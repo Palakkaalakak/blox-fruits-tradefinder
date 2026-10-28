@@ -8,7 +8,7 @@ Two engines, and a multiplier.
 
 **Industry.** Whoever can *make* things — aircraft, medicines, weapons, machines — dominates whoever must buy them. This is the Dark Age lesson made permanent: knowledge was never scarce, capacity was. The powers that recovered manufacture first have stayed ahead ever since, because each advance made the incumbents richer rather than displacing them.
 
-**Trade.** Goods must move, and moving them is where fortunes are made and taxed. This puts the **Almani Corridor** at the centre of the world economy: the single strait where Lidia and Réselia touch, through which the traffic between them must pass. Cevine holds both shores. Cevine taxes the world.
+**Trade.** Goods must move, and moving them is where fortunes are made and taxed. This puts the **Almani Corridor** at the centre of the world economy: the strait separating East and West Réselia, through which the traffic between the two shores must pass. Cevine holds the northern stretch of the Corridor on both shores. Cevine taxes the world.
 
 **The multiplier: colonies and vassals.** Neither engine scales without them. Colonies on the third continent supply raw materials below market cost and consume finished goods above it — the classic closed circuit. Vassals do domestically what colonies do abroad: supply men, grain, ore and revenue upward while buying manufactures downward.
 
