@@ -20,10 +20,11 @@ Two engines, and a multiplier.
 - **A state can be rich without being sovereign, and sovereign without being rich.** Edward's parents built a sovereign duchy famous for marble — a commodity state. Small, independent, and utterly dependent on someone else's industry and someone else's shipping.
 - **Ramwin teaches this.** Mathematics as the ratios of coercion and loyalty, economics as the thing that keeps a realm afloat. The curriculum is downstream of the economy.
 
+**Currency.** Each state has its own currency, as in the real world. Cevine's Bank (see `02-geography/world-structure.md`) is Cevine's own and issues Cevine's coin.
+
 ### Open
 - Where is heavy industry concentrated? Whoever holds it holds the world
 - Who controls shipping and insurance? In a trade economy that is quieter power than a fleet
-- Is there a currency, or many? A hundred-odd realms suggests many, and therefore banking
 - Does salvage from the drowned world still yield anything of value?
 
 ---
